@@ -1,0 +1,9 @@
+{
+  "name": "arc-sample",
+  "version": "1.0.0",
+  "description": "An example of how to start a new React Component in Arabella style",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:arabellatech/arc-sample.git",
+  "author": "Michal Mrowiec <michal.mrowiec@simplesoft.pl>",
+  "license": "MIT"
+}
