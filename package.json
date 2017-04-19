@@ -7,6 +7,7 @@
   "author": "Michal Mrowiec <michal.mrowiec@simplesoft.pl>",
   "license": "MIT",
   "scripts": {
+    "build": "",
     "test": "",
     "test:coverage": "",
     "test:watch": "",
