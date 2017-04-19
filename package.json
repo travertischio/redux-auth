@@ -2,18 +2,24 @@
   "name": "arc-sample",
   "version": "1.0.0",
   "description": "An example of how to start a new React Component in Arabella style",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "git@bitbucket.org:arabellatech/arc-sample.git",
   "author": "Michal Mrowiec <michal.mrowiec@simplesoft.pl>",
   "license": "MIT",
   "scripts": {
-    "start": "",
     "test": "",
     "test:coverage": "",
     "test:watch": "",
-    "build": ""
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "15.x"
+  },
+  "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
+    "jest": "^19.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }
