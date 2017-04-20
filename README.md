@@ -1,6 +1,6 @@
 ## Quick start
 
-## Installation
+## Install example component in your-project
 1. Run `yarn add https://bitbucket.org/arabellatech/arc-sample`
 
 ## Contribution
