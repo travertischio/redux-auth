@@ -16,7 +16,7 @@
 1. Run `cd your-project-dir`
 1. Run `yarn link arc-sample`
 
-## Link local package to your project
+## Unlink local package to your project
 1. Run `cd your-project-dir`
 1. Run `yarn unlink arc-sample`
 1. Run `yarn` to install back the repo version
