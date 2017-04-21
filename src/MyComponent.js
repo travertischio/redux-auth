@@ -1,9 +1,9 @@
 /* @flow */
 
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 
 export default class MyComponent extends PureComponent {
-  static defaultProps: {
+  static defaultProps = {
     text: 'DEFAULT_TEXT',
   };
 
