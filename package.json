@@ -8,7 +8,6 @@
   "license": "MIT",
   "scripts": {
     "build": "",
-    "test": "",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "storybook": "start-storybook -p 6006",
@@ -108,6 +107,17 @@
         }
       }
     }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx}",
+      "!app/**/*.test{s}.{js,jsx}"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testRegex": "src/.*\\.test[s]?\\.js$"
   },
   "dependencies": {},
   "peerDependencies": {
