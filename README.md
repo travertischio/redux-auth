@@ -4,7 +4,7 @@
 1. Run `yarn add https://bitbucket.org/arabellatech/react-sample-component`
 
 ## Contribution
-1. Run `npm i -g getstorybook` to instal StoryBook.
+1. Run `yarn global add getstorybook` to instal StoryBook.
 1. Clone this repo using `git clone git@bitbucket.org:arabellatech/react-sample-component.git`
 1. Run `cd react-sample-component/`
 1. Run `yarn` to install dependencies.
