@@ -20,3 +20,9 @@
 1. Run `cd your-project-dir`
 1. Run `yarn unlink arc-sample`
 1. Run `yarn` to install back the repo version
+
+## Upgrading dependencies
+1. Run `yarn`
+1. Commit `package.json` and `yarn.log` changes
+1. Run `flow-typed install --overwrite`
+1. Check if `yarn flow` returns any new errors, if not, commit `flow-typed/` changes
