@@ -59,7 +59,7 @@ export default class ResetPasswordPage extends PureComponent { // eslint-disable
   renderSuccessMessage() {
     return (
       <div>
-
+        <h1><FormattedMessage {...messages.successHeader} /></h1>
         <div>
           {this.renderGoNextBtn()}
         </div>
@@ -71,14 +71,14 @@ export default class ResetPasswordPage extends PureComponent { // eslint-disable
     if (this.props.isAuthenticated) {
       return (
         <Link to="/home">
-          goToHomeBtnLabel
+
         </Link>
       );
     }
 
     return (
       <Link to="/sign-in">
-        goToSignInBtnLabel
+
       </Link>
     );
   }
@@ -89,10 +89,10 @@ export default class ResetPasswordPage extends PureComponent { // eslint-disable
 
     return (
       <div>
-        <h1>header</h1>
+        <h1></h1>
 
         { loading && <div>Processing... Please wait.</div> }
-        { errorMessage && <p>{errorMessage}</p> }
+        { errorMessage && <p>xxx</p> }
 
         {this.renderFormOrErrorInner()}
       </div>
@@ -110,10 +110,9 @@ export default class ResetPasswordPage extends PureComponent { // eslint-disable
   }
 
   renderGoToRequestPasswordPageLink() {
-    console.log('renderGoToRequestPasswordPageLink', messages.requestNewPasswordBtnLabel);
     return (
       <Link to="/request-password-reset">
-        <FormattedMessage {...messages.requestNewPasswordBtnLabel} />
+
       </Link>
     );
   }
