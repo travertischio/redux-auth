@@ -6,8 +6,9 @@
   "author": "Arabella Front-End Team",
   "license": "MIT",
   "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
-    "build": "",
+    "build": "babel --presets es2015,stage-0 -d lib/ src/ --ignore \"**/*.test.js\"",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "storybook": "start-storybook -p 6006",
@@ -156,6 +157,7 @@
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4"
+    "react-test-renderer": "^15.5.4",
+    "webpack": "^2.4.1"
   }
 }
