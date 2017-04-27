@@ -6,7 +6,6 @@
   "author": "Arabella Front-End Team",
   "license": "MIT",
   "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
   "scripts": {
     "build": "babel --presets es2015,stage-0 --plugins transform-decorators-legacy -d lib/ src/ --ignore \"**/*.test.js\"",
     "test": "jest --coverage",
