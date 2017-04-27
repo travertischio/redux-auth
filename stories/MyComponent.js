@@ -1,11 +1,22 @@
 import React from 'react';
 import { storiesOf } from '@kadira/storybook';
-import MyComponent from '../src/MyComponent';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import { IntlProvider } from 'react-intl';
+import SignUpForm from '../src/components/SignUpForm';
 
-storiesOf('MyComponent', module)
+const reducers = {
+  form: formReducer,
+};
+const reducer = combineReducers(reducers);
+const store = createStore(reducer);
+
+storiesOf('SignUpForm', module)
   .add('without text prop', () => (
-    <MyComponent />
-  ))
-  .add('with text prop', () => (
-    <MyComponent text="TEXT_PROP" />
+    <Provider store={store}>
+      <IntlProvider locale="en">
+        <SignUpForm />
+      </IntlProvider>
+    </Provider>
   ));
