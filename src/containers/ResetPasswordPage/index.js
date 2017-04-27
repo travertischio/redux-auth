@@ -110,9 +110,10 @@ export default class ResetPasswordPage extends PureComponent { // eslint-disable
   }
 
   renderGoToRequestPasswordPageLink() {
+    console.log('renderGoToRequestPasswordPageLink', messages.requestNewPasswordBtnLabel);
     return (
       <Link to="/request-password-reset">
-        requestNewPasswordBtnLabel
+        <FormattedMessage {...messages.requestNewPasswordBtnLabel} />
       </Link>
     );
   }
