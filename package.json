@@ -122,15 +122,17 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
+    "react-helmet": "^5.0.3",
+    "react-intl": "^2.2.3",
     "react-redux": "^5.0.4",
+    "react-router-redux": "^4.0.8",
     "recompose": "^0.23.1",
+    "redux-form": "^6.6.3",
     "redux-saga": "^0.14.8",
     "reselect": "^3.0.0"
-  },
-  "peerDependencies": {
-    "react": "15.x"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
