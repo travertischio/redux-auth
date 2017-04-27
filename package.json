@@ -1,11 +1,11 @@
 {
-  "name": "arc-sample",
+  "name": "redux-auth",
   "version": "1.0.0",
-  "description": "An example of how to start a new React Component in Arabella style",
-  "main": "lib/index.js",
-  "repository": "git@bitbucket.org:arabellatech/arc-sample.git",
-  "author": "Michal Mrowiec <michal.mrowiec@simplesoft.pl>",
+  "description": "Set of authentication components and containers such as: Sign In, Sign Up, Sign Out, Reset Password, authorization wrappers",
+  "repository": "git@bitbucket.org:arabellatech/redux-auth.git",
+  "author": "Arabella Front-End Team",
   "license": "MIT",
+  "main": "lib/index.js",
   "scripts": {
     "build": "",
     "test": "jest --coverage",
@@ -120,7 +120,15 @@
     ],
     "testRegex": "src/.*\\.test[s]?\\.js$"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.16.1",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.18.1",
+    "react-redux": "^5.0.4",
+    "recompose": "^0.23.1",
+    "redux-saga": "^0.14.8",
+    "reselect": "^3.0.0"
+  },
   "peerDependencies": {
     "react": "15.x"
   },
