@@ -10,11 +10,23 @@ import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import SignUpForm from '../../components/SignUpForm';
+import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import makeSelectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
 
-export class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+const mapStateToProps = createStructuredSelector({
+  SignUpPage: makeSelectSignUpPage(),
+});
+
+const mapDispatchToProps = {
+  onSubmitForm: signUpAction,
+};
+
+@UserIsNotAuthenticated
+@injectIntl
+@connect(mapStateToProps, mapDispatchToProps)
+export default class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
       onSubmitForm,
@@ -53,13 +65,3 @@ SignUpPage.propTypes = {
   onSubmitForm: PropTypes.func,
   intl: PropTypes.object.isRequired,
 };
-
-const mapStateToProps = createStructuredSelector({
-  SignUpPage: makeSelectSignUpPage(),
-});
-
-const mapDispatchToProps = {
-  onSubmitForm: signUpAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignUpPage));

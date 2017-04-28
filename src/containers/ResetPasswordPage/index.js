@@ -11,7 +11,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router';
 import compose from 'recompose/compose';
-// TODO: move it to redux-auth
 import { AuthenticationContext } from '../AuthenticationProvider/hocs';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import makeSelectResetPasswordPage from './selectors';

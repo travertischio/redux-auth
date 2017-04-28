@@ -10,7 +10,7 @@ import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import SignInForm from '../../components/SignInForm';
-// import UserIsNotAuthenticated from 'hocs/AuthWrappers/UserIsNotAuthenticated';
+import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import makeSelectSignInPage from './selectors';
 import messages from './messages';
 import { signInAction, destroyPageAction } from './actions';
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
   onUnMount: () => dispatch(destroyPageAction()),
 });
 
-// @UserIsNotAuthenticated
+@UserIsNotAuthenticated
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
 export default class SignInPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
