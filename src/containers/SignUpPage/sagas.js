@@ -1,7 +1,6 @@
 import { take, takeLatest, takeEvery, call, cancel, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-// TODO: move it to redux-auth
-import { signUp as signUpAPICall } from '../AuthenticationProvider/api';
+import { signUp as signUpAPICall } from '../../api';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { selectTokenFromActionPayload } from '../AuthenticationProvider/selectors';
 import {
@@ -14,7 +13,6 @@ import {
 } from './constants';
 
 export function* defaultSaga() {
-  // TODO find out if we should use takeLatest in both watchers
   const signUpActionWatcher = yield takeLatest(SIGN_UP_ACTION, signUp);
   const signUpSucceedActionWatcher = yield takeEvery(SIGN_UP_SUCCEED_ACTION, setTokenIfExists);
 
@@ -33,7 +31,6 @@ export function* signUp(action) {
   }
 }
 
-// TODO move it to AuthenticationProvider
 export function* setTokenIfExists(action) {
   const token = selectTokenFromActionPayload(action);
 
@@ -42,7 +39,6 @@ export function* setTokenIfExists(action) {
   }
 }
 
-// All sagas to be loaded
 export default [
   defaultSaga,
 ];

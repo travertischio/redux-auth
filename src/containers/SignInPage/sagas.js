@@ -1,6 +1,6 @@
 import { take, takeLatest, takeEvery, call, cancel, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { signIn as signInApiCall } from '../AuthenticationProvider/api';
+import { signIn as signInApiCall } from '../../api';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { selectTokenFromActionPayload } from '../AuthenticationProvider/selectors';
 import { signInSucceedAction, signInFailedAction } from './actions';

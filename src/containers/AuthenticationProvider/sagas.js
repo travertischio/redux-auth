@@ -3,7 +3,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { setTokenInStorage, removeTokenFromStorage } from './utils';
 import { setTokenAction, clearTokenAction, refreshTokenAction, markTokenAsRefreshedAction } from './actions';
 import { makeSelectToken, makeSelecTokenExpiryTime, makeSelectHasTokenRefreshed } from './selectors';
-import { refreshToken as refreshTokenApiCall } from './api';
+import { refreshToken as refreshTokenApiCall } from '../../api';
 import { REFRESH_TOKEN_ACTION, SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION } from './constants';
 
 export function* defaultSaga() {

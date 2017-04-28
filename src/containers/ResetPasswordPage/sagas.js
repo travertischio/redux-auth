@@ -1,7 +1,7 @@
 import { take, takeLatest, takeEvery, cancel, put, call } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 // TODO: move it to redux-auth
-import { resetPassword as resetPasswordApiCall } from '../AuthenticationProvider/api';
+import { resetPassword as resetPasswordApiCall } from '../../api';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { selectTokenFromActionPayload } from '../AuthenticationProvider/selectors';
 import { resetPasswordSucceedAction, resetPasswordFailedAction } from './actions';

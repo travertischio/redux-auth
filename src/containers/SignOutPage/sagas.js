@@ -4,7 +4,6 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { clearTokenAction } from '../AuthenticationProvider/actions';
 import { SIGN_OUT_ACTION } from './constants';
 
-
 export function* defaultSaga() {
   const signOutActionWatcher = yield takeEvery(SIGN_OUT_ACTION, signOutSaga);
 
