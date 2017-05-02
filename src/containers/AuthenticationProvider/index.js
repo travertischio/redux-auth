@@ -4,7 +4,8 @@
  *
  */
 
-import React, { PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import compose from 'recompose/compose';
@@ -12,7 +13,7 @@ import withContext from 'recompose/withContext';
 import { makeSelectHasTokenRefreshed, makeSelectIsAuthenticated } from './selectors';
 import { refreshTokenAction } from './actions';
 
-class AuthenticationProvider extends React.PureComponent {
+class AuthenticationProvider extends PureComponent {
 
   componentDidMount() {
     this.props.refreshToken();

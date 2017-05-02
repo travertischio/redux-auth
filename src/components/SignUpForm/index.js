@@ -5,9 +5,10 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import WrappedInput from '../WrappedInput';
 import { injectIntl } from 'react-intl';
+import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 export const SignUpForm = (props) => { // eslint-disable-line react/prefer-stateless-function
@@ -82,11 +83,11 @@ export const SignUpForm = (props) => { // eslint-disable-line react/prefer-state
 };
 
 SignUpForm.propTypes = {
-  handleSubmit: React.PropTypes.func.isRequired,
-  pristine: React.PropTypes.bool.isRequired,
-  submitting: React.PropTypes.bool.isRequired,
-  valid: React.PropTypes.bool.isRequired,
-  intl: React.PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
+  intl: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

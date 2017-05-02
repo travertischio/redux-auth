@@ -4,10 +4,13 @@
 *
 */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+// import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl } from 'react-intl';
-import WrappedInput from '../WrappedInput';
+import EmailField from 'react-form-fields/lib/EmailField';
+import PasswordField from 'react-form-fields/lib/PasswordField';
+import { ReduxFormInputWrapper } from '../WrappedInput';
 import messages from './messages';
 
 const SignInForm = (props) => {
@@ -29,22 +32,19 @@ const SignInForm = (props) => {
   return (
     <form onSubmit={onSubmit} noValidate>
       <Field
-        id="email"
         name="email"
-        type="email"
         label={emailLabel}
         placeholder={emailLabel}
         validate={[required, email]}
-        component={WrappedInput}
+        component={ReduxFormInputWrapper(EmailField)}
       />
       <Field
-        id="password"
         name="password"
         type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
         validate={[required]}
-        component={WrappedInput}
+        component={ReduxFormInputWrapper(PasswordField)}
       />
       <div>
         <button
@@ -56,13 +56,13 @@ const SignInForm = (props) => {
   );
 };
 
-SignInForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired,
-};
+// SignInForm.propTypes = {
+//   handleSubmit: PropTypes.func.isRequired,
+//   pristine: PropTypes.bool.isRequired,
+//   submitting: PropTypes.bool.isRequired,
+//   valid: PropTypes.bool.isRequired,
+//   intl: PropTypes.object.isRequired,
+// };
 
 export default reduxForm({
   form: 'signInForm',

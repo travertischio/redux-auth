@@ -4,7 +4,8 @@
  *
  */
 
-import React, { PropTypes } from 'react';
+import { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
@@ -26,7 +27,7 @@ const mapDispatchToProps = {
 @UserIsNotAuthenticated
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-export default class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class SignUpPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const {
       onSubmitForm,
@@ -63,5 +64,5 @@ export default class SignUpPage extends React.PureComponent { // eslint-disable-
 SignUpPage.propTypes = {
   SignUpPage: PropTypes.object,
   onSubmitForm: PropTypes.func,
-  intl: PropTypes.object.isRequired,
+  intl: PropTypes.object,
 };
