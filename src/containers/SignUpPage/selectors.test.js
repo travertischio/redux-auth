@@ -10,7 +10,7 @@ const state = fromJS({
 });
 
 it('should return "selectSignUpPage" object from state when calling selectSignUpPage(state)', () => {
-  expect(selectSignUpPage(state)).toEqual(state.get('selectSignUpPage').toJS());
+  expect(selectSignUpPage(state)).toEqual(state.get('signUpPage').toJS());
 });
 
 it('should return "signUpPage" immutable object from state when calling selectSignUpPageDomain(state)', () => {
