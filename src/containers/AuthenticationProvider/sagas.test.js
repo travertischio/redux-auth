@@ -61,7 +61,6 @@ it('putRefreshTokenActionWithDelaySaga', () => {
     .isDone();
 });
 
-
 it('refreshTokenSaga succeed', () => {
   const storeState = fromJS({
     auth: {
