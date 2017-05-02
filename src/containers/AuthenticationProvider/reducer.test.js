@@ -1,4 +1,3 @@
-
 import { fromJS } from 'immutable';
 import * as MockDate from 'mockdate';
 import authenticationReducer from './reducer';

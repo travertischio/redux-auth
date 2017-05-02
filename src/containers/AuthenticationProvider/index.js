@@ -13,8 +13,27 @@ import withContext from 'recompose/withContext';
 import { selectHasTokenRefreshed, selectIsAuthenticated } from './selectors';
 import { refreshTokenAction } from './actions';
 
-class AuthenticationProvider extends PureComponent {
+const AuthenticationProviderContext = withContext(
+  {
+    isAuthenticated: PropTypes.bool,
+  },
+  (props) => ({
+    isAuthenticated: props.isAuthenticated,
+  })
+);
 
+const mapStateToProps = createStructuredSelector({
+  hasTokenRefreshed: selectHasTokenRefreshed,
+  isAuthenticated: selectIsAuthenticated,
+});
+
+const mapDispatchToProps = {
+  refreshToken: refreshTokenAction,
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
+@compose(AuthenticationProviderContext)
+export default class AuthenticationProvider extends PureComponent {
   componentDidMount() {
     this.props.refreshToken();
   }
@@ -45,29 +64,7 @@ class AuthenticationProvider extends PureComponent {
 }
 
 AuthenticationProvider.propTypes = {
-  refreshToken: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  hasTokenRefreshed: PropTypes.bool.isRequired,
+  refreshToken: PropTypes.func,
+  children: PropTypes.element,
+  hasTokenRefreshed: PropTypes.bool,
 };
-
-const AuthenticationProviderContext = withContext(
-  {
-    isAuthenticated: PropTypes.bool,
-  },
-  (props) => ({
-    isAuthenticated: props.isAuthenticated,
-  })
-);
-
-const composedComponent = compose(AuthenticationProviderContext)(AuthenticationProvider);
-
-const mapStateToProps = createStructuredSelector({
-  hasTokenRefreshed: selectHasTokenRefreshed,
-  isAuthenticated: selectIsAuthenticated,
-});
-
-const mappedDispatch = {
-  refreshToken: refreshTokenAction,
-};
-
-export default connect(mapStateToProps, mappedDispatch)(composedComponent);

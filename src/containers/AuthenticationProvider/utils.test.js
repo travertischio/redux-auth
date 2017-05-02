@@ -160,5 +160,43 @@ describe('authentication utils', () => {
       expect(resultInMs).toBeLessThan(expectedTimeInMs);
     });
   });
-});
 
+  describe('when localStorage is disabled', () => {
+    beforeEach(() => {
+      window.localStorage = {
+        getItem() {
+          throw Error('localStorage is disabled');
+        },
+        setItem() {
+          throw Error('localStorage is disabled');
+        },
+        removeItem() {
+          throw Error('localStorage is disabled');
+        },
+        clear() {
+          throw Error('localStorage is disabled');
+        },
+      };
+    });
+
+    describe('when calling setTokenInStorage(token)', () => {
+      let result;
+
+      beforeEach(() => {
+        result = setTokenInStorage(token);
+      });
+
+      it('should return false', () => {
+        expect(result).toBeFalsy();
+      });
+
+      it('should return undefiend when calling getTokenFromStorage', () => {
+        expect(getTokenFromStorage()).toBeUndefined();
+      });
+
+      it('should return false when calling removeTokenFromStorage()', () => {
+        expect(removeTokenFromStorage()).toBeFalsy();
+      });
+    });
+  });
+});

@@ -20,7 +20,7 @@ export function* setTokenSaga(action) {
 
 export function* putRefreshTokenActionWithDelaySaga() {
   const tokenExpiryTime = yield select(selectTokenExpiryTime);
-  yield delay(tokenExpiryTime);
+  yield call(delay, tokenExpiryTime);
   yield put(refreshTokenAction());
 }
 

@@ -4,6 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { fromJS } from 'immutable';
+import { delay } from 'redux-saga';
 import { testSaga, expectSaga } from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
@@ -12,6 +13,7 @@ import { refreshToken as refreshTokenApiCall } from '../../api';
 import { defaultSaga, setTokenSaga, putRefreshTokenActionWithDelaySaga, clearTokenSaga, refreshTokenSaga, setTokenIfExistsSaga } from './sagas';
 import { REFRESH_TOKEN_ACTION, SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION } from './constants';
 import { setTokenInStorage, removeTokenFromStorage } from './utils';
+import { selectTokenExpiryTime } from './selectors';
 
 it('defaultSaga', () => {
   testSaga(defaultSaga)
@@ -48,18 +50,15 @@ it('clearTokenSaga', () => {
 });
 
 it('putRefreshTokenActionWithDelaySaga', () => {
-  const tokenExpiryTime = 5000;
-  const storeState = fromJS({
-    auth: {
-      token: 'XYZ123',
-      tokenExpiryTime,
-    },
-  });
-
-  expectSaga(putRefreshTokenActionWithDelaySaga)
-    .withState(storeState)
+  testSaga(putRefreshTokenActionWithDelaySaga)
+    .next()
+    .select(selectTokenExpiryTime)
+    .next()
+    .call(delay, undefined)
+    .next()
     .put(refreshTokenAction())
-    .run(tokenExpiryTime + 500);
+    .finish()
+    .isDone();
 });
 
 
