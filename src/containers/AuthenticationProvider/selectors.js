@@ -1,27 +1,24 @@
 import _get from 'lodash/get';
 import { createSelector } from 'reselect';
 
-/**
- * Direct selector to the authentication state domain
- */
 const selectAuthenticationDomain = (state) => state.get('auth');
 
-const makeSelectToken = () => createSelector(
+const selectToken = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.get('token')
 );
 
-const makeSelecTokenExpiryTime = () => createSelector(
+const selectTokenExpiryTime = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.get('tokenExpiryTime')
 );
 
-const makeSelectIsAuthenticated = () => createSelector(
+const selectIsAuthenticated = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.get('isAuthenticated')
 );
 
-const makeSelectUser = () => createSelector(
+const selectUser = createSelector(
   selectAuthenticationDomain,
   (authState) => {
     const user = authState.get('user');
@@ -29,25 +26,19 @@ const makeSelectUser = () => createSelector(
   }
 );
 
-const makeSelectHasTokenRefreshed = () => createSelector(
+const selectHasTokenRefreshed = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.get('hasTokenRefreshed')
 );
 
-const makeSelectAuthentication = () => createSelector(
-  selectAuthenticationDomain,
-  (substate) => substate.toJS()
-);
-
 const selectTokenFromActionPayload = (action) => _get(action, ['payload', 'data', 'token']);
 
-export default makeSelectAuthentication;
 export {
   selectAuthenticationDomain,
-  makeSelectToken,
-  makeSelecTokenExpiryTime,
-  makeSelectIsAuthenticated,
-  makeSelectUser,
-  makeSelectHasTokenRefreshed,
+  selectToken,
+  selectTokenExpiryTime,
+  selectIsAuthenticated,
+  selectUser,
+  selectHasTokenRefreshed,
   selectTokenFromActionPayload,
 };

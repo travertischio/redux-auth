@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import compose from 'recompose/compose';
 import withContext from 'recompose/withContext';
-import { makeSelectHasTokenRefreshed, makeSelectIsAuthenticated } from './selectors';
+import { selectHasTokenRefreshed, selectIsAuthenticated } from './selectors';
 import { refreshTokenAction } from './actions';
 
 class AuthenticationProvider extends PureComponent {
@@ -62,8 +62,8 @@ const AuthenticationProviderContext = withContext(
 const composedComponent = compose(AuthenticationProviderContext)(AuthenticationProvider);
 
 const mapStateToProps = createStructuredSelector({
-  hasTokenRefreshed: makeSelectHasTokenRefreshed(),
-  isAuthenticated: makeSelectIsAuthenticated(),
+  hasTokenRefreshed: selectHasTokenRefreshed,
+  isAuthenticated: selectIsAuthenticated,
 });
 
 const mappedDispatch = {

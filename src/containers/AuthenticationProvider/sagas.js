@@ -2,7 +2,7 @@ import { takeEvery, delay } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import { setTokenInStorage, removeTokenFromStorage } from './utils';
 import { setTokenAction, clearTokenAction, refreshTokenAction, markTokenAsRefreshedAction } from './actions';
-import { makeSelectToken, makeSelecTokenExpiryTime, makeSelectHasTokenRefreshed, selectTokenFromActionPayload } from './selectors';
+import { selectToken, selectTokenExpiryTime, selectHasTokenRefreshed, selectTokenFromActionPayload } from './selectors';
 import { refreshToken as refreshTokenApiCall } from '../../api';
 import { REFRESH_TOKEN_ACTION, SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION } from './constants';
 
@@ -19,7 +19,7 @@ export function* setTokenSaga(action) {
 }
 
 export function* putRefreshTokenActionWithDelaySaga() {
-  const tokenExpiryTime = yield select(makeSelecTokenExpiryTime());
+  const tokenExpiryTime = yield select(selectTokenExpiryTime);
   yield delay(tokenExpiryTime);
   yield put(refreshTokenAction());
 }
@@ -29,7 +29,7 @@ export function* clearTokenSaga() {
 }
 
 export function* refreshTokenSaga() {
-  const token = yield select(makeSelectToken());
+  const token = yield select(selectToken);
 
   if (token) {
     try {
@@ -40,7 +40,7 @@ export function* refreshTokenSaga() {
     }
   }
 
-  const hasTokenRefreshed = yield select(makeSelectHasTokenRefreshed());
+  const hasTokenRefreshed = yield select(selectHasTokenRefreshed);
 
   if (!hasTokenRefreshed) {
     yield put(markTokenAsRefreshedAction());
