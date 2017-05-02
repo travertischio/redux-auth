@@ -26,6 +26,9 @@
       "es2015",
       "stage-0",
       "react"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
     ]
   },
   "eslintConfig": {
@@ -111,8 +114,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "app/**/*.{js,jsx}",
-      "!app/**/*.test{s}.{js,jsx}"
+      "src/**/*.{js,jsx}",
+      "!src/**/*.test{s}.{js,jsx}"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -160,10 +163,10 @@
     "jest": "^19.0.2",
     "lint-staged": "^3.4.0",
     "mockdate": "^2.0.1",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
-    "prop-types": "^15.5.8",
     "react-test-renderer": "^15.5.4",
     "redux-saga-test-plan": "^2.4.4",
     "webpack": "^2.4.1"
