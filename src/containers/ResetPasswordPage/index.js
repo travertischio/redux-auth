@@ -14,12 +14,12 @@ import { Link } from 'react-router';
 import compose from 'recompose/compose';
 import { AuthenticationContext } from '../AuthenticationProvider/hocs';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
-import makeSelectResetPasswordPage from './selectors';
+import selectResetPasswordPage from './selectors';
 import messages from './messages';
 import { resetPasswordAction, destroyPageAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  ResetPasswordPage: makeSelectResetPasswordPage(),
+  ResetPasswordPage: selectResetPasswordPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

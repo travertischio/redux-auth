@@ -1,16 +1,18 @@
-// import { fromJS } from 'immutable';
-// import { makeSelectResetPasswordPageDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import selectResetPasswordPage, {
+  selectResetPasswordPageDomain,
+} from './selectors';
 
-// const selector = makeSelectResetPasswordPageDomain();
+const state = fromJS({
+  resetPasswordPage: {
+    foo: 'bar',
+  },
+});
 
-// describe('makeSelectResetPasswordPageDomain', () => {
-//   it('Expect to have unit tests specified', () => {
-//     expect(true).toEqual(false);
-//   });
-// });
+it('should return "resetPasswordPage" object from state when calling selectResetPasswordPage(state)', () => {
+  expect(selectResetPasswordPage(state)).toEqual(state.get('resetPasswordPage').toJS());
+});
 
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
-  });
+it('should return "resetPasswordPage" immutable object from state when calling selectResetPasswordPageDomain(state)', () => {
+  expect(selectResetPasswordPageDomain(state)).toEqual(state.get('resetPasswordPage'));
 });

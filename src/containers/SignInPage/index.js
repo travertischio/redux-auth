@@ -12,12 +12,12 @@ import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import SignInForm from '../../components/SignInForm';
 import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
-import makeSelectSignInPage from './selectors';
+import selectSignInPage from './selectors';
 import messages from './messages';
 import { signInAction, destroyPageAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  SignInPage: makeSelectSignInPage(),
+  SignInPage: selectSignInPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

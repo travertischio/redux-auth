@@ -1,16 +1,18 @@
-// import { fromJS } from 'immutable';
-// import { makeSelectSignInPageDomain } from '../selectors';
+import { fromJS } from 'immutable';
+import selectSignInPage, {
+  selectSignInPageDomain,
+} from './selectors';
 
-// const selector = makeSelectSignInPageDomain();
+const state = fromJS({
+  signInPage: {
+    foo: 'bar',
+  },
+});
 
-// describe('makeSelectSignInPageDomain', () => {
-//   it('Expect to have unit tests specified', () => {
-//     expect(true).toEqual(false);
-//   });
-// });
+it('should return "signInPage" object from state when calling selectSignInPage(state)', () => {
+  expect(selectSignInPage(state)).toEqual(state.get('signInPage').toJS());
+});
 
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
-  });
+it('should return "signInPage" immutable object from state when calling selectSignInPageDomain(state)', () => {
+  expect(selectSignInPageDomain(state)).toEqual(state.get('signInPage'));
 });

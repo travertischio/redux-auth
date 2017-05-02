@@ -1,17 +1,13 @@
 import { createSelector } from 'reselect';
 
-/**
- * Direct selector to the signUpPage state domain
- */
 const selectSignUpPageDomain = (state) => state.get('signUpPage');
 
-const makeSelectSignUpPage = () => createSelector(
+const selectSignUpPage = createSelector(
   selectSignUpPageDomain,
-  // TODO drop toJS
   (substate) => substate.toJS()
 );
 
-export default makeSelectSignUpPage;
+export default selectSignUpPage;
 export {
   selectSignUpPageDomain,
 };

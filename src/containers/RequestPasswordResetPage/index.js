@@ -12,12 +12,12 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import RequestPasswordResetForm from '../../components/RequestPasswordResetForm';
 import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
-import makeSelectRequestPasswordResetPage from './selectors';
+import selectRequestPasswordResetPage from './selectors';
 import messages from './messages';
 import { requestPasswordResetAction, destroyPageAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  RequestPasswordResetPage: makeSelectRequestPasswordResetPage(),
+  RequestPasswordResetPage: selectRequestPasswordResetPage,
 });
 
 const mapDispatchToProps = (dispatch) => ({

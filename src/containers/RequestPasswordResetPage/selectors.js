@@ -1,14 +1,13 @@
 import { createSelector } from 'reselect';
 
-
 const selectRequestPasswordResetPageDomain = (state) => state.get('requestPasswordResetPage');
 
-const makeSelectRequestPasswordResetPage = () => createSelector(
+const selectRequestPasswordResetPage = createSelector(
   selectRequestPasswordResetPageDomain,
   (substate) => substate.toJS()
 );
 
-export default makeSelectRequestPasswordResetPage;
+export default selectRequestPasswordResetPage;
 export {
   selectRequestPasswordResetPageDomain,
 };
