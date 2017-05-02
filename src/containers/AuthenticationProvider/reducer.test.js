@@ -2,7 +2,7 @@
 import { fromJS } from 'immutable';
 import * as MockDate from 'mockdate';
 import authenticationReducer from './reducer';
-import { getEmptyStateData, getStateDataFromToken } from './utils';
+import { getEmptyStateData, getStateDataFromToken, setTokenInStorage } from './utils';
 import { setTokenAction, clearTokenAction, markTokenAsRefreshedAction, refreshTokenAction } from './actions';
 
 describe('authenticationReducer', () => {
@@ -25,6 +25,17 @@ describe('authenticationReducer', () => {
     const action = markTokenAsRefreshedAction();
     currentState = authenticationReducer(currentState, action);
     expect(currentState).toEqual(expectedState);
+  });
+
+  describe('when the token is saved in the local storage', () => {
+    beforeEach(() => {
+      setTokenInStorage(token);
+    });
+
+    it('should a initil state has token when calling getInitialState()', () => {
+      currentState = authenticationReducer(undefined, {});
+      expect(currentState.get('token')).toEqual(token);
+    });
   });
 
   describe('when set token action occurs', () => {

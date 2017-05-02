@@ -1,15 +1,73 @@
+import { fromJS } from 'immutable';
+import requestPasswordResetPageReducer from './reducer';
+import {
+  requestPasswordResetAction,
+  requestPasswordResetSucceedAction,
+  requestPasswordResetFailedAction,
+  destroyPageAction,
+} from './actions';
 
-// import { fromJS } from 'immutable';
-// import requestPasswordResetPageReducer from '../reducer';
+describe('requestPasswordResetPageReducer', () => {
+  let currentState;
 
-// describe('requestPasswordResetPageReducer', () => {
-//   it('returns the initial state', () => {
-//     expect(requestPasswordResetPageReducer(undefined, {})).toEqual(fromJS({}));
-//   });
-// });
+  it('returns the initial state', () => {
+    const expectedState = fromJS({});
+    currentState = requestPasswordResetPageReducer(undefined, {});
+    expect(currentState).toEqual(expectedState);
+  });
 
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
+  describe('when call with the REQUEST_PASSWORD_RESET_ACTION action', () => {
+    beforeEach(() => {
+      currentState = requestPasswordResetPageReducer(currentState, requestPasswordResetAction());
+    });
+
+    it('should update state', () => {
+      const expectedState = currentState.merge({
+        loading: true,
+        errorMessage: false,
+        sent: false,
+      });
+      expect(currentState.toJS()).toEqual(expectedState.toJS());
+    });
+
+    describe('when call with the REQUEST_PASSWORD_RESET_SUCCEED_ACTION action', () => {
+      beforeEach(() => {
+        currentState = requestPasswordResetPageReducer(currentState, requestPasswordResetSucceedAction());
+      });
+
+      it('should update state', () => {
+        const expectedState = currentState.merge({
+          loading: false,
+          errorMessage: false,
+          sent: true,
+        });
+        expect(currentState.toJS()).toEqual(expectedState.toJS());
+      });
+    });
+
+    describe('when call with the REQUEST_PASSWORD_RESET_FAILED_ACTION action', () => {
+      beforeEach(() => {
+        currentState = requestPasswordResetPageReducer(currentState, requestPasswordResetFailedAction());
+      });
+
+      it('should update state', () => {
+        const expectedState = currentState.merge({
+          loading: false,
+          errorMessage: 'serverErrorUnknown',
+        });
+        expect(currentState.toJS()).toEqual(expectedState.toJS());
+      });
+
+      describe('when call with the DESTROY_PAGE_ACTION action', () => {
+        beforeEach(() => {
+          currentState = requestPasswordResetPageReducer(currentState, destroyPageAction());
+        });
+
+        it('should clear state', () => {
+          const expectedState = fromJS({});
+          expect(currentState.toJS()).toEqual(expectedState.toJS());
+        });
+      });
+    });
   });
 });
