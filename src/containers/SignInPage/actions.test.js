@@ -1,24 +1,51 @@
+import {
+  signInAction,
+  signInSucceedAction,
+  signInFailedAction,
+  destroyPageAction,
+} from './actions';
+import {
+  SIGN_IN_ACTION,
+  SIGN_IN_SUCCEED_ACTION,
+  SIGN_IN_FAILED_ACTION,
+  DESTROY_PAGE_ACTION,
+} from './constants';
 
-// import {
-//   defaultAction,
-// } from '../actions';
-// import {
-//   DEFAULT_ACTION,
-// } from '../constants';
+describe('Authentication actions', () => {
+  const payload = {};
 
-// describe('SignInPage actions', () => {
-//   describe('Default Action', () => {
-//     it('has a type of DEFAULT_ACTION', () => {
-//       const expected = {
-//         type: DEFAULT_ACTION,
-//       };
-//       expect(defaultAction()).toEqual(expected);
-//     });
-//   });
-// });
+  it('signInAction should return SIGN_IN_ACTION type and payload', () => {
+    const expected = {
+      type: SIGN_IN_ACTION,
+      payload,
+    };
 
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
+    expect(signInAction(payload)).toEqual(expected);
+  });
+
+  it('signInSucceedAction should return SIGN_IN_SUCCEED_ACTION type and payload', () => {
+    const expected = {
+      type: SIGN_IN_SUCCEED_ACTION,
+      payload,
+    };
+
+    expect(signInSucceedAction(payload)).toEqual(expected);
+  });
+
+  it('signInFailedAction should return SIGN_IN_FAILED_ACTION type and payload', () => {
+    const expected = {
+      type: SIGN_IN_FAILED_ACTION,
+      payload,
+    };
+
+    expect(signInFailedAction(payload)).toEqual(expected);
+  });
+
+  it('destroyPageAction should return DESTROY_PAGE_ACTION type', () => {
+    const expected = {
+      type: DESTROY_PAGE_ACTION,
+    };
+
+    expect(destroyPageAction()).toEqual(expected);
   });
 });
