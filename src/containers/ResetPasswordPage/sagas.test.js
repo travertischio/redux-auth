@@ -1,0 +1,54 @@
+/**
+ * Test ResetPasswordPage sagas
+ */
+
+/* eslint-disable redux-saga/yield-effects */
+import testSaga from 'redux-saga-test-plan';
+import { LOCATION_CHANGE } from 'react-router-redux';
+import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
+import { resetPassword as resetPasswordApiCall } from '../../api';
+import { defaultSaga, resetPasswordSaga } from './sagas';
+import { resetPasswordSucceedAction, resetPasswordFailedAction } from './actions';
+import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCEED_ACTION } from './constants';
+
+const resetPasswordaAction = {
+  payload: {
+    email: 'new@ydtech.co',
+  },
+};
+
+it('defaultSaga', () => {
+  testSaga(defaultSaga)
+    .next()
+    .takeLatestFork(RESET_PASSWORD_ACTION, resetPasswordSaga)
+    .next()
+    .takeEveryFork(RESET_PASSWORD_SUCCEED_ACTION, setTokenIfExistsSaga)
+    .next()
+    .take(LOCATION_CHANGE)
+    .finish()
+    .isDone();
+});
+
+it('resetPasswordSaga and succeed', () => {
+  testSaga(resetPasswordSaga, resetPasswordaAction)
+    .next()
+    .call(resetPasswordApiCall, resetPasswordaAction.payload)
+    .next()
+    .put(resetPasswordSucceedAction())
+    .finish()
+    .isDone();
+});
+
+it('resetPasswordSaga and failed', () => {
+  const errorResponse = {
+    non_field_errors: ['Password do not match.'],
+  };
+
+  testSaga(resetPasswordSaga, resetPasswordaAction)
+    .next()
+    .call(resetPasswordApiCall, resetPasswordaAction.payload)
+    .throw(errorResponse)
+    .put(resetPasswordFailedAction(errorResponse))
+    .finish()
+    .isDone();
+});

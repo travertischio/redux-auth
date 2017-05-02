@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel --presets es2015,stage-0 --plugins transform-decorators-legacy -d lib/ src/ --ignore \"**/*.test.js\"",
+    "build": "rm -rf lib && babel --presets es2015,stage-0 --plugins transform-decorators-legacy -d lib/ src/ --ignore \"**/*.test.js\",\"**/*.stories.js\"",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",
     "storybook": "start-storybook -p 6006",
@@ -118,13 +118,15 @@
       "node_modules",
       "src"
     ],
-    "testRegex": "src/.*\\.test[s]?\\.js$"
+    "testRegex": "src/.*\\.test[s]?\\.js$",
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js"
   },
   "dependencies": {
     "axios": "^0.16.1",
     "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
+    "react-form-fields": "git+ssh://git@bitbucket.org/arabellatech/react-form-fields.git#develop",
     "react-helmet": "^5.0.3",
     "react-intl": "^2.2.3",
     "react-redux": "^5.0.4",
@@ -157,10 +159,13 @@
     "flow-bin": "^0.44.2",
     "jest": "^19.0.2",
     "lint-staged": "^3.4.0",
+    "mockdate": "^2.0.1",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
+    "prop-types": "^15.5.8",
     "react-test-renderer": "^15.5.4",
+    "redux-saga-test-plan": "^2.4.4",
     "webpack": "^2.4.1"
   }
 }

@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import isArray from 'lodash/isArray';
+import _isArray from 'lodash/isArray';
 import {
   SIGN_IN_ACTION,
   SIGN_IN_SUCCEED_ACTION,
@@ -48,10 +48,10 @@ function onSignFailedAction(state, rejection) {
   const { response } = rejection;
   let errorMessage = 'Unable to sign in. Please try again.';
 
-  if (response.status === 400) {
+  if (response && response.status === 400) {
     const nonFieldErrors = response.data.non_field_errors;
 
-    if (isArray(nonFieldErrors)) {
+    if (_isArray(nonFieldErrors)) {
       errorMessage = nonFieldErrors.join(', ');
     }
   }

@@ -1,5 +1,5 @@
 /**
- * Test  sagas
+ * Test SignOutPage sagas
  */
 
 /* eslint-disable redux-saga/yield-effects */
@@ -9,7 +9,7 @@ import { clearTokenAction } from '../AuthenticationProvider/actions';
 import { defaultSaga, signOutSaga } from './sagas';
 import { SIGN_OUT_ACTION } from './constants';
 
-it('defaultSaga Saga', () => {
+it('defaultSaga', () => {
   testSaga(defaultSaga)
     .next()
     .takeEveryFork(SIGN_OUT_ACTION, signOutSaga)
@@ -19,7 +19,7 @@ it('defaultSaga Saga', () => {
     .isDone();
 });
 
-it('defaultSaga signOutSaga', () => {
+it('signOutSaga', () => {
   testSaga(signOutSaga)
     .next()
     .put(clearTokenAction())

@@ -18,5 +18,4 @@ export function* signOutSaga() {
 
 export default [
   defaultSaga,
-  signOutSaga,
 ];

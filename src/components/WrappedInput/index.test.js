@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import WrappedInput from '../index';
+import WrappedInput from './index';
 
 const fieldProps = {
   input: { name: 'example-input' },
