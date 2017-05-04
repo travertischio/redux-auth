@@ -4,6 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import testSaga from 'redux-saga-test-plan';
+import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { requestPasswordReset as requestPasswordResetApiCall } from '../../api';
 import { defaultSaga, requestPasswordReset } from './sagas';
@@ -17,11 +18,15 @@ const requestPasswordResetAction = {
 };
 
 it('defaultSaga', () => {
+  const task1 = createMockTask();
+
   testSaga(defaultSaga)
     .next()
     .takeLatestFork(REQUEST_PASSWORD_RESET_ACTION, requestPasswordReset)
-    .next()
+    .next(task1)
     .take(LOCATION_CHANGE)
+    .next()
+    .cancel(task1)
     .finish()
     .isDone();
 });

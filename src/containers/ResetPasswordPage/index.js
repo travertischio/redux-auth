@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router';
+import { Link } from 'react-router/es';
 import compose from 'recompose/compose';
 import { AuthenticationContext } from '../AuthenticationProvider/hocs';
 import ResetPasswordForm from '../../components/ResetPasswordForm';

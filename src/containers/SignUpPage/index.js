@@ -4,7 +4,7 @@
  *
  */
 
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -12,12 +12,12 @@ import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import SignUpForm from '../../components/SignUpForm';
 import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
-import makeSelectSignUpPage from './selectors';
+import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  SignUpPage: makeSelectSignUpPage(),
+  SignUpPage: selectSignUpPage,
 });
 
 const mapDispatchToProps = {

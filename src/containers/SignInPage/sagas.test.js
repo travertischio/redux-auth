@@ -4,6 +4,7 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import testSaga from 'redux-saga-test-plan';
+import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
@@ -19,13 +20,20 @@ const signInAction = {
 };
 
 it('defaultSaga', () => {
+  const task1 = createMockTask();
+  const task2 = createMockTask();
+
   testSaga(defaultSaga)
     .next()
     .takeLatestFork(SIGN_IN_ACTION, signInSaga)
-    .next()
+    .next(task1)
     .takeEveryFork(SIGN_IN_SUCCEED_ACTION, setTokenSaga)
-    .next()
+    .next(task2)
     .take(LOCATION_CHANGE)
+    .next()
+    .cancel(task1)
+    .next()
+    .cancel(task2)
     .finish()
     .isDone();
 });
