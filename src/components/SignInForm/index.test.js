@@ -1,16 +1,12 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { createComponentWithIntl } from 'react-unit-testing-utils';
 
-// import SignInForm from '../index';
+import SignInForm from './';
 
-// describe('<SignInForm />', () => {
-//   it('Expect to have unit tests specified', () => {
-//     expect(true).toEqual(false);
-//   });
-// });
-
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
+describe('<SignInForm />', () => {
+  it('should render SignInForm', () => {
+    const initialState = {};
+    const { component } = createComponentWithIntl(<SignInForm />, initialState);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });

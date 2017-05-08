@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 
 // TODO move it to global settings
-const API_HOST = 'https://demo-api-dev.arabel.la';
+export const API_HOST = 'https://demo-api-dev.arabel.la';
 
 export function signIn(credentials) {
   const endPoint = `${API_HOST}/api/auth/login`;

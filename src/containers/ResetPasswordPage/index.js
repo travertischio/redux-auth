@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router/es';
+import { Link } from 'react-router';
 import compose from 'recompose/compose';
 import { AuthenticationContext } from '../AuthenticationProvider/hocs';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
@@ -27,11 +27,10 @@ const mapDispatchToProps = (dispatch) => ({
   onUnMount: () => dispatch(destroyPageAction()),
 });
 
-@injectIntl
-@compose(AuthenticationContext)
 @connect(mapStateToProps, mapDispatchToProps)
+@compose(AuthenticationContext)
+@injectIntl
 export default class ResetPasswordPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   componentWillUnmount() {
     this.props.onUnMount();
   }

@@ -1,4 +1,4 @@
-/**
+ /**
 *
 * RequestPasswordResetForm
 *
@@ -12,7 +12,12 @@ import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 function RequestPasswordResetForm(props) {
-  const { handleSubmit, pristine, submitting, valid } = props;
+  const {
+    handleSubmit,
+    pristine,
+    submitting,
+    valid,
+  } = props;
   const { formatMessage } = props.intl;
   const emailLabel = formatMessage(messages.email);
 

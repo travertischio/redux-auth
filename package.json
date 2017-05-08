@@ -129,7 +129,6 @@
     "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
-    "react-form-fields": "git+ssh://git@bitbucket.org/arabellatech/react-form-fields.git#develop",
     "react-helmet": "^5.0.3",
     "react-intl": "^2.2.3",
     "react-redux": "^5.0.4",
@@ -138,7 +137,6 @@
     "recompose": "^0.23.1",
     "redux-auth-wrapper": "^1.1.0",
     "redux-form": "^6.6.3",
-    "redux-mock-store": "^1.2.3",
     "redux-saga": "^0.14.8",
     "reselect": "^3.0.0"
   },
@@ -147,6 +145,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
+    "axios-mock-adapter": "^1.8.1",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",

@@ -5,16 +5,22 @@
 */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form/immutable';
+import PropTypes from 'prop-types';
+import {
+  Field,
+  reduxForm
+} from 'redux-form/immutable';
 import { injectIntl } from 'react-intl';
-import EmailField from 'react-form-fields/lib/EmailField';
-import PasswordField from 'react-form-fields/lib/PasswordField';
-import { ReduxFormInputWrapper } from '../WrappedInput';
+import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 const SignInForm = (props) => {
-  const { handleSubmit, pristine, submitting, valid } = props;
+  const {
+    handleSubmit,
+    pristine,
+    submitting,
+    valid,
+  } = props;
   const { formatMessage } = props.intl;
   const emailLabel = formatMessage(messages.email);
   const passwordLabel = formatMessage(messages.password);
@@ -33,18 +39,21 @@ const SignInForm = (props) => {
     <form onSubmit={onSubmit} noValidate>
       <Field
         name="email"
+        id="email"
+        type="email"
         label={emailLabel}
         placeholder={emailLabel}
         validate={[required, email]}
-        component={ReduxFormInputWrapper(EmailField)}
+        component={WrappedInput}
       />
       <Field
         name="password"
+        id="password"
         type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
         validate={[required]}
-        component={ReduxFormInputWrapper(PasswordField)}
+        component={WrappedInput}
       />
       <div>
         <button
@@ -56,13 +65,13 @@ const SignInForm = (props) => {
   );
 };
 
-// SignInForm.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired,
-//   pristine: PropTypes.bool.isRequired,
-//   submitting: PropTypes.bool.isRequired,
-//   valid: PropTypes.bool.isRequired,
-//   intl: PropTypes.object.isRequired,
-// };
+SignInForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  valid: PropTypes.bool.isRequired,
+  intl: PropTypes.object.isRequired,
+};
 
 export default reduxForm({
   form: 'signInForm',

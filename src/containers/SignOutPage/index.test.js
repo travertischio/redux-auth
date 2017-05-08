@@ -1,16 +1,27 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import {
+  getStoreWithInitialState,
+  findActionByType,
+  mountWithIntl,
+} from 'react-unit-testing-utils';
+import SignOutPage from './index';
+import { SIGN_OUT_ACTION } from './constants';
 
-// import { SignOutPage } from './index';
+describe('<SignOutPage />', () => {
+  it('should dispatch action SIGN_IN_ACTION on mount component', () => {
+    const store = getStoreWithInitialState({
+      auth: {
+        isAuthenticated: false,
+      },
+      signInPage: {},
+    });
 
-// describe('<SignOutPage />', () => {
-//   it('Expect to have unit tests specified', () => {
-//     expect(true).toEqual(false);
-//   });
-// });
+    mountWithIntl(<SignOutPage />, {
+      store,
+    });
 
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
+    const recivedAction = findActionByType(store, SIGN_OUT_ACTION);
+
+    expect(recivedAction.type).toEqual(SIGN_OUT_ACTION);
   });
 });

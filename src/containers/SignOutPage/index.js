@@ -15,7 +15,6 @@ const mapDispatchToProps = {
 
 @connect(null, mapDispatchToProps)
 export default class SignOutPage extends Component { // eslint-disable-line react/prefer-stateless-function
-
   componentDidMount() {
     this.props.signOut();
   }

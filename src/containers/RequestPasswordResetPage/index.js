@@ -29,7 +29,6 @@ const mapDispatchToProps = (dispatch) => ({
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
 export default class RequestPasswordResetPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-
   componentWillUnmount() {
     this.props.onUnMount();
   }

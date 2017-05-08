@@ -1,16 +1,12 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
+import React from 'react';
+import { createComponentWithIntl } from 'react-unit-testing-utils';
 
-// import ResetPasswordForm from '../index';
+import ResetPasswordForm from './';
 
-// describe('<ResetPasswordForm />', () => {
-//   it('Expect to have unit tests specified', () => {
-//     expect(true).toEqual(false);
-//   });
-// });
-
-describe('TODO', () => {
-  it('should write tests...', () => {
-    expect(true).toEqual(true);
+describe('<ResetPasswordForm />', () => {
+  it('should render ResetPasswordForm', () => {
+    const initialState = {};
+    const { component } = createComponentWithIntl(<ResetPasswordForm />, initialState);
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });

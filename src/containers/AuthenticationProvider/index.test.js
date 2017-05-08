@@ -1,27 +1,21 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { fromJS } from 'immutable';
-import configureStore from 'redux-mock-store';
+import { getStoreWithInitialState } from 'react-unit-testing-utils';
 import _isFunction from 'lodash/isFunction';
 import AuthenticationProvider from './index';
 import { refreshTokenAction } from './actions';
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
-let store;
-
 describe('<AuthenticationProvider /> and hasTokenRefreshed is false', () => {
   let wrapper;
+  let store;
 
   beforeEach(() => {
-    const initialState = fromJS({
+    store = getStoreWithInitialState({
       auth: {
         hasTokenRefreshed: false,
         isAuthenticated: false,
       },
     });
-
-    store = mockStore(initialState);
 
     wrapper = shallow(<AuthenticationProvider><p>I am child.</p></AuthenticationProvider>, {
       context: { store },
@@ -59,16 +53,15 @@ describe('<AuthenticationProvider /> and hasTokenRefreshed is false', () => {
 
 describe('<AuthenticationProvider /> and hasTokenRefreshed is true', () => {
   let wrapper;
+  let store;
 
   beforeEach(() => {
-    const initialState = fromJS({
+    store = getStoreWithInitialState({
       auth: {
         hasTokenRefreshed: true,
         isAuthenticated: false,
       },
     });
-
-    store = mockStore(initialState);
 
     wrapper = shallow(<AuthenticationProvider><p>I am child.</p></AuthenticationProvider>, {
       context: { store },
