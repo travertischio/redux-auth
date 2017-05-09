@@ -14,7 +14,7 @@ import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCEED_ACTION } from './constant
 
 const resetPasswordaAction = {
   payload: {
-    email: 'new@ydtech.co',
+    email: 'new-tester@test.com',
   },
 };
 

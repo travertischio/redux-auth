@@ -6,11 +6,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import {
   Field,
-  reduxForm
+  reduxForm,
 } from 'redux-form/immutable';
-import { injectIntl } from 'react-intl';
+import { required as requiredValidator } from 'validators/lib/required';
+import { email as emailValidator } from 'validators/lib/email';
 import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
@@ -43,7 +45,7 @@ const SignInForm = (props) => {
         type="email"
         label={emailLabel}
         placeholder={emailLabel}
-        validate={[required, email]}
+        validate={[requiredValidator, emailValidator]}
         component={WrappedInput}
       />
       <Field
@@ -52,7 +54,7 @@ const SignInForm = (props) => {
         type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
-        validate={[required]}
+        validate={[requiredValidator]}
         component={WrappedInput}
       />
       <div>
@@ -77,17 +79,3 @@ export default reduxForm({
   form: 'signInForm',
 })(injectIntl(SignInForm));
 
-// TODO: extract validation rules to seperate module
-function required(value) {
-  if (!value) {
-    return 'Field required';
-  }
-  return undefined;
-}
-
-function email(value) {
-  if (value && (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value))) {
-    return 'Email format invalid';
-  }
-  return undefined;
-}

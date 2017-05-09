@@ -16,7 +16,7 @@ const state = fromJS({
     hasTokenRefreshed: true,
     user: {
       id: 1,
-      email: 'user@ydtech.co',
+      email: 'tester@test.com',
       first_name: 'John',
       last_name: 'Smith',
     },

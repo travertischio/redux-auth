@@ -25,7 +25,7 @@ describe('<SignInPage />', () => {
       store,
     });
 
-    const email = 'team@arabel.la';
+    const email = 'tester@test.com';
     const password = 'zxy123';
 
     wrapper.find('input[name="email"]').simulate('change', { target: { value: email } });

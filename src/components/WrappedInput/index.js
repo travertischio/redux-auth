@@ -6,8 +6,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FormError from '../FormError';
 import _isArray from 'lodash/isArray';
+import FormError from '../FormError';
 
 function WrappedInput({ input, id, label, placeholder, type, meta: { asyncValidating, touched, error } }) {
   return (
@@ -49,7 +49,6 @@ function ReduxFormInputWrapper(InputComponent) {
     }
 
     getErrors() {
-
       const { error, touched } = this.props.meta;
 
       if (error && touched) {

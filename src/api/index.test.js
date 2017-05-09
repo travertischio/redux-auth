@@ -23,7 +23,7 @@ describe('redux-auth API', () => {
 
   describe('when calling signIn', () => {
     const credentials = {
-      email: 'team@arabel.la',
+      email: 'tester@test.com',
       password: 'xyz123',
     };
 
@@ -61,7 +61,7 @@ describe('redux-auth API', () => {
   describe('when calling requestPasswordReset(payload)', () => {
     it('should return promise and resolve it with payload', () => {
       const payload = {
-        email: 'team@arabel.la',
+        email: 'tester@test.com',
       };
       mock.onPost(`${API_HOST}/api/auth/reset-password`, payload).reply(200, payload);
 
@@ -92,7 +92,7 @@ describe('redux-auth API', () => {
     it('should return promise and resolve it with successAuthResponse', () => {
       const payload = {
         first_name: 'Jonhn',
-        email: 'team@arabel.la',
+        email: 'tester@test.com',
         password: 'asd123',
         confirm_password: 'asd123',
       };

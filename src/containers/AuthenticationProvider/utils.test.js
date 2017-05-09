@@ -5,20 +5,21 @@ import { setTokenInStorage, getTokenFromStorage, removeTokenFromStorage, getStat
 import { TOKEN_KEY } from './constants';
 
 describe('authentication utils', () => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlYW1AYXJhYmVsLmxhIiwib3JpZ19pYXQiOjE0OTIwMTAwNzYsInVzZXIiOnsiZmlyc3RfbmFtZSI6InRlYW0iLCJsYXN0X25hbWUiOiJhcmFiZWxsYSB0ZXN0IiwiYXZhdGFyIjpudWxsLCJlbWFpbCI6InRlYW1AYXJhYmVsLmxhIiwiaWQiOjF9LCJleHAiOjE0OTIwMTAzNzYsInVzZXJfaWQiOjEsImVtYWlsIjoidGVhbUBhcmFiZWwubGEifQ.hRSOsGt-Q6amkh2oJS2ZqHsESQA7fZ_qRgFYME5qTw8';
+  const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJ1c2VybmFtZSI6InRlc3RlckB0ZXN0LmNvbSIsImV4cCI6MTQ5NDMzMDE4NSwib3JpZ19pYXQiOjE0OTQzMjk4ODUsInVzZXIiOnsiZmlyc3RfbmFtZSI6IkpvaG4iLCJpZCI6NDYsImxhc3RfbmFtZSI6IlNtaXRoIiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJyb2xlIjoiMTBfZXhhbXBsZV91c2VyIiwiYXZhdGFyIjpudWxsfX0.H9D75K9NhbQutLFzqAbvrZYe9b0jmTUwaaazq0BzUrM';
   const decodedToken = {
-    username: 'team@arabel.la',
-    orig_iat: 1492010076,
+    user_id: 46,
+    email: 'tester@test.com',
+    username: 'tester@test.com',
+    exp: 1494330185,
+    orig_iat: 1494329885,
     user: {
-      first_name: 'team',
-      last_name: 'arabella test',
+      first_name: 'John',
+      id: 46,
+      last_name: 'Smith',
+      email: 'tester@test.com',
+      role: '10_example_user',
       avatar: null,
-      email: 'team@arabel.la',
-      id: 1,
     },
-    exp: 1492010376,
-    user_id: 1,
-    email: 'team@arabel.la',
   };
   const emptyStateData = {
     isAuthenticated: false,

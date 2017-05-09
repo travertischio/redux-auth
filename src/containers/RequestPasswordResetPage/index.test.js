@@ -25,7 +25,7 @@ describe('<RequestPasswordResetPage />', () => {
       store,
     });
 
-    const email = 'team@arabel.la';
+    const email = 'tester@test.com';
 
     wrapper.find('input[name="email"]').simulate('change', { target: { value: email } });
     wrapper.find('form').simulate('submit');

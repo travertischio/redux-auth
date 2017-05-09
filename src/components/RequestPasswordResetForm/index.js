@@ -6,8 +6,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl } from 'react-intl';
+import {
+  Field,
+  reduxForm,
+} from 'redux-form/immutable';
+import { required as requiredValidator } from 'validators/lib/required';
+import { email as emailValidator } from 'validators/lib/email';
 import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
@@ -39,7 +44,7 @@ function RequestPasswordResetForm(props) {
         type="email"
         label={emailLabel}
         placeholder={emailLabel}
-        validate={[required, email]}
+        validate={[requiredValidator, emailValidator]}
         component={WrappedInput}
       />
       <div>
@@ -59,21 +64,6 @@ RequestPasswordResetForm.propTypes = {
   valid: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired,
 };
-
-// TODO: extract validation rules to seperate module
-function required(value) {
-  if (!value) {
-    return 'Field required';
-  }
-  return undefined;
-}
-
-function email(value) {
-  if (value && (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value))) {
-    return 'Email format invalid';
-  }
-  return undefined;
-}
 
 export default reduxForm({
   form: 'requestPasswordResetForm',

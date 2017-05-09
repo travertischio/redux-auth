@@ -11,7 +11,7 @@ describe('AuthenticationContext', () => {
     TestComponentWithAuthContext = compose(AuthenticationContext)(TestComponent);
   });
 
-  it('should component has isAuthenticated property with true value', () => {
+  it('should component have isAuthenticated property with true value', () => {
     const renderedComponent = shallow(<TestComponentWithAuthContext />, {
       context: { isAuthenticated: true },
     });
