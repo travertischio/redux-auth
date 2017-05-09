@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RequestPasswordResetForm /> should render RequestPasswordResetForm 1`] = `
+<form
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="email"
+    >
+      E-mail
+    </label>
+    <div
+      className=""
+    >
+      <input
+        id="email"
+        name="email"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="E-mail"
+        type="email"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>
+`;

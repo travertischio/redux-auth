@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignInPage /> should NOT render SignInPage when user IS authenticated 1`] = `null`;
+
+exports[`<SignInPage /> should render SignInPage when user IS NOT authenticated 1`] = `
+<div>
+  <form
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="email"
+      >
+        E-mail
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="email"
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="E-mail"
+          type="email"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <label
+        htmlFor="password"
+      >
+        Password
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="password"
+          name="password"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <button
+        disabled={true}
+        type="submit"
+      >
+        Sign In
+      </button>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`<SignInPage /> should render SignInPage with error message when errorMessage is in the props 1`] = `
+<div>
+  <div>
+    Unable to sign in. Please try again.
+  </div>
+  <form
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="email"
+      >
+        E-mail
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="email"
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="E-mail"
+          type="email"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <label
+        htmlFor="password"
+      >
+        Password
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="password"
+          name="password"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <button
+        disabled={true}
+        type="submit"
+      >
+        Sign In
+      </button>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`<SignInPage /> should render SignInPage with loading indicator when loading is in the props 1`] = `
+<div>
+  <div>
+    Processing... Please wait.
+  </div>
+  <form
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="email"
+      >
+        E-mail
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="email"
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="E-mail"
+          type="email"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <label
+        htmlFor="password"
+      >
+        Password
+      </label>
+      <div
+        className=""
+      >
+        <input
+          id="password"
+          name="password"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <button
+        disabled={true}
+        type="submit"
+      >
+        Sign In
+      </button>
+    </div>
+  </form>
+</div>
+`;

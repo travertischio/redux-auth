@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with error message when errorMessage is in the props 1`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Choose a new password
+      </span>
+    </h1>
+    <p>
+      <span>
+        Oops, that token has expired. Please click the button below to request new password.
+      </span>
+    </p>
+    <div>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
+        <div>
+          <label
+            htmlFor="new_password"
+          >
+            New password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="new_password"
+              name="new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Enter new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="re_new_password"
+          >
+            Retype new password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="re_new_password"
+              name="re_new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Retype new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with invalid token error message 1`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Choose a new password
+      </span>
+    </h1>
+    <a
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <span>
+        Request new password
+      </span>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with invalid token error message 2`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Choose a new password
+      </span>
+    </h1>
+    <a
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <span>
+        Request new password
+      </span>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with loading indicator when loading is in the props 1`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Choose a new password
+      </span>
+    </h1>
+    <div>
+      Processing... Please wait.
+    </div>
+    <div>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
+        <div>
+          <label
+            htmlFor="new_password"
+          >
+            New password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="new_password"
+              name="new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Enter new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="re_new_password"
+          >
+            Retype new password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="re_new_password"
+              name="re_new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Retype new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with success message 1`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Your password has been changed successfully.
+      </span>
+    </h1>
+    <div>
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span>
+          Go to sign in page.
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with the reset password form 1`] = `
+<div>
+  <div>
+    <h1>
+      <span>
+        Choose a new password
+      </span>
+    </h1>
+    <div>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
+        <div>
+          <label
+            htmlFor="new_password"
+          >
+            New password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="new_password"
+              name="new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Enter new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="re_new_password"
+          >
+            Retype new password
+          </label>
+          <div
+            className=""
+          >
+            <input
+              id="re_new_password"
+              name="re_new_password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Retype new password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;
