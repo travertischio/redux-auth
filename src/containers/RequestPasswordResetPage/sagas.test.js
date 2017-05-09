@@ -13,7 +13,7 @@ import { REQUEST_PASSWORD_RESET_ACTION } from './constants';
 
 const requestPasswordResetAction = {
   payload: {
-    email: 'tester@ydtech.co',
+    email: 'tester@test.com',
   },
 };
 

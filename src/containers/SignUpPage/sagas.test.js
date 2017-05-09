@@ -14,7 +14,7 @@ import { SIGN_UP_ACTION, SIGN_UP_SUCCEED_ACTION } from './constants';
 
 const signUpAction = {
   payload: {
-    email: 'tester@ydtech.co',
+    email: 'tester@test.com',
     password: 'xyz123',
   },
 };

@@ -26,7 +26,7 @@ describe('<SignUpPage />', () => {
     });
 
     const firstName = 'John';
-    const email = 'team@arabel.la';
+    const email = 'tester@test.com';
     const password = 'zxy123';
 
     wrapper.find('input[name="first_name"]').simulate('change', { target: { value: firstName } });
