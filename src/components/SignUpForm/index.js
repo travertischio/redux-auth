@@ -1,20 +1,24 @@
 /**
 *
-* SignUp
+* SignUpForm
 *
 */
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import {
   Field,
-  reduxForm
+  reduxForm,
 } from 'redux-form/immutable';
-import { injectIntl } from 'react-intl';
+import { required as requiredValidator } from 'validators/lib/required';
+import { email as emailValidator } from 'validators/lib/email';
+import { setOfPasswordValidators } from 'validators/lib/setOfPasswordValidators';
+import { matchToPassowrd as matchToPassowrdValidator } from 'validators/lib/matchToPassowrd';
 import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
-export const SignUpForm = (props) => { // eslint-disable-line react/prefer-stateless-function
+export const SignUpForm = (props) => {
   const {
     handleSubmit,
     pristine,
@@ -45,7 +49,7 @@ export const SignUpForm = (props) => { // eslint-disable-line react/prefer-state
         type="text"
         label={firstNameLabel}
         placeholder={firstNameLabel}
-        validate={[required]}
+        validate={[requiredValidator]}
         component={WrappedInput}
       />
       <Field
@@ -54,7 +58,7 @@ export const SignUpForm = (props) => { // eslint-disable-line react/prefer-state
         type="email"
         label={emailLabel}
         placeholder={emailLabel}
-        validate={[required, email]}
+        validate={[requiredValidator, emailValidator]}
         component={WrappedInput}
       />
       <Field
@@ -63,7 +67,7 @@ export const SignUpForm = (props) => { // eslint-disable-line react/prefer-state
         type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
-        validate={[required]}
+        validate={setOfPasswordValidators}
         component={WrappedInput}
       />
       <Field
@@ -72,7 +76,7 @@ export const SignUpForm = (props) => { // eslint-disable-line react/prefer-state
         type="password"
         label={confirmPasswordLabel}
         placeholder={confirmPasswordLabel}
-        validate={[required]}
+        validate={[requiredValidator, matchToPassowrdValidator]}
         component={WrappedInput}
       />
       <div>
@@ -96,18 +100,3 @@ SignUpForm.propTypes = {
 export default reduxForm({
   form: 'signUpForm',
 })(injectIntl(SignUpForm));
-
-// TODO: extract validation rules to seperate module
-function required(value) {
-  if (!value) {
-    return 'Field required';
-  }
-  return undefined;
-}
-
-function email(value) {
-  if (value && (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value))) {
-    return 'Email format invalid';
-  }
-  return undefined;
-}

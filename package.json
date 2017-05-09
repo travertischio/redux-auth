@@ -13,7 +13,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "lint": "npm run lint:js",
-    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals/scripts",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern 'flow-typed/' --ignore-pattern 'lib/'",
     "lint:js": "npm run lint:eslint -- . ",
     "lint:staged": "lint-staged"
   },
@@ -101,6 +101,7 @@
       "react/jsx-no-target-blank": 0,
       "react/require-extension": 0,
       "react/self-closing-comp": 0,
+      "react/require-default-props": 0,
       "require-yield": 0,
       "import/no-webpack-loader-syntax": 0
     },
@@ -138,7 +139,9 @@
     "redux-auth-wrapper": "^1.1.0",
     "redux-form": "^6.6.3",
     "redux-saga": "^0.14.8",
-    "reselect": "^3.0.0"
+    "reselect": "^3.0.0",
+    "validators": "https://bitbucket.org/arabellatech/validators#develop",
+    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#develop"
   },
   "peerDependencies": {
     "react-intl": "^2.2.3"

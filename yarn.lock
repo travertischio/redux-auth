@@ -5241,6 +5241,14 @@ react-test-renderer@^15.5.4:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
 
+"react-unit-testing-utils@https://bitbucket.org/arabellatech/react-unit-testing-utils#develop":
+  version "1.0.0"
+  resolved "https://bitbucket.org/arabellatech/react-unit-testing-utils#a0d6c52d35eef3da150613bd21c582d88a150709"
+  dependencies:
+    react-intl "^2.2.3"
+    react-test-renderer "^15.5.4"
+    redux-mock-store "^1.2.3"
+
 react@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
@@ -5352,6 +5360,10 @@ redux-form@^6.6.3:
     lodash "^4.17.3"
     lodash-es "^4.17.3"
     prop-types "^15.5.6"
+
+redux-mock-store@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.2.3.tgz#1b3ad299da91cb41ba30d68e3b6f024475fb9e1b"
 
 redux-saga-test-plan@^2.4.4:
   version "2.4.4"
@@ -6151,6 +6163,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
+
+"validators@https://bitbucket.org/arabellatech/validators#feature/ARD-194-Create-node-module-with-validators":
+  version "1.0.0"
+  resolved "https://bitbucket.org/arabellatech/validators#f55c693f9c3076d79178fff505c1eb4a28508557"
 
 vary@~1.1.0:
   version "1.1.1"
