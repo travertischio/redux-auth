@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
+<form
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <div>
+    <label
+      htmlFor="new_password"
+    >
+      New password
+    </label>
+    <div
+      className=""
+    >
+      <input
+        id="new_password"
+        name="new_password"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="Enter new password"
+        type="password"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <label
+      htmlFor="re_new_password"
+    >
+      Retype new password
+    </label>
+    <div
+      className=""
+    >
+      <input
+        id="re_new_password"
+        name="re_new_password"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="Retype new password"
+        type="password"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Save
+    </button>
+  </div>
+</form>
+`;

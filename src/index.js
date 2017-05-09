@@ -1,9 +1,10 @@
-import React from 'react'
+import AuthenticationProvider from './containers/AuthenticationProvider';
+import reducer from './containers/AuthenticationProvider/reducer';
+import sagas from './containers/AuthenticationProvider/sagas';
 
-export default React.createClass({
-  render() {
-    return (<div>
-      <h2>This is sample component to work on!</h2>
-    </div>);
-  }
-})
+export default AuthenticationProvider;
+export {
+  AuthenticationProvider,
+  reducer,
+  sagas,
+};
