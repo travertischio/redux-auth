@@ -126,24 +126,22 @@
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js"
   },
   "dependencies": {
-    "axios": "^0.16.1",
-    "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.18.1",
-    "react-helmet": "^5.0.3",
-    "react-intl": "^2.2.3",
-    "react-redux": "^5.0.4",
-    "react-router": "3.0.0",
-    "react-router-redux": "^4.0.8",
-    "recompose": "^0.23.1",
     "redux-auth-wrapper": "^1.1.0",
-    "redux-form": "^6.6.3",
-    "redux-saga": "^0.14.8",
-    "reselect": "^3.0.0",
     "validators": "https://bitbucket.org/arabellatech/validators#develop",
-    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#develop"
+    "api-client": "https://bitbucket.org/arabellatech/api-client#develop"
   },
   "peerDependencies": {
+    "redux-form": "^6.6.3",
+    "reselect": "^3.0.0",
+    "moment": "^2.18.1",
+    "react-helmet": "^5.0.3",
+    "react-redux": "^5.0.4",
+    "recompose": "^0.23.1",
+    "immutable": "^3.8.1",
+    "redux-saga": "^0.14.8",
+    "react-router": "3.0.0",
+    "react-router-redux": "^4.0.8",
     "react-intl": "^2.2.3"
   },
   "devDependencies": {
@@ -174,6 +172,7 @@
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
     "redux-saga-test-plan": "^2.4.4",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#develop"
   }
 }

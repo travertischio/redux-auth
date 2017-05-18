@@ -1,33 +1,32 @@
-import * as axios from 'axios';
-
-// TODO move it to global settings
-export const API_HOST = 'https://demo-api-dev.arabel.la';
+import apiClient, { setHeaders, apiHost } from 'api-client';
 
 export function signIn(credentials) {
-  const endPoint = `${API_HOST}/api/auth/login`;
+  console.log('apiHost', apiHost, credentials);
   const config = {
     headers: { Accept: 'application/json; version=2' },
   };
-  return axios.post(endPoint, credentials, config);
+  return apiClient.post('/auth/login', credentials, config);
 }
 
 export function refreshToken(token) {
-  const endPoint = `${API_HOST}/api/auth/9743a66f914cc249efca164485a19c5c`;
   const payload = { token };
-  return axios.post(endPoint, payload);
+  return apiClient.post('/auth/9743a66f914cc249efca164485a19c5c', payload);
 }
 
 export function requestPasswordReset(payload) {
-  const endPoint = `${API_HOST}/api/auth/reset-password`;
-  return axios.post(endPoint, payload);
+  return apiClient.post('/auth/reset-password', payload);
 }
 
 export function resetPassword(payload) {
-  const endPoint = `${API_HOST}/api/auth/reset-password-confirm`;
-  return axios.post(endPoint, payload);
+  return apiClient.post('/auth/reset-password-confirm', payload);
 }
 
 export function signUp(payload) {
-  const endPoint = `${API_HOST}/api/user/register`;
-  return axios.post(endPoint, payload);
+  return apiClient.post('/user/register', payload);
+}
+
+export function setAuthorizationTokenInHeaders(token) {
+  setHeaders({
+    Authorization: `JWT ${token}`,
+  });
 }
