@@ -1,7 +1,6 @@
 import apiClient, { setHeaders, apiHost } from 'api-client';
 
 export function signIn(credentials) {
-  console.log('apiHost', apiHost, credentials);
   const config = {
     headers: { Accept: 'application/json; version=2' },
   };
