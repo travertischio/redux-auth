@@ -127,7 +127,7 @@
   },
   "dependencies": {
     "jwt-decode": "^2.2.0",
-    "redux-auth-wrapper": "^1.1.0",
+    "redux-auth-wrapper": "^1.1.0"
   },
   "peerDependencies": {
     "redux-form": "^6.6.3",
