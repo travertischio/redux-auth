@@ -14,7 +14,7 @@ import {
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
 import { setOfPasswordValidators } from 'validators/lib/setOfPasswordValidators';
-import { matchToPassowrd as matchToPassowrdValidator } from 'validators/lib/matchToPassowrd';
+import { matchToPassword as matchToPasswordValidator } from 'validators/lib/matchToPassword';
 import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
@@ -76,7 +76,7 @@ export const SignUpForm = (props) => {
         type="password"
         label={confirmPasswordLabel}
         placeholder={confirmPasswordLabel}
-        validate={[requiredValidator, matchToPassowrdValidator]}
+        validate={[requiredValidator, matchToPasswordValidator]}
         component={WrappedInput}
       />
       <div>
