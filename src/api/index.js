@@ -1,4 +1,4 @@
-import apiClient, { setHeaders, apiHost } from 'api-client';
+import apiClient, { setHeaders } from 'api-client';
 
 export function signIn(credentials) {
   const config = {
