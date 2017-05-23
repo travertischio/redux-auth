@@ -1,6 +1,6 @@
 {
   "name": "redux-auth",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Set of authentication components and containers such as: Sign In, Sign Up, Sign Out, Reset Password, authorization wrappers",
   "repository": "git@bitbucket.org:arabellatech/redux-auth.git",
   "author": "Arabella Front-End Team",
@@ -127,9 +127,7 @@
   },
   "dependencies": {
     "jwt-decode": "^2.2.0",
-    "redux-auth-wrapper": "^1.1.0",
-    "validators": "https://bitbucket.org/arabellatech/validators#develop",
-    "api-client": "https://bitbucket.org/arabellatech/api-client#develop"
+    "redux-auth-wrapper": "^1.1.0"
   },
   "peerDependencies": {
     "redux-form": "^6.6.3",
@@ -142,7 +140,9 @@
     "redux-saga": "^0.14.8",
     "react-router": "3.0.0",
     "react-router-redux": "^4.0.8",
-    "react-intl": "^2.2.3"
+    "react-intl": "^2.2.3",
+    "validators": "https://bitbucket.org/arabellatech/validators#develop",
+    "api-client": "https://bitbucket.org/arabellatech/api-client#develop"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",

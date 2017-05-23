@@ -13,7 +13,7 @@ import {
 } from 'redux-form/immutable';
 import { required as requiredValidator } from 'validators/lib/required';
 import { setOfPasswordValidators } from 'validators/lib/setOfPasswordValidators';
-import { matchToNewPassowrd as matchToNewPassowrdValidator } from 'validators/lib/matchToNewPassowrd';
+import { matchToNewPassword as matchToNewPasswordValidator } from 'validators/lib/matchToNewPassword';
 import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
@@ -57,7 +57,7 @@ function ResetPasswordForm(props) {
         type="password"
         label={reNewPassword}
         placeholder={reNewPasswordPlaceholder}
-        validate={[requiredValidator, matchToNewPassowrdValidator]}
+        validate={[requiredValidator, matchToNewPasswordValidator]}
         component={WrappedInput}
       />
       <div>
