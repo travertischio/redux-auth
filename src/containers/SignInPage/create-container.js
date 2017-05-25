@@ -12,7 +12,7 @@ import {
   destroyPageAction,
 } from './actions';
 
-export default function createSignInContainer(PageComponent) {
+export default function createSignInContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
     SignInPage: selectSignInPage,
   });
@@ -41,7 +41,7 @@ export default function createSignInContainer(PageComponent) {
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div>
+        <div className={options.className}>
           <Helmet
             title={pageTitle}
             meta={[

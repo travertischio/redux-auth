@@ -12,7 +12,7 @@ import {
   destroyPageAction,
   } from './actions';
 
-export default function createRequestPasswordResetContainer(PageComponent) {
+export default function createRequestPasswordResetContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
     RequestPasswordResetPage: selectRequestPasswordResetPage,
   });
@@ -52,7 +52,7 @@ export default function createRequestPasswordResetContainer(PageComponent) {
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div>
+        <div className={options.className}>
           <Helmet
             title={pageTitle}
             meta={[

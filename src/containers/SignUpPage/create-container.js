@@ -9,7 +9,7 @@ import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
 
-export default function createSignUpContainer(PageComponent) {
+export default function createSignUpContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
     SignUpPage: selectSignUpPage,
   });
@@ -32,7 +32,7 @@ export default function createSignUpContainer(PageComponent) {
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div>
+        <div className={options.className}>
           <Helmet
             title={pageTitle}
             meta={[
