@@ -35,7 +35,7 @@ function resetPasswordPageReducer(state = initialState, action) {
 function onResetPasswordAction(state) {
   return state.merge({
     loading: true,
-    errorMessage: false,
+    errorMessage: null,
     success: false,
   });
 }
@@ -43,7 +43,7 @@ function onResetPasswordAction(state) {
 function onResetPasswordSucceedAction(state) {
   return state.merge({
     loading: false,
-    errorMessage: false,
+    errorMessage: null,
     success: true,
   });
 }

@@ -12,7 +12,7 @@ import {
   destroyPageAction,
 } from './actions';
 
-export default function createSignInContainer(FormComponent) {
+export default function createSignInContainer(PageComponent) {
   const mapStateToProps = createStructuredSelector({
     SignInPage: selectSignInPage,
   });
@@ -28,8 +28,6 @@ export default function createSignInContainer(FormComponent) {
   class SignInContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
       intl: PropTypes.object,
-      SignInPage: PropTypes.object,
-      onSubmitForm: PropTypes.func,
       onUnMount: PropTypes.func,
     };
 
@@ -38,13 +36,6 @@ export default function createSignInContainer(FormComponent) {
     }
 
     render() {
-      const {
-        onSubmitForm,
-        SignInPage: {
-          loading,
-          errorMessage,
-        },
-      } = this.props;
       const { formatMessage } = this.props.intl;
       const pageTitle = formatMessage(messages.pageTitle);
       const pageDescription = formatMessage(messages.pageDescription);
@@ -58,10 +49,7 @@ export default function createSignInContainer(FormComponent) {
             ]}
           />
 
-          { loading && <div>Processing... Please wait.</div> }
-          { errorMessage && <div>{errorMessage}</div> }
-
-          <FormComponent onSubmit={onSubmitForm} />
+          <PageComponent {...this.props} />
         </div>
       );
     }

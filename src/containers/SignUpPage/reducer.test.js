@@ -11,7 +11,7 @@ describe('SignUpPage reducer', () => {
     it('should return the initial state', () => {
       const initialState = fromJS({
         loading: false,
-        errorMessage: false,
+        errorMessage: null,
       });
 
       expect(signUpPageReducer(undefined, {})).toEqual(fromJS({}));
@@ -20,7 +20,7 @@ describe('SignUpPage reducer', () => {
   });
 
   describe('call with action: { type: SIGN_UP_ACTION }', () => {
-    it('should return { loading: true, errorMessage: false }', () => {
+    it('should return { loading: true, errorMessage: null }', () => {
       const initialState = fromJS({
         loading: false,
         errorMessage: true,
@@ -33,7 +33,7 @@ describe('SignUpPage reducer', () => {
       );
       const expected = fromJS({
         loading: true,
-        errorMessage: false,
+        errorMessage: null,
       });
 
       expect(received).toEqual(expected);
@@ -41,7 +41,7 @@ describe('SignUpPage reducer', () => {
   });
 
   describe('call with action: { type: SIGN_UP_SUCCEED_ACTION }', () => {
-    it('should return { loading: false, errorMessage: false }', () => {
+    it('should return { loading: false, errorMessage: null }', () => {
       const initialState = fromJS({
         loading: true,
         errorMessage: true,
@@ -54,7 +54,7 @@ describe('SignUpPage reducer', () => {
       );
       const expected = fromJS({
         loading: false,
-        errorMessage: false,
+        errorMessage: null,
       });
 
       expect(received).toEqual(expected);
@@ -62,7 +62,7 @@ describe('SignUpPage reducer', () => {
   });
 
   describe('call with action: { type: SIGN_UP_FAILED_ACTION, payload }', () => {
-    it('should return { loading: false, errorMessage: false } for payload.response.status !== 400', () => {
+    it('should return { loading: false, errorMessage: null } for payload.response.status !== 400', () => {
       const initialState = fromJS({
         loading: true,
       });
@@ -78,7 +78,7 @@ describe('SignUpPage reducer', () => {
       );
       const expected = fromJS({
         loading: false,
-        errorMessage: false,
+        errorMessage: null,
       });
 
       expect(received).toEqual(expected);

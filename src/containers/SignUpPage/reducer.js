@@ -27,12 +27,12 @@ function signUpPageReducer(state = initialState, action) {
 
 export const onSignUpAction = (state) => state.merge({
   loading: true,
-  errorMessage: false,
+  errorMessage: null,
 });
 
 export const onSignUpSucceedAction = (state) => state.merge({
   loading: false,
-  errorMessage: false,
+  errorMessage: null,
 });
 
 // TODO handle field errors!

@@ -24,7 +24,7 @@ describe('requestPasswordResetPageReducer', () => {
     it('should update state', () => {
       const expectedState = currentState.merge({
         loading: true,
-        errorMessage: false,
+        errorMessage: null,
         sent: false,
       });
       expect(currentState.toJS()).toEqual(expectedState.toJS());
@@ -38,7 +38,7 @@ describe('requestPasswordResetPageReducer', () => {
       it('should update state', () => {
         const expectedState = currentState.merge({
           loading: false,
-          errorMessage: false,
+          errorMessage: null,
           sent: true,
         });
         expect(currentState.toJS()).toEqual(expectedState.toJS());

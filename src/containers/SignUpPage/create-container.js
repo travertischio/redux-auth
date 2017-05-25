@@ -9,7 +9,7 @@ import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
 
-export default function createSignUpContainer(FormComponent) {
+export default function createSignUpContainer(PageComponent) {
   const mapStateToProps = createStructuredSelector({
     SignUpPage: selectSignUpPage,
   });
@@ -23,19 +23,10 @@ export default function createSignUpContainer(FormComponent) {
   @connect(mapStateToProps, mapDispatchToProps)
   class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
-      SignUpPage: PropTypes.object,
-      onSubmitForm: PropTypes.func,
       intl: PropTypes.object,
     };
 
     render() {
-      const {
-        onSubmitForm,
-        SignUpPage: {
-          loading,
-          errorMessage,
-        },
-      } = this.props;
       const { formatMessage } = this.props.intl;
       const pageTitle = formatMessage(messages.pageTitle);
       const pageDescription = formatMessage(messages.pageDescription);
@@ -52,10 +43,7 @@ export default function createSignUpContainer(FormComponent) {
             ]}
           />
 
-          { loading && <div>Processing... Please wait.</div> }
-          { errorMessage && <div>{errorMessage}</div> }
-
-          <FormComponent onSubmit={onSubmitForm} />
+          <PageComponent {...this.props} />
         </div>
       );
     }

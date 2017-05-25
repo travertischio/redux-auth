@@ -2,10 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import {
-  FormattedMessage,
-  injectIntl,
-} from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectRequestPasswordResetPage from './selectors';
@@ -15,7 +12,7 @@ import {
   destroyPageAction,
   } from './actions';
 
-export default function createRequestPasswordResetContainer(FormComponent) {
+export default function createRequestPasswordResetContainer(PageComponent) {
   const mapStateToProps = createStructuredSelector({
     RequestPasswordResetPage: selectRequestPasswordResetPage,
   });
@@ -32,7 +29,6 @@ export default function createRequestPasswordResetContainer(FormComponent) {
     static propTypes = {
       intl: PropTypes.object,
       RequestPasswordResetPage: PropTypes.object,
-      onSubmitForm: PropTypes.func,
       onUnMount: PropTypes.func,
     };
 
@@ -50,48 +46,6 @@ export default function createRequestPasswordResetContainer(FormComponent) {
       return errorMessage;
     }
 
-    renderSuccessMessage() {
-      return (
-        <div>
-          <h1><FormattedMessage {...messages.successHeader} /></h1>
-          <p><FormattedMessage {...messages.successMessage} /></p>
-          <p><FormattedMessage {...messages.successMessageSpamTip} /></p>
-        </div>
-      );
-    }
-
-    renderRequestPasswordResetForm() {
-      const {
-        onSubmitForm,
-        RequestPasswordResetPage: {
-          loading,
-        },
-      } = this.props;
-
-      const errorMessage = this.getErrorMessage();
-
-      return (
-        <div>
-          <h1><FormattedMessage {...messages.header} /></h1>
-
-          { loading && <div>Processing... Please wait.</div> }
-          { errorMessage && <p><FormattedMessage {...errorMessage} /></p> }
-
-          <FormComponent onSubmit={onSubmitForm} />
-        </div>
-      );
-    }
-
-    renderInner() {
-      const sent = this.props.RequestPasswordResetPage.sent;
-
-      if (sent) {
-        return this.renderSuccessMessage();
-      }
-
-      return this.renderRequestPasswordResetForm();
-    }
-
     render() {
       const { formatMessage } = this.props.intl;
       const pageTitle = formatMessage(messages.pageTitle);
@@ -106,7 +60,7 @@ export default function createRequestPasswordResetContainer(FormComponent) {
             ]}
           />
 
-          { this.renderInner() }
+          <PageComponent errorMessage={this.getErrorMessage()} {...this.props} />
         </div>
       );
     }
