@@ -33,14 +33,14 @@ function signInPageReducer(state = initialState, action) {
 function onSignInAction(state) {
   return state.merge({
     loading: true,
-    errorMessage: false,
+    errorMessage: null,
   });
 }
 
 function onSignSucceedAction(state) {
   return state.merge({
     loading: false,
-    errorMessage: false,
+    errorMessage: null,
   });
 }
 

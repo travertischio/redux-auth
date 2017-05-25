@@ -32,7 +32,7 @@ function requestPasswordResetPageReducer(state = initialState, action) {
 function onRequestPasswordResetAction(state) {
   return state.merge({
     loading: true,
-    errorMessage: false,
+    errorMessage: null,
     sent: false,
   });
 }
@@ -40,7 +40,7 @@ function onRequestPasswordResetAction(state) {
 function onRequestPasswordResetSucceedAction(state) {
   return state.merge({
     loading: false,
-    errorMessage: false,
+    errorMessage: null,
     sent: true,
   });
 }
