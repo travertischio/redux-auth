@@ -17,10 +17,10 @@ export default function createRequestPasswordResetContainer(PageComponent) {
     RequestPasswordResetPage: selectRequestPasswordResetPage,
   });
 
-  const mapDispatchToProps = (dispatch) => ({
-    onSubmitForm: (values) => dispatch(requestPasswordResetAction(values)),
-    onUnMount: () => dispatch(destroyPageAction()),
-  });
+  const mapDispatchToProps = {
+    onSubmitForm: requestPasswordResetAction,
+    onUnMount: destroyPageAction,
+  };
 
   @UserIsNotAuthenticated
   @injectIntl

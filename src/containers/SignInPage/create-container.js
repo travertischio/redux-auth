@@ -17,10 +17,10 @@ export default function createSignInContainer(PageComponent) {
     SignInPage: selectSignInPage,
   });
 
-  const mapDispatchToProps = (dispatch) => ({
-    onSubmitForm: (values) => dispatch(signInAction(values)),
-    onUnMount: () => dispatch(destroyPageAction()),
-  });
+  const mapDispatchToProps = {
+    onSubmitForm: signInAction,
+    onUnMount: destroyPageAction,
+  };
 
   @UserIsNotAuthenticated
   @injectIntl

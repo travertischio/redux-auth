@@ -18,10 +18,10 @@ export default function createResetPasswordContainer(PageComponent) {
     ResetPasswordPage: selectResetPasswordPage,
   });
 
-  const mapDispatchToProps = (dispatch) => ({
-    onSubmitForm: (values) => dispatch(resetPasswordAction(values)),
-    onUnMount: () => dispatch(destroyPageAction()),
-  });
+  const mapDispatchToProps = {
+    onSubmitForm: resetPasswordAction,
+    onUnMount: destroyPageAction,
+  };
 
   @connect(mapStateToProps, mapDispatchToProps)
   @compose(AuthenticationContext)
