@@ -8,7 +8,7 @@ import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { requestPasswordReset as requestPasswordResetApiCall } from '../../api';
 import { defaultSaga, requestPasswordReset } from './sagas';
-import { requestPasswordResetSucceedAction, requestPasswordResetFailedAction } from './actions';
+import { requestPasswordResetSuccessAction, requestPasswordResetFailedAction } from './actions';
 import { REQUEST_PASSWORD_RESET_ACTION } from './constants';
 
 const requestPasswordResetAction = {
@@ -36,7 +36,7 @@ it('requestPasswordReset and sign in success', () => {
     .next()
     .call(requestPasswordResetApiCall, requestPasswordResetAction.payload)
     .next()
-    .put(requestPasswordResetSucceedAction())
+    .put(requestPasswordResetSuccessAction())
     .finish()
     .isDone();
 });

@@ -9,8 +9,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
 import { resetPassword as resetPasswordApiCall } from '../../api';
 import { defaultSaga, resetPasswordSaga } from './sagas';
-import { resetPasswordSucceedAction, resetPasswordFailedAction } from './actions';
-import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCEED_ACTION } from './constants';
+import { resetPasswordSuccessAction, resetPasswordFailedAction } from './actions';
+import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCESS_ACTION } from './constants';
 
 const resetPasswordaAction = {
   payload: {
@@ -26,7 +26,7 @@ it('defaultSaga', () => {
     .next()
     .takeLatestFork(RESET_PASSWORD_ACTION, resetPasswordSaga)
     .next(task1)
-    .takeEveryFork(RESET_PASSWORD_SUCCEED_ACTION, setTokenIfExistsSaga)
+    .takeEveryFork(RESET_PASSWORD_SUCCESS_ACTION, setTokenIfExistsSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()
@@ -42,7 +42,7 @@ it('resetPasswordSaga and succeed', () => {
     .next()
     .call(resetPasswordApiCall, resetPasswordaAction.payload)
     .next()
-    .put(resetPasswordSucceedAction())
+    .put(resetPasswordSuccessAction())
     .finish()
     .isDone();
 });

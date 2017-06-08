@@ -6,7 +6,7 @@
 
 import {
   SIGN_UP_ACTION,
-  SIGN_UP_SUCCEED_ACTION,
+  SIGN_UP_SUCCESS_ACTION,
   SIGN_UP_FAILED_ACTION,
 } from './constants';
 
@@ -15,8 +15,8 @@ export const signUpAction = (userData) => ({
   payload: userData,
 });
 
-export const signUpSucceedAction = (response) => ({
-  type: SIGN_UP_SUCCEED_ACTION,
+export const signUpSuccessAction = (response) => ({
+  type: SIGN_UP_SUCCESS_ACTION,
   payload: response,
 });
 

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import {
   SIGN_UP_ACTION,
-  SIGN_UP_SUCCEED_ACTION,
+  SIGN_UP_SUCCESS_ACTION,
   SIGN_UP_FAILED_ACTION,
 } from './constants';
 import signUpPageReducer from './reducer';
@@ -40,7 +40,7 @@ describe('SignUpPage reducer', () => {
     });
   });
 
-  describe('call with action: { type: SIGN_UP_SUCCEED_ACTION }', () => {
+  describe('call with action: { type: SIGN_UP_SUCCESS_ACTION }', () => {
     it('should return { loading: false, errorMessage: null }', () => {
       const initialState = fromJS({
         loading: true,
@@ -49,7 +49,7 @@ describe('SignUpPage reducer', () => {
       const received = signUpPageReducer(
         initialState,
         {
-          type: SIGN_UP_SUCCEED_ACTION,
+          type: SIGN_UP_SUCCESS_ACTION,
         }
       );
       const expected = fromJS({
@@ -72,7 +72,7 @@ describe('SignUpPage reducer', () => {
       const received = signUpPageReducer(
         initialState,
         {
-          type: SIGN_UP_SUCCEED_ACTION,
+          type: SIGN_UP_SUCCESS_ACTION,
           payload,
         }
       );

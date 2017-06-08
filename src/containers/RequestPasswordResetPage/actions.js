@@ -6,7 +6,7 @@
 
 import {
   REQUEST_PASSWORD_RESET_ACTION,
-  REQUEST_PASSWORD_RESET_SUCCEED_ACTION,
+  REQUEST_PASSWORD_RESET_SUCCESS_ACTION,
   REQUEST_PASSWORD_RESET_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -18,9 +18,9 @@ export function requestPasswordResetAction(requestPasswordPayload) {
   };
 }
 
-export function requestPasswordResetSucceedAction(response) {
+export function requestPasswordResetSuccessAction(response) {
   return {
-    type: REQUEST_PASSWORD_RESET_SUCCEED_ACTION,
+    type: REQUEST_PASSWORD_RESET_SUCCESS_ACTION,
     payload: response,
   };
 }

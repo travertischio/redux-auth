@@ -10,7 +10,7 @@ import _camelCase from 'lodash/camelCase';
 import _upperFirst from 'lodash/upperFirst';
 import {
   RESET_PASSWORD_ACTION,
-  RESET_PASSWORD_SUCCEED_ACTION,
+  RESET_PASSWORD_SUCCESS_ACTION,
   RESET_PASSWORD_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -21,8 +21,8 @@ function resetPasswordPageReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_PASSWORD_ACTION:
       return onResetPasswordAction(state);
-    case RESET_PASSWORD_SUCCEED_ACTION:
-      return onResetPasswordSucceedAction(state);
+    case RESET_PASSWORD_SUCCESS_ACTION:
+      return onResetPasswordSuccessAction(state);
     case RESET_PASSWORD_FAILED_ACTION:
       return onResetPasswordFailedAction(state, action.payload);
     case DESTROY_PAGE_ACTION:
@@ -40,7 +40,7 @@ function onResetPasswordAction(state) {
   });
 }
 
-function onResetPasswordSucceedAction(state) {
+function onResetPasswordSuccessAction(state) {
   return state.merge({
     loading: false,
     errorMessage: null,

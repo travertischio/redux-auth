@@ -8,7 +8,7 @@ import { fromJS } from 'immutable';
 import _isArray from 'lodash/isArray';
 import {
   SIGN_IN_ACTION,
-  SIGN_IN_SUCCEED_ACTION,
+  SIGN_IN_SUCCESS_ACTION,
   SIGN_IN_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -19,8 +19,8 @@ function signInPageReducer(state = initialState, action) {
   switch (action.type) {
     case SIGN_IN_ACTION:
       return onSignInAction(state);
-    case SIGN_IN_SUCCEED_ACTION:
-      return onSignSucceedAction(state);
+    case SIGN_IN_SUCCESS_ACTION:
+      return onSignSuccessAction(state);
     case SIGN_IN_FAILED_ACTION:
       return onSignFailedAction(state, action.payload);
     case DESTROY_PAGE_ACTION:
@@ -37,7 +37,7 @@ function onSignInAction(state) {
   });
 }
 
-function onSignSucceedAction(state) {
+function onSignSuccessAction(state) {
   return state.merge({
     loading: false,
     errorMessage: null,

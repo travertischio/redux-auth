@@ -1,12 +1,12 @@
 import {
   signInAction,
-  signInSucceedAction,
+  signInSuccessAction,
   signInFailedAction,
   destroyPageAction,
 } from './actions';
 import {
   SIGN_IN_ACTION,
-  SIGN_IN_SUCCEED_ACTION,
+  SIGN_IN_SUCCESS_ACTION,
   SIGN_IN_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -23,13 +23,13 @@ describe('Authentication actions', () => {
     expect(signInAction(payload)).toEqual(expected);
   });
 
-  it('signInSucceedAction should return SIGN_IN_SUCCEED_ACTION type and payload', () => {
+  it('signInSuccessAction should return SIGN_IN_SUCCESS_ACTION type and payload', () => {
     const expected = {
-      type: SIGN_IN_SUCCEED_ACTION,
+      type: SIGN_IN_SUCCESS_ACTION,
       payload,
     };
 
-    expect(signInSucceedAction(payload)).toEqual(expected);
+    expect(signInSuccessAction(payload)).toEqual(expected);
   });
 
   it('signInFailedAction should return SIGN_IN_FAILED_ACTION type and payload', () => {

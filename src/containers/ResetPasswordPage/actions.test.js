@@ -1,12 +1,12 @@
 import {
   resetPasswordAction,
-  resetPasswordSucceedAction,
+  resetPasswordSuccessAction,
   resetPasswordFailedAction,
   destroyPageAction,
 } from './actions';
 import {
   RESET_PASSWORD_ACTION,
-  RESET_PASSWORD_SUCCEED_ACTION,
+  RESET_PASSWORD_SUCCESS_ACTION,
   RESET_PASSWORD_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -23,13 +23,13 @@ describe('Authentication actions', () => {
     expect(resetPasswordAction(payload)).toEqual(expected);
   });
 
-  it('resetPasswordSucceedAction should return RESET_PASSWORD_SUCCEED_ACTION type and payload', () => {
+  it('resetPasswordSuccessAction should return RESET_PASSWORD_SUCCESS_ACTION type and payload', () => {
     const expected = {
-      type: RESET_PASSWORD_SUCCEED_ACTION,
+      type: RESET_PASSWORD_SUCCESS_ACTION,
       payload,
     };
 
-    expect(resetPasswordSucceedAction(payload)).toEqual(expected);
+    expect(resetPasswordSuccessAction(payload)).toEqual(expected);
   });
 
   it('resetPasswordFailedAction should return RESET_PASSWORD_FAILED_ACTION type and payload', () => {
