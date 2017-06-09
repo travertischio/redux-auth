@@ -32,7 +32,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div className={options.className}>
+        <div className={options.className || 'sign-up-page'}>
           <Helmet
             title={pageTitle}
             meta={[

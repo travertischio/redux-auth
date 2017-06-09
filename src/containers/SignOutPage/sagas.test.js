@@ -9,6 +9,7 @@ import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { clearTokenAction } from '../AuthenticationProvider/actions';
 import { defaultSaga, signOutSaga } from './sagas';
 import { SIGN_OUT_ACTION } from './constants';
+import config from '../../config';
 
 it('defaultSaga', () => {
   const task1 = createMockTask();
@@ -29,7 +30,7 @@ it('signOutSaga', () => {
     .next()
     .put(clearTokenAction())
     .next()
-    .put(push('/'))
+    .put(push(config.redirectPathAfterSignOut))
     .finish()
     .isDone();
 });

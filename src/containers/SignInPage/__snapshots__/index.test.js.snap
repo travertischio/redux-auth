@@ -3,7 +3,9 @@
 exports[`<SignInPage /> should NOT render SignInPage when user IS authenticated 1`] = `null`;
 
 exports[`<SignInPage /> should render SignInPage when user IS NOT authenticated 1`] = `
-<div>
+<div
+  className="sign-in-page"
+>
   <div>
     <form
       noValidate={true}
@@ -69,7 +71,9 @@ exports[`<SignInPage /> should render SignInPage when user IS NOT authenticated 
 `;
 
 exports[`<SignInPage /> should render SignInPage with error message when errorMessage is in the props 1`] = `
-<div>
+<div
+  className="sign-in-page"
+>
   <div>
     <div>
       Unable to sign in. Please try again.
@@ -138,7 +142,9 @@ exports[`<SignInPage /> should render SignInPage with error message when errorMe
 `;
 
 exports[`<SignInPage /> should render SignInPage with loading indicator when loading is in the props 1`] = `
-<div>
+<div
+  className="sign-in-page"
+>
   <div>
     <div>
       Processing... Please wait.

@@ -1,6 +1,7 @@
 import AuthenticationProvider from './containers/AuthenticationProvider';
 import reducer from './containers/AuthenticationProvider/reducer';
 import sagas from './containers/AuthenticationProvider/sagas';
+import { setConfig } from './config';
 
 import createRequestPasswordResetContainer from './containers/RequestPasswordResetPage/create-container';
 import createResetPasswordContainer from './containers/ResetPasswordPage/create-container';
@@ -12,6 +13,7 @@ export {
   AuthenticationProvider,
   reducer,
   sagas,
+  setConfig,
   createRequestPasswordResetContainer,
   createResetPasswordContainer,
   createSignInContainer,
