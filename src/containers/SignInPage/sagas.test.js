@@ -5,12 +5,25 @@
 /* eslint-disable redux-saga/yield-effects */
 import testSaga from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import {
+  LOCATION_CHANGE,
+  push,
+} from 'react-router-redux';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
-import { defaultSaga, signInSaga, setTokenSaga } from './sagas';
-import { signInSuccessAction, signInFailedAction } from './actions';
-import { SIGN_IN_ACTION, SIGN_IN_SUCCESS_ACTION } from './constants';
+import {
+  defaultSaga,
+  signInSaga,
+  setTokenSaga,
+} from './sagas';
+import {
+  signInSuccessAction,
+  signInFailedAction } from './actions';
+import {
+  SIGN_IN_ACTION,
+  SIGN_IN_SUCCESS_ACTION,
+} from './constants';
+import config from '../../config';
 
 const signInAction = {
   payload: {
@@ -44,6 +57,8 @@ it('signInSaga and succeed', () => {
     .call(signInApiCall, signInAction.payload)
     .next()
     .put(signInSuccessAction())
+    .next()
+    .put(push(config.redirectPathAfterSignIn))
     .finish()
     .isDone();
 });

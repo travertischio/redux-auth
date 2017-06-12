@@ -1,13 +1,13 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { routerActions } from 'react-router-redux';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
+import config from '../../config';
 
 const UserIsNotAuthenticated = UserAuthWrapper({
   authSelector: selectUser,
   predicate: isNotAuthenticated,
   redirectAction: routerActions.replace,
-  // TODO: move url of default homepage/dashboard to the config file
-  failureRedirectPath: '/home',
+  failureRedirectPath: config.userIsAuthenticatedRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserIsNotAuthenticated',
 });

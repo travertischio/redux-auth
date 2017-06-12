@@ -3,7 +3,9 @@
 exports[`<SignUpPage /> should NOT render SignUpPage when user IS authenticated 1`] = `null`;
 
 exports[`<SignUpPage /> should render SignUpPage when user IS NOT authenticated 1`] = `
-<div>
+<div
+  className="sign-up-page"
+>
   <div>
     <form
       noValidate={true}
@@ -115,7 +117,9 @@ exports[`<SignUpPage /> should render SignUpPage when user IS NOT authenticated 
 `;
 
 exports[`<SignUpPage /> should render SignUpPage with error message when errorMessage is in the props 1`] = `
-<div>
+<div
+  className="sign-up-page"
+>
   <div>
     <div>
       Ooops, something went wrong, please try again later.
@@ -230,7 +234,9 @@ exports[`<SignUpPage /> should render SignUpPage with error message when errorMe
 `;
 
 exports[`<SignUpPage /> should render SignUpPage with loading indicator when loading is in the props 1`] = `
-<div>
+<div
+  className="sign-up-page"
+>
   <div>
     <div>
       Processing... Please wait.

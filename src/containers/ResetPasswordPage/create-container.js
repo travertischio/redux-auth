@@ -53,7 +53,7 @@ export default function createResetPasswordContainer(PageComponent, options = {}
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div className={options.className}>
+        <div className={options.className || 'reset-password-page'}>
           <Helmet
             title={pageTitle}
             meta={[

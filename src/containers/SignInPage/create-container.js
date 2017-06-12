@@ -41,7 +41,7 @@ export default function createSignInContainer(PageComponent, options = {}) {
       const pageDescription = formatMessage(messages.pageDescription);
 
       return (
-        <div className={options.className}>
+        <div className={options.className || 'sign-in-page'}>
           <Helmet
             title={pageTitle}
             meta={[
