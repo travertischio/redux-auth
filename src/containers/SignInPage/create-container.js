@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
+import UserIsNotAuthenticatedWithCustomRedirect from '../../hocs/AuthWrappers/UserIsNotAuthenticatedWithCustomRedirect';
 import selectSignInPage from './selectors';
 import messages from './messages';
 import {
   signInAction,
   destroyPageAction,
 } from './actions';
+import config from '../../config';
 
 export default function createSignInContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -22,10 +23,10 @@ export default function createSignInContainer(PageComponent, options = {}) {
     onUnMount: destroyPageAction,
   };
 
-  @UserIsNotAuthenticated
+  @UserIsNotAuthenticatedWithCustomRedirect(config.redirectPathAfterSignIn)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
-  class SignInContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  class SignInContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object,
       onUnMount: PropTypes.func,
