@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import UserIsNotAuthenticatedWithCustomRedirect from '../../hocs/AuthWrappers/UserIsNotAuthenticatedWithCustomRedirect';
+import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
@@ -19,10 +19,10 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     onSubmitForm: signUpAction,
   };
 
-  @UserIsNotAuthenticatedWithCustomRedirect(config.redirectPathAfterSignUp)
+  @UserIsNotAuthenticated(config.redirectPathAfterSignUp)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
-  class SignUpContainer extends PureComponent {
+  class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
       intl: PropTypes.object,
     };
