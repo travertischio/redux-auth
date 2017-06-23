@@ -138,7 +138,6 @@
     "redux-form": "^6.6.3",
     "jwt-decode": "^2.2.0",
     "validators": "https://bitbucket.org/arabellatech/validators#develop",
-    "api-client": "https://bitbucket.org/arabellatech/api-client#develop",
     "redux-auth-wrapper": "^1.1.0"
   },
   "peerDependencies": {
@@ -147,6 +146,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
+    "api-client": "https://bitbucket.org/arabellatech/api-client#develop",
     "axios-mock-adapter": "^1.8.1",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
