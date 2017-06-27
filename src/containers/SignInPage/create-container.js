@@ -11,6 +11,7 @@ import {
   signInAction,
   destroyPageAction,
 } from './actions';
+import config from '../../config';
 
 export default function createSignInContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -22,10 +23,10 @@ export default function createSignInContainer(PageComponent, options = {}) {
     onUnMount: destroyPageAction,
   };
 
-  @UserIsNotAuthenticated
+  @UserIsNotAuthenticated(config.redirectPathAfterSignIn)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
-  class SignInContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  class SignInContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object,
       onUnMount: PropTypes.func,

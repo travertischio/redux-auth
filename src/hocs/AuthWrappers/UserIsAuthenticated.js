@@ -10,5 +10,4 @@ const UserIsAuthenticated = UserAuthWrapper({
   wrapperDisplayName: 'UserIsAuthenticated',
 });
 
-
 export default UserIsAuthenticated;

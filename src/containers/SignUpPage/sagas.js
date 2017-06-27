@@ -8,10 +8,7 @@ import {
   cancel,
   put,
 } from 'redux-saga/effects';
-import {
-  LOCATION_CHANGE,
-  push,
-} from 'react-router-redux';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { signUp as signUpApiCall } from '../../api';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
 import {
@@ -22,7 +19,6 @@ import {
   SIGN_UP_ACTION,
   SIGN_UP_SUCCESS_ACTION,
 } from './constants';
-import config from '../../config';
 
 export function* defaultSaga() {
   const signUpActionWatcher = yield takeLatest(SIGN_UP_ACTION, signUpSaga);
@@ -38,7 +34,6 @@ export function* signUpSaga(action) {
     const response = yield call(signUpApiCall, action.payload);
 
     yield put(signUpSuccessAction(response));
-    yield put(push(config.redirectPathAfterSignUp));
   } catch (error) {
     yield put(signUpFailedAction(error));
   }

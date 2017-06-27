@@ -8,6 +8,7 @@ import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticat
 import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
+import config from '../../config';
 
 export default function createSignUpContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -18,7 +19,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     onSubmitForm: signUpAction,
   };
 
-  @UserIsNotAuthenticated
+  @UserIsNotAuthenticated(config.redirectPathAfterSignUp)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
   class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
