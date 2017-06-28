@@ -226,6 +226,30 @@ exports[`<ResetPasswordPage /> should render ResetPasswordPage with success mess
 </div>
 `;
 
+exports[`<ResetPasswordPage /> should render ResetPasswordPage with success message 2`] = `
+<div
+  className="reset-password-page"
+>
+  <div>
+    <h1>
+      <span>
+        Your password has been changed successfully.
+      </span>
+    </h1>
+    <div>
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span>
+          Go to sign in page.
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`<ResetPasswordPage /> should render ResetPasswordPage with the reset password form 1`] = `
 <div
   className="reset-password-page"

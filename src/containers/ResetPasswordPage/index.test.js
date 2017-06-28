@@ -7,7 +7,6 @@ import {
 } from 'react-unit-testing-utils';
 import ResetPasswordPage from './index';
 import { destroyPageAction } from './actions';
-// import AuthenticationProvider from '../AuthenticationProvider/';
 import {
   RESET_PASSWORD_ACTION,
   DESTROY_PAGE_ACTION,
@@ -67,6 +66,18 @@ describe('<ResetPasswordPage />', () => {
     const initialState = {
       auth: {
         isAuthenticated: false,
+      },
+      resetPasswordPage: {
+        success: true,
+      },
+    };
+    expectComponentWithStateToMatchSnapshot(initialState);
+  });
+
+  it('should render ResetPasswordPage with success message', () => {
+    const initialState = {
+      auth: {
+        isAuthenticated: true,
       },
       resetPasswordPage: {
         success: true,

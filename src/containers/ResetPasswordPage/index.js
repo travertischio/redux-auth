@@ -17,7 +17,7 @@ class ResetPasswordPage extends PureComponent {
     routeParams: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     onSubmitForm: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.object,
   };
 
   renderSuccessMessage() {
