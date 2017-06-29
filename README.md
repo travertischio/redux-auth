@@ -39,3 +39,44 @@
 1. Now, after something gets updated in react-sample-component (PR merge, straight commit, etc), run `git fetch upstream`
 1. Run `git merge upstream/develop`
 1. Changes from upstream repository should now be present in forked repository.
+
+## Configuration
+### signInAuthWrapper
+
+Use this property allows to overwrite default UserAuthWrapper HOC of sign in page.
+
+#### Usage
+First you need to define your custom UserAuthWrapper HOC:
+
+```javascript
+
+import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { routerActions } from 'react-router-redux';
+import { selectUser } from 'redux-auth';
+
+const MySignInAuthWrapper = UserAuthWrapper({
+  authSelector: selectUser,
+  predicate: isNotAuthenticated,
+  redirectAction: routerActions.replace,
+  allowRedirectBack: false,
+  wrapperDisplayName: 'MySignInAuthWrapper',
+  failureRedirectPath: '/home',
+});
+
+function isNotAuthenticated(user) {
+  return !user;
+}
+
+export default MySignInAuthWrapper;
+```
+
+and then you need to apply it to redux-auth configuration in your app.js file:
+
+```javascript
+
+import { setConfig } from 'redux-auth';
+import MySignInAuthWrapper from 'containers/SignInPage/auth-wrapper';
+
+setConfig({ signInAuthWrapper: MySignInAuthWrapper });
+```
+

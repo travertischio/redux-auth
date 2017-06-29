@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
+import { compose } from 'recompose';
 import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
@@ -19,7 +19,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     onSubmitForm: signUpAction,
   };
 
-  @UserIsNotAuthenticated(config.redirectPathAfterSignUp)
+  @compose(config.signUpAuthWrapper)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
   class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
