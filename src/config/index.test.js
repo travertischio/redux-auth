@@ -49,11 +49,19 @@ describe('redux-auth config', () => {
     });
 
     it('should update signInAuthWrapper', () => {
-      expect(signInAuthWrapperOld).not.toBe(newConfig.signInAuthWrapper);
+      expect(signInAuthWrapperOld).not.toBe(config.signInAuthWrapper);
     });
 
     it('should update signUpAuthWrapper', () => {
-      expect(signUpAuthWrapperOld).not.toBe(newConfig.signUpAuthWrapper);
+      expect(signUpAuthWrapperOld).not.toBe(config.signUpAuthWrapper);
+    });
+
+    it('should signInAuthWrapper be a function', () => {
+      expect(typeof config.signInAuthWrapper === 'function').toBeTruthy();
+    });
+
+    it('should signUpAuthWrapper be a function', () => {
+      expect(typeof config.signUpAuthWrapper === 'function').toBeTruthy();
     });
   });
 });
