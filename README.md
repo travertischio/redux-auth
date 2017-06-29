@@ -43,7 +43,7 @@
 ## Configuration
 ### signInAuthWrapper
 
-Use this property allows to overwrite default UserAuthWrapper HOC of sign in page.
+Use this property to overwrite default UserAuthWrapper HOC of sign in page.
 
 #### Usage
 First you need to define your custom UserAuthWrapper HOC:
