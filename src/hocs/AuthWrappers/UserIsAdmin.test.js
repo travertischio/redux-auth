@@ -1,13 +1,13 @@
 import React from 'react';
-import {
-  Router,
-  Route,
-} from 'react-router';
+// import {
+//   Router,
+//   Route,
+// } from 'react-router';
 import {
   createComponentWithIntl,
-  findActionByType,
+  // findActionByType,
 } from 'react-unit-testing-utils';
-import { LOCATION_CHANGE } from 'react-router-redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import UserIsAdmin from './UserIsAdmin';
 import config from '../../config';
 
@@ -46,7 +46,7 @@ describe('UserIsAdmin', () => {
         },
       };
       const componentAndStore = createComponentWithIntl(<PageOnlyForAdmins />, initialState);
-      store = componentAndStore.store;
+      // store = componentAndStore.store;
       component = componentAndStore.component;
     });
 

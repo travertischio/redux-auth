@@ -7,6 +7,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
+    "prebuild": "npm run lint & npm run test",
     "build": "rm -rf lib && babel --presets es2015,stage-0 --plugins transform-decorators-legacy -d lib/ src/ --ignore \"**/*.test.js\",\"**/*.stories.js\"",
     "test": "jest --coverage",
     "test:watch": "jest --watchAll",

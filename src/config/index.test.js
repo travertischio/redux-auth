@@ -8,17 +8,20 @@ describe('redux-auth config', () => {
   describe('when calling setConfig(newConfig)', () => {
     const configClone = { ...config };
     const newConfig = {
-      redirectPathAfterSignIn: '/home',
-      redirectPathAfterSignUp: '/home',
+      adminRole: '20_admin',
+      redirectPathAfterSignOut: '/',
     };
-    setConfig(newConfig);
 
-    it('should redirectPathAfterSignIn be equal to "home"', () => {
-      expect(config.redirectPathAfterSignIn).toEqual(newConfig.redirectPathAfterSignIn);
+    beforeEach(() => {
+      setConfig(newConfig);
     });
 
-    it('should redirectPathAfterSignUp be equal to "home"', () => {
-      expect(config.redirectPathAfterSignIn).toEqual(newConfig.redirectPathAfterSignIn);
+    it('should adminRole be equal to "20_admin"', () => {
+      expect(config.adminRole).toEqual(newConfig.adminRole);
+    });
+
+    it('should redirectPathAfterSignOut be equal to "/"', () => {
+      expect(config.redirectPathAfterSignOut).toEqual(newConfig.redirectPathAfterSignOut);
     });
 
     it('should updated config has other configurations', () => {
@@ -27,6 +30,30 @@ describe('redux-auth config', () => {
           expect(config[key]).toEqual(value);
         }
       });
+    });
+  });
+
+  describe('when calling setConfig(newConfig) with new redirectPathAfterSignIn and redirectPathAfterSignUp', () => {
+    let signInAuthWrapperOld = null;
+    let signUpAuthWrapperOld = null;
+    const newConfig = {
+      redirectPathAfterSignIn: '/home',
+      redirectPathAfterSignUp: '/home',
+    };
+
+    beforeEach(() => {
+      signInAuthWrapperOld = config.signInAuthWrapper;
+      signUpAuthWrapperOld = config.signUpAuthWrapper;
+
+      setConfig(newConfig);
+    });
+
+    it('should update signInAuthWrapper', () => {
+      expect(signInAuthWrapperOld).not.toBe(newConfig.signInAuthWrapper);
+    });
+
+    it('should update signUpAuthWrapper', () => {
+      expect(signUpAuthWrapperOld).not.toBe(newConfig.signUpAuthWrapper);
     });
   });
 });
