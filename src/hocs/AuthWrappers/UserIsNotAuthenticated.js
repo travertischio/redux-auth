@@ -1,8 +1,6 @@
-import { UserAuthWrapper } from 'redux-auth-wrapper';
-import { routerActions } from 'react-router-redux';
 import _isString from 'lodash/isString';
-import { selectUser } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
+import creactUserIsNotAuthenticatedAuthWrapper from './creactUserIsNotAuthenticatedAuthWrapper';
 
 const UserIsNotAuthenticated = (failureRedirectPathOrPageComponent) => {
   // It is possible to use this wrapper in two ways:
@@ -26,20 +24,5 @@ const UserIsNotAuthenticated = (failureRedirectPathOrPageComponent) => {
   const pageComponent = failureRedirectPathOrPageComponent;
   return authWrapper(pageComponent);
 };
-
-function creactUserIsNotAuthenticatedAuthWrapper(failureRedirectPath) {
-  return UserAuthWrapper({
-    authSelector: selectUser,
-    predicate: isNotAuthenticated,
-    redirectAction: routerActions.replace,
-    allowRedirectBack: false,
-    wrapperDisplayName: 'UserIsNotAuthenticated',
-    failureRedirectPath,
-  });
-}
-
-function isNotAuthenticated(user) {
-  return !user;
-}
 
 export default UserIsNotAuthenticated;

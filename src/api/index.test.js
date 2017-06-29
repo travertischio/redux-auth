@@ -6,6 +6,7 @@ import {
   requestPasswordReset,
   resetPassword,
   signUp,
+  setAuthorizationTokenInHeaders,
 } from './';
 
 describe('redux-auth API', () => {
@@ -105,6 +106,24 @@ describe('redux-auth API', () => {
       signUp(payload)
         .then((response) => {
           expect(response.data).toEqual(successAuthResponse);
+          done();
+        });
+    });
+  });
+
+  describe('when calling setAuthorizationTokenInHeaders(authHeader)', () => {
+    const token = 'XYZ123';
+
+    beforeEach(() => {
+      setAuthorizationTokenInHeaders(token);
+    });
+
+    it('should request header has set Authorization header', (done) => {
+      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', { token }).reply(200, successAuthResponse);
+
+      refreshToken(token)
+        .then((response) => {
+          expect(response.config.headers.Authorization).toEqual(`JWT ${token}`);
           done();
         });
     });

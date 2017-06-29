@@ -1,4 +1,6 @@
-let config = { // eslint-disable-line import/no-mutable-exports
+import creactUserIsNotAuthenticatedAuthWrapper from '../hocs/AuthWrappers/creactUserIsNotAuthenticatedAuthWrapper';
+
+const config = {
   userIsNotAuthenticatedRedirectPath: '/sign-in',
   userIsNotAdminRedirectPath: '/',
   userHasNoRoleRedirectPath: '/',
@@ -9,8 +11,30 @@ let config = { // eslint-disable-line import/no-mutable-exports
   adminRole: '20_example_admin',
 };
 
+config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);
+config.signUpAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignUp);
+
 export const setConfig = (newConfig) => {
-  config = Object.assign(config, newConfig);
+  Object.assign(config, newConfig);
+
+  if (newConfig.redirectPathAfterSignIn) {
+    updateSignInAuthWrapper();
+  }
+
+  if (newConfig.redirectPathAfterSignUp) {
+    updateSignUpAuthWrapper();
+  }
 };
+
+function updateSignInAuthWrapper() {
+  config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);
+}
+
+function updateSignUpAuthWrapper() {
+  config.signUpAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignUp);
+}
+
+updateSignInAuthWrapper();
+updateSignUpAuthWrapper();
 
 export default config;

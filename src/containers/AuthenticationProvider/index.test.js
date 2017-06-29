@@ -1,5 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import {
+  shallow,
+  mount,
+} from 'enzyme';
 import { getStoreWithInitialState } from 'react-unit-testing-utils';
 import _isFunction from 'lodash/isFunction';
 import AuthenticationProvider from './index';

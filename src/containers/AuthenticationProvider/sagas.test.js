@@ -5,14 +5,37 @@
 /* eslint-disable redux-saga/yield-effects */
 import { fromJS } from 'immutable';
 import { delay } from 'redux-saga';
-import { testSaga, expectSaga } from 'redux-saga-test-plan';
+import {
+  testSaga,
+  expectSaga,
+} from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
-import { setTokenAction, clearTokenAction, refreshTokenAction, markTokenAsRefreshedAction } from '../AuthenticationProvider/actions';
-import { refreshToken as refreshTokenApiCall } from '../../api';
-import { defaultSaga, setTokenSaga, putRefreshTokenActionWithDelaySaga, clearTokenSaga, refreshTokenSaga, setTokenIfExistsSaga } from './sagas';
-import { REFRESH_TOKEN_ACTION, SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION } from './constants';
-import { setTokenInStorage, removeTokenFromStorage } from './utils';
+import {
+  setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
+  markTokenAsRefreshedAction,
+} from '../AuthenticationProvider/actions';
+import {
+  refreshToken as refreshTokenApiCall,
+  setAuthorizationTokenInHeaders,
+} from '../../api';
+import {
+  defaultSaga,
+  setTokenSaga,
+  putRefreshTokenActionWithDelaySaga,
+  clearTokenSaga, refreshTokenSaga,
+  setTokenIfExistsSaga } from './sagas';
+import {
+  REFRESH_TOKEN_ACTION,
+  SET_TOKEN_ACTION,
+  CLEAR_TOKEN_ACTION,
+} from './constants';
+import {
+  setTokenInStorage,
+  removeTokenFromStorage,
+} from './utils';
 import { selectTokenExpiryTime } from './selectors';
 
 it('defaultSaga', () => {
@@ -37,6 +60,8 @@ it('setTokenSaga', () => {
   testSaga(setTokenSaga, action)
     .next()
     .call(setTokenInStorage, action.payload)
+    .next()
+    .call(setAuthorizationTokenInHeaders, action.payload)
     .finish()
     .isDone();
 });
