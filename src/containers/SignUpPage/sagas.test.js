@@ -5,10 +5,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import testSaga from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
-import {
-  LOCATION_CHANGE,
-  push,
-} from 'react-router-redux';
+import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
 import { signUp as signUpApiCall } from '../../api';
 import {
@@ -23,7 +20,6 @@ import {
   SIGN_UP_ACTION,
   SIGN_UP_SUCCESS_ACTION,
 } from './constants';
-import config from '../../config';
 
 const signUpAction = {
   payload: {
@@ -57,8 +53,6 @@ it('signUpSaga and succeed', () => {
     .call(signUpApiCall, signUpAction.payload)
     .next()
     .put(signUpSuccessAction())
-    .next()
-    .put(push(config.redirectPathAfterSignUp))
     .finish()
     .isDone();
 });
