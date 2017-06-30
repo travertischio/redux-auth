@@ -1,8 +1,16 @@
 import { takeLatest } from 'redux-saga';
-import { take, cancel, put, call } from 'redux-saga/effects';
+import {
+  take,
+  cancel,
+  put,
+  call,
+} from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { requestPasswordReset as requestPasswordResetApiCall } from '../../api';
-import { requestPasswordResetSucceedAction, requestPasswordResetFailedAction } from './actions';
+import {
+  requestPasswordResetSuccessAction,
+  requestPasswordResetFailedAction,
+} from './actions';
 import { REQUEST_PASSWORD_RESET_ACTION } from './constants';
 
 export function* defaultSaga() {
@@ -15,7 +23,7 @@ export function* defaultSaga() {
 export function* requestPasswordReset(action) {
   try {
     const response = yield call(requestPasswordResetApiCall, action.payload);
-    yield put(requestPasswordResetSucceedAction(response));
+    yield put(requestPasswordResetSuccessAction(response));
   } catch (error) {
     yield put(requestPasswordResetFailedAction(error));
   }

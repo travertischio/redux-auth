@@ -7,7 +7,7 @@
 import { fromJS } from 'immutable';
 import {
   REQUEST_PASSWORD_RESET_ACTION,
-  REQUEST_PASSWORD_RESET_SUCCEED_ACTION,
+  REQUEST_PASSWORD_RESET_SUCCESS_ACTION,
   REQUEST_PASSWORD_RESET_FAILED_ACTION,
   DESTROY_PAGE_ACTION,
 } from './constants';
@@ -18,8 +18,8 @@ function requestPasswordResetPageReducer(state = initialState, action) {
   switch (action.type) {
     case REQUEST_PASSWORD_RESET_ACTION:
       return onRequestPasswordResetAction(state);
-    case REQUEST_PASSWORD_RESET_SUCCEED_ACTION:
-      return onRequestPasswordResetSucceedAction(state);
+    case REQUEST_PASSWORD_RESET_SUCCESS_ACTION:
+      return onRequestPasswordResetSuccessAction(state);
     case REQUEST_PASSWORD_RESET_FAILED_ACTION:
       return onRequestPasswordResetFailedAction(state);
     case DESTROY_PAGE_ACTION:
@@ -32,15 +32,15 @@ function requestPasswordResetPageReducer(state = initialState, action) {
 function onRequestPasswordResetAction(state) {
   return state.merge({
     loading: true,
-    errorMessage: false,
+    errorMessage: null,
     sent: false,
   });
 }
 
-function onRequestPasswordResetSucceedAction(state) {
+function onRequestPasswordResetSuccessAction(state) {
   return state.merge({
     loading: false,
-    errorMessage: false,
+    errorMessage: null,
     sent: true,
   });
 }

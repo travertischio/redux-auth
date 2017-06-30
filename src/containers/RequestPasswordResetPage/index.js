@@ -3,45 +3,19 @@
  * RequestPasswordResetPage
  *
  */
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Helmet from 'react-helmet';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
+import createRequestPasswordResetContainer from './create-container';
 import RequestPasswordResetForm from '../../components/RequestPasswordResetForm';
-import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
-import selectRequestPasswordResetPage from './selectors';
 import messages from './messages';
-import { requestPasswordResetAction, destroyPageAction } from './actions';
 
-const mapStateToProps = createStructuredSelector({
-  RequestPasswordResetPage: selectRequestPasswordResetPage,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm: (values) => dispatch(requestPasswordResetAction(values)),
-  onUnMount: () => dispatch(destroyPageAction()),
-});
-
-@UserIsNotAuthenticated
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
-export default class RequestPasswordResetPage extends PureComponent { // eslint-disable-line react/prefer-stateless-function
-  componentWillUnmount() {
-    this.props.onUnMount();
-  }
-
-  getErrorMessage() {
-    let errorMessage = this.props.RequestPasswordResetPage.errorMessage;
-
-    if (errorMessage) {
-      errorMessage = messages[errorMessage];
-    }
-
-    return errorMessage;
-  }
+class RequestPasswordResetPage extends PureComponent {
+  static propTypes = {
+    RequestPasswordResetPage: PropTypes.object,
+    onSubmitForm: PropTypes.func,
+    errorMessage: PropTypes.string,
+  };
 
   renderSuccessMessage() {
     return (
@@ -61,7 +35,7 @@ export default class RequestPasswordResetPage extends PureComponent { // eslint-
       },
     } = this.props;
 
-    const errorMessage = this.getErrorMessage();
+    const errorMessage = this.props.errorMessage;
 
     return (
       <div>
@@ -75,7 +49,7 @@ export default class RequestPasswordResetPage extends PureComponent { // eslint-
     );
   }
 
-  renderInner() {
+  render() {
     const sent = this.props.RequestPasswordResetPage.sent;
 
     if (sent) {
@@ -84,30 +58,7 @@ export default class RequestPasswordResetPage extends PureComponent { // eslint-
 
     return this.renderRequestPasswordResetForm();
   }
-
-  render() {
-    const { formatMessage } = this.props.intl;
-    const pageTitle = formatMessage(messages.pageTitle);
-    const pageDescription = formatMessage(messages.pageDescription);
-
-    return (
-      <div>
-        <Helmet
-          title={pageTitle}
-          meta={[
-            { name: 'description', content: pageDescription },
-          ]}
-        />
-
-        { this.renderInner() }
-      </div>
-    );
-  }
 }
 
-RequestPasswordResetPage.propTypes = {
-  intl: PropTypes.object,
-  RequestPasswordResetPage: PropTypes.object,
-  onSubmitForm: PropTypes.func,
-  onUnMount: PropTypes.func,
-};
+
+export default createRequestPasswordResetContainer(RequestPasswordResetPage);

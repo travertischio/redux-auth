@@ -1,11 +1,11 @@
 import {
   signUpAction,
-  signUpSucceedAction,
+  signUpSuccessAction,
   signUpFailedAction,
 } from './actions';
 import {
   SIGN_UP_ACTION,
-  SIGN_UP_SUCCEED_ACTION,
+  SIGN_UP_SUCCESS_ACTION,
   SIGN_UP_FAILED_ACTION,
 } from './constants';
 
@@ -25,13 +25,13 @@ describe('SignUpPage actions', () => {
     expect(signUpAction(payload)).toEqual(expected);
   });
 
-  it('signUpAction should return SIGN_UP_SUCCEED_ACTION type and payload', () => {
+  it('signUpAction should return SIGN_UP_SUCCESS_ACTION type and payload', () => {
     const expected = {
-      type: SIGN_UP_SUCCEED_ACTION,
+      type: SIGN_UP_SUCCESS_ACTION,
       payload,
     };
 
-    expect(signUpSucceedAction(payload)).toEqual(expected);
+    expect(signUpSuccessAction(payload)).toEqual(expected);
   });
 
   it('signUpAction should return SIGN_UP_FAILED_ACTION type and payload', () => {

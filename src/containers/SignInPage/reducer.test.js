@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import resetPasswordPageReducer from './reducer';
 import {
   signInAction,
-  signInSucceedAction,
+  signInSuccessAction,
   signInFailedAction,
   destroyPageAction,
 } from './actions';
@@ -24,20 +24,20 @@ describe('resetPasswordPageReducer', () => {
     it('should update state', () => {
       const expectedState = currentState.merge({
         loading: true,
-        errorMessage: false,
+        errorMessage: null,
       });
       expect(currentState.toJS()).toEqual(expectedState.toJS());
     });
 
-    describe('when call with the SIGN_IN_SUCCEED_ACTION action', () => {
+    describe('when call with the SIGN_IN_SUCCESS_ACTION action', () => {
       beforeEach(() => {
-        currentState = resetPasswordPageReducer(currentState, signInSucceedAction());
+        currentState = resetPasswordPageReducer(currentState, signInSuccessAction());
       });
 
       it('should update state', () => {
         const expectedState = currentState.merge({
           loading: false,
-          errorMessage: false,
+          errorMessage: null,
         });
         expect(currentState.toJS()).toEqual(expectedState.toJS());
       });

@@ -3,7 +3,9 @@
 exports[`<RequestPasswordResetPage /> should NOT render RequestPasswordResetPage when user IS authenticated 1`] = `null`;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage when user IS NOT authenticated 1`] = `
-<div>
+<div
+  className="request-password-reset-page"
+>
   <div>
     <h1>
       <span>
@@ -51,7 +53,9 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage whe
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with error message when errorMessage is in the props 1`] = `
-<div>
+<div
+  className="request-password-reset-page"
+>
   <div>
     <h1>
       <span>
@@ -104,7 +108,9 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage wit
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with loading indicator when loading is in the props 1`] = `
-<div>
+<div
+  className="request-password-reset-page"
+>
   <div>
     <h1>
       <span>
@@ -155,7 +161,9 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage wit
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with success message when sent request 1`] = `
-<div>
+<div
+  className="request-password-reset-page"
+>
   <div>
     <h1>
       <span>

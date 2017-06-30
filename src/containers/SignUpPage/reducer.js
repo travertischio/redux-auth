@@ -6,7 +6,7 @@
 import { fromJS } from 'immutable';
 import {
   SIGN_UP_ACTION,
-  SIGN_UP_SUCCEED_ACTION,
+  SIGN_UP_SUCCESS_ACTION,
   SIGN_UP_FAILED_ACTION,
 } from './constants';
 
@@ -16,8 +16,8 @@ function signUpPageReducer(state = initialState, action) {
   switch (action.type) {
     case SIGN_UP_ACTION:
       return onSignUpAction(state);
-    case SIGN_UP_SUCCEED_ACTION:
-      return onSignUpSucceedAction(state);
+    case SIGN_UP_SUCCESS_ACTION:
+      return onSignUpSuccessAction(state);
     case SIGN_UP_FAILED_ACTION:
       return onSignUpFailedAction(state, action.payload);
     default:
@@ -27,12 +27,12 @@ function signUpPageReducer(state = initialState, action) {
 
 export const onSignUpAction = (state) => state.merge({
   loading: true,
-  errorMessage: false,
+  errorMessage: null,
 });
 
-export const onSignUpSucceedAction = (state) => state.merge({
+export const onSignUpSuccessAction = (state) => state.merge({
   loading: false,
-  errorMessage: false,
+  errorMessage: null,
 });
 
 // TODO handle field errors!

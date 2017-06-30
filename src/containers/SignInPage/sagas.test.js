@@ -8,9 +8,18 @@ import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenAction } from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
-import { defaultSaga, signInSaga, setTokenSaga } from './sagas';
-import { signInSucceedAction, signInFailedAction } from './actions';
-import { SIGN_IN_ACTION, SIGN_IN_SUCCEED_ACTION } from './constants';
+import {
+  defaultSaga,
+  signInSaga,
+  setTokenSaga,
+} from './sagas';
+import {
+  signInSuccessAction,
+  signInFailedAction } from './actions';
+import {
+  SIGN_IN_ACTION,
+  SIGN_IN_SUCCESS_ACTION,
+} from './constants';
 
 const signInAction = {
   payload: {
@@ -27,7 +36,7 @@ it('defaultSaga', () => {
     .next()
     .takeLatestFork(SIGN_IN_ACTION, signInSaga)
     .next(task1)
-    .takeEveryFork(SIGN_IN_SUCCEED_ACTION, setTokenSaga)
+    .takeEveryFork(SIGN_IN_SUCCESS_ACTION, setTokenSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()
@@ -43,7 +52,7 @@ it('signInSaga and succeed', () => {
     .next()
     .call(signInApiCall, signInAction.payload)
     .next()
-    .put(signInSucceedAction())
+    .put(signInSuccessAction())
     .finish()
     .isDone();
 });

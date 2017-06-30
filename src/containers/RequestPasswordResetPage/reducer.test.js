@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import requestPasswordResetPageReducer from './reducer';
 import {
   requestPasswordResetAction,
-  requestPasswordResetSucceedAction,
+  requestPasswordResetSuccessAction,
   requestPasswordResetFailedAction,
   destroyPageAction,
 } from './actions';
@@ -24,21 +24,21 @@ describe('requestPasswordResetPageReducer', () => {
     it('should update state', () => {
       const expectedState = currentState.merge({
         loading: true,
-        errorMessage: false,
+        errorMessage: null,
         sent: false,
       });
       expect(currentState.toJS()).toEqual(expectedState.toJS());
     });
 
-    describe('when call with the REQUEST_PASSWORD_RESET_SUCCEED_ACTION action', () => {
+    describe('when call with the REQUEST_PASSWORD_RESET_SUCCESS_ACTION action', () => {
       beforeEach(() => {
-        currentState = requestPasswordResetPageReducer(currentState, requestPasswordResetSucceedAction());
+        currentState = requestPasswordResetPageReducer(currentState, requestPasswordResetSuccessAction());
       });
 
       it('should update state', () => {
         const expectedState = currentState.merge({
           loading: false,
-          errorMessage: false,
+          errorMessage: null,
           sent: true,
         });
         expect(currentState.toJS()).toEqual(expectedState.toJS());

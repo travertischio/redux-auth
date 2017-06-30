@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserIsAdmin should display PageComponent when user has admin role 1`] = `
+<div>
+  Page only for admins
+</div>
+`;
+
+exports[`UserIsAdmin when user has not admin role should display PageComponent when user has not admin role 1`] = `null`;
