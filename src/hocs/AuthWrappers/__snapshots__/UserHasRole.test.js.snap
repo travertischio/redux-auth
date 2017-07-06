@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserHasRole should not render PageComponent when user has different role that specified 1`] = `<main />`;
+
+exports[`UserHasRole should not render PageComponent when user is not authenticated 1`] = `<main />`;
+
+exports[`UserHasRole should redner PageComponent when user has "20_editor" role 1`] = `
+<main>
+  <div>
+    Page only for users with specific roles
+  </div>
+</main>
+`;
+
+exports[`UserHasRole should redner PageComponent when user has "30_manager" role 1`] = `
+<main>
+  <div>
+    Page only for users with specific roles
+  </div>
+</main>
+`;

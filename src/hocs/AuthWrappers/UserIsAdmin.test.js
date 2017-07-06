@@ -1,15 +1,7 @@
 import React from 'react';
-// import {
-//   Router,
-//   Route,
-// } from 'react-router';
-import {
-  createComponentWithIntl,
-  // findActionByType,
-} from 'react-unit-testing-utils';
-// import { LOCATION_CHANGE } from 'react-router-redux';
+import { createComponentWithRouter } from 'react-unit-testing-utils';
 import UserIsAdmin from './UserIsAdmin';
-import config from '../../config';
+import config, { setConfig } from '../../config';
 
 const PageComponent = () => <div>Page only for admins</div>;
 const PageOnlyForAdmins = UserIsAdmin(PageComponent);
@@ -19,7 +11,7 @@ describe('UserIsAdmin', () => {
     expect(UserIsAdmin).toBeDefined();
   });
 
-  it('should display PageComponent when user has admin role', () => {
+  it('should redner PageComponent when user has admin role', () => {
     const initialState = {
       auth: {
         user: {
@@ -27,37 +19,62 @@ describe('UserIsAdmin', () => {
         },
       },
     };
-    const { component } = createComponentWithIntl(<PageOnlyForAdmins />, initialState);
 
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
+  it('should not render PageComponent when user is not authenticated', () => {
+    const initialState = {
+      auth: {
+        user: null,
+      },
+    };
 
-  describe('when user has not admin role', () => {
-    // let store = null;
-    let component = null;
+    const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
 
-    beforeEach(() => {
-      const initialState = {
-        auth: {
-          user: {
-            role: '10_user',
-          },
+    expect(wrapper.toJSON()).toMatchSnapshot();
+  });
+
+  it('should not render PageComponent when user has no admin role', () => {
+    const initialState = {
+      auth: {
+        user: {
+          role: '10_user',
         },
-      };
-      const componentAndStore = createComponentWithIntl(<PageOnlyForAdmins />, initialState);
-      // store = componentAndStore.store;
-      component = componentAndStore.component;
-    });
+      },
+    };
 
-    it('should display PageComponent when user has not admin role', () => {
-      expect(component.toJSON()).toMatchSnapshot();
-    });
+    const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
 
-    // it('should behave...', () => {
-    //   console.log(store.getActions());
-    //   const recivedAction = findActionByType(store, LOCATION_CHANGE);
-    //   expect(recivedAction.type).toEqual(LOCATION_CHANGE);
-    // });
+    expect(wrapper.toJSON()).toMatchSnapshot();
+  });
+
+  it('should not render PageComponent when user is not authenticated', () => {
+    const initialState = {
+      auth: {},
+    };
+
+    const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
+  });
+
+  it('should render PageComponent when user has admin role and admin role is change in the config', () => {
+    const newAdminRole = '100_superadmin';
+    const initialState = {
+      auth: {
+        user: {
+          role: newAdminRole,
+        },
+      },
+    };
+
+    setConfig({ adminRole: newAdminRole });
+
+    const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
+
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 });

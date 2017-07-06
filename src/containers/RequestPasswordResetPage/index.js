@@ -14,7 +14,7 @@ class RequestPasswordResetPage extends PureComponent {
   static propTypes = {
     RequestPasswordResetPage: PropTypes.object,
     onSubmitForm: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.object,
   };
 
   renderSuccessMessage() {
