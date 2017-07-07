@@ -4,6 +4,7 @@ import {
   findActionByType,
   mountWithIntl,
   createComponentWithIntl,
+  createComponentWithRouter,
 } from 'react-unit-testing-utils';
 import SignUpPage from './index';
 // import { destroyPageAction } from './actions';
@@ -47,8 +48,8 @@ describe('<SignUpPage />', () => {
   //     },
   //     signUpPage: {},
   //   };
-  //   const { component, store } = createComponentWithIntl(<SignUpPage />, initialState);
-  //   component.unmount();
+  //   const { wrapper, store } = createComponentWithRouter(<SignUpPage />, initialState);
+  //   wrapper.unmount();
   //   const recivedAction = findActionByType(store, DESTROY_PAGE_ACTION);
   //   expect(recivedAction).toEqual(destroyPageAction());
   // });
@@ -60,8 +61,8 @@ describe('<SignUpPage />', () => {
         user: {},
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage when user IS NOT authenticated', () => {
@@ -71,8 +72,8 @@ describe('<SignUpPage />', () => {
       },
       signUpPage: {},
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage with loading indicator when loading is in the props', () => {
@@ -84,8 +85,8 @@ describe('<SignUpPage />', () => {
         loading: true,
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage with error message when errorMessage is in the props', () => {
@@ -97,7 +98,7 @@ describe('<SignUpPage />', () => {
         errorMessage: 'Ooops, something went wrong, please try again later.',
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 });

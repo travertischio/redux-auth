@@ -3,7 +3,7 @@ import {
   getStoreWithInitialState,
   findActionByType,
   mountWithIntl,
-  createComponentWithIntl,
+  createComponentWithRouter,
 } from 'react-unit-testing-utils';
 import SignInPage from './index';
 import { destroyPageAction } from './actions';
@@ -44,8 +44,8 @@ describe('<SignInPage />', () => {
       },
       signInPage: {},
     };
-    const { component, store } = createComponentWithIntl(<SignInPage />, initialState);
-    component.unmount();
+    const { wrapper, store } = createComponentWithRouter(<SignInPage />, initialState);
+    wrapper.unmount();
     const recivedAction = findActionByType(store, DESTROY_PAGE_ACTION);
     expect(recivedAction).toEqual(destroyPageAction());
   });
@@ -57,8 +57,8 @@ describe('<SignInPage />', () => {
         user: {},
       },
     };
-    const { component } = createComponentWithIntl(<SignInPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignInPage when user IS NOT authenticated', () => {
@@ -68,8 +68,8 @@ describe('<SignInPage />', () => {
       },
       signInPage: {},
     };
-    const { component } = createComponentWithIntl(<SignInPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignInPage with loading indicator when loading is in the props', () => {
@@ -81,8 +81,8 @@ describe('<SignInPage />', () => {
         loading: true,
       },
     };
-    const { component } = createComponentWithIntl(<SignInPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignInPage with error message when errorMessage is in the props', () => {
@@ -94,7 +94,7 @@ describe('<SignInPage />', () => {
         errorMessage: 'Unable to sign in. Please try again.',
       },
     };
-    const { component } = createComponentWithIntl(<SignInPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 });

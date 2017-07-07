@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserIsNotAuthenticated should not redner PageComponent when user is authenticated 1`] = `<main />`;
+
+exports[`UserIsNotAuthenticated should redner PageComponent when user is not authenticated 1`] = `
+<main>
+  <div>
+    Page only for not authenticated users
+  </div>
+</main>
+`;
+
+exports[`UserIsNotAuthenticated with custom failure redirect path should not redner PageComponent when user is authenticated 1`] = `<main />`;
+
+exports[`UserIsNotAuthenticated with custom failure redirect path should redner PageComponent when user is not authenticated 1`] = `
+<main>
+  <div>
+    Page only for not authenticated users
+  </div>
+</main>
+`;
