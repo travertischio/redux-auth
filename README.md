@@ -224,7 +224,7 @@ import { UserIsAdmin } from 'redux-auth';
 export default class PageOnlyForAdmins extends Component {...}
 ```
  * UserHasRole - check if user is authenticated and has one of give role. If yes, container will be displayed and gets user data in the `authData` props. If not user will be redirect to page defined in `userHasNoRoleRedirectPath` property of the configuration. 
- ```javascript
+```javascript
 
 import { UserHasRole } from 'redux-auth';
 
