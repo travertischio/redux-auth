@@ -181,7 +181,7 @@
     "react-dom": "^15.5.4",
     "react-intl": "^2.2.3",
     "react-test-renderer": "^15.5.4",
-    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#^1.0.0",
+    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#^1.2.0",
     "redux-saga-test-plan": "^2.4.4",
     "webpack": "^2.4.1"
   }
