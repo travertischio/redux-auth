@@ -28,7 +28,7 @@ import { sagas as authenticationSagas } from 'redux-auth';
 authenticationSagas.map(store.runSaga);
 ```
 4. Add AuthenticationProvider provider to app.js:
-```javascript
+```jsx
 import { AuthenticationProvider } from 'redux-auth';
 ...
 const render = () => {
@@ -345,7 +345,7 @@ export default reduxForm({
 ```
 
 2. Create sign in page container based using createSignInContainer HOC
-```javascript
+```jsx
 
 import React from 'react';
 import PropTypes from 'prop-types';
