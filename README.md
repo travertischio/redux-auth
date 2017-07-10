@@ -244,10 +244,10 @@ To create your custom page container you need to write your own page component a
 
 And then you need to replace default page container in routes.js
 
- ### Example of defining custom sign in page
+### Example of defining custom sign in page
 
  1. Create sign in form component using redux-form
-```javascript
+```jsx
 
 import React from 'react';
 import PropTypes from 'prop-types';
