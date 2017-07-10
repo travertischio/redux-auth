@@ -428,3 +428,5 @@ export default function createRoutes(store) {
  * selectIsAuthenticated - selects boolean value from redux store indicate whether or not a user is authenticated true of false 
 ## Actions
  * setTokenAction - takes as an argument token and returns action, which dispatched to store the set token, parse JWT token and set user data, isAuthenticated flag to true and run interval to refresh token 30s before its expired. 
+ * clearTokenAction - returns clear token action which clear token, clear user data and set isAuthenticated flag to false in redux store
+ * refreshTokenAction - returns refresh token action

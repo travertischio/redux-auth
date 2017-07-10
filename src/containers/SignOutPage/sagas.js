@@ -1,5 +1,5 @@
-import { takeEvery } from 'redux-saga';
 import {
+  takeEvery,
   take,
   cancel,
   put,

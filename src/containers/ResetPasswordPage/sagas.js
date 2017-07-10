@@ -1,11 +1,22 @@
-import { takeLatest, takeEvery } from 'redux-saga';
-import { take, cancel, put, call } from 'redux-saga/effects';
+import {
+  takeLatest,
+  takeEvery,
+  take,
+  cancel,
+  put,
+  call,
+} from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-// TODO: move it to redux-auth
 import { resetPassword as resetPasswordApiCall } from '../../api';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
-import { resetPasswordSuccessAction, resetPasswordFailedAction } from './actions';
-import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCESS_ACTION } from './constants';
+import {
+  resetPasswordSuccessAction,
+  resetPasswordFailedAction,
+} from './actions';
+import {
+  RESET_PASSWORD_ACTION,
+  RESET_PASSWORD_SUCCESS_ACTION,
+} from './constants';
 
 export function* defaultSaga() {
   const resetPasswordActionWatcher = yield takeLatest(RESET_PASSWORD_ACTION, resetPasswordSaga);

@@ -14,7 +14,11 @@ import {
   selectUser,
   selectIsAuthenticated,
  } from './containers/AuthenticationProvider/selectors';
-import { setTokenAction } from './containers/AuthenticationProvider/actions';
+import {
+  setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
+} from './containers/AuthenticationProvider/actions';
 
 export default AuthenticationProvider;
 export {
@@ -33,4 +37,6 @@ export {
   selectUser,
   selectIsAuthenticated,
   setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
 };

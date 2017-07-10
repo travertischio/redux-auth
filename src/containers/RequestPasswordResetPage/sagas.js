@@ -1,5 +1,5 @@
-import { takeLatest } from 'redux-saga';
 import {
+  takeLatest,
   take,
   cancel,
   put,

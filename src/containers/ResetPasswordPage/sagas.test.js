@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
-import testSaga from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
@@ -24,9 +24,9 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatestFork(RESET_PASSWORD_ACTION, resetPasswordSaga)
+    .takeLatestEffect(RESET_PASSWORD_ACTION, resetPasswordSaga)
     .next(task1)
-    .takeEveryFork(RESET_PASSWORD_SUCCESS_ACTION, setTokenIfExistsSaga)
+    .takeEveryEffect(RESET_PASSWORD_SUCCESS_ACTION, setTokenIfExistsSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()

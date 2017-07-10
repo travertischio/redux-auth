@@ -2,8 +2,7 @@
  * Test SignUpPage sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
-import testSaga from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';

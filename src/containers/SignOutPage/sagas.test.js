@@ -2,8 +2,7 @@
  * Test SignOutPage sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
-import testSaga from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { clearTokenAction } from '../AuthenticationProvider/actions';
@@ -16,7 +15,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeEveryFork(SIGN_OUT_ACTION, signOutSaga)
+    .takeEveryEffect(SIGN_OUT_ACTION, signOutSaga)
     .next(task1)
     .take(LOCATION_CHANGE)
     .next()
