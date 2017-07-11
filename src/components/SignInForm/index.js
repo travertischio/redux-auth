@@ -11,9 +11,10 @@ import {
   Field,
   reduxForm,
 } from 'redux-form/immutable';
+import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
+import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
-import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 const SignInForm = (props) => {
@@ -42,20 +43,18 @@ const SignInForm = (props) => {
       <Field
         name="email"
         id="email"
-        type="email"
         label={emailLabel}
         placeholder={emailLabel}
         validate={[requiredValidator, emailValidator]}
-        component={WrappedInput}
+        component={EmailField}
       />
       <Field
         name="password"
         id="password"
-        type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
         validate={[requiredValidator]}
-        component={WrappedInput}
+        component={PasswordField}
       />
       <div>
         <button

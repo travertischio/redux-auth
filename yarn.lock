@@ -3173,6 +3173,10 @@ immutable@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
 
+immutable@v4.0.0-rc.2:
+  version "4.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.0.0-rc.2.tgz#fdd0948aae728fda2306a02f72bb73e1773432d1"
+
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
@@ -5234,6 +5238,14 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "~15.5.7"
+
+"react-form-fields@https://bitbucket.org/arabellatech/react-form-fields#^1.1.1":
+  version "1.1.1"
+  resolved "https://bitbucket.org/arabellatech/react-form-fields#59ec792487d55ee11184324fcb9e9345cdef7b6f"
+  dependencies:
+    immutable v4.0.0-rc.2
+    lodash "^4.17.4"
+    moment "^2.18.1"
 
 react-fuzzy@^0.3.3:
   version "0.3.3"

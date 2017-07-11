@@ -31,7 +31,7 @@ import requestPasswordResetPageReducer from '../src/containers/RequestPasswordRe
 import requestPasswordResetPageSagas from '../src/containers/RequestPasswordResetPage/sagas';
 import signOutPageSagas from '../src/containers/SignOutPage/sagas';
 
-setBaseUrl('https://roman-api-feature.arabel.la/api');
+setBaseUrl('https://demo-api-dev.arabel.la/api/');
 
 const reducers = {
   form: formReducer,

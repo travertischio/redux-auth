@@ -5,16 +5,19 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
   noValidate={true}
   onSubmit={[Function]}
 >
-  <div>
-    <label
-      htmlFor="new_password"
-    >
-      New password
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="new_password"
+      >
+        New password
+      </label>
       <input
+        className="textfield"
         id="new_password"
         name="new_password"
         onBlur={[Function]}
@@ -28,16 +31,19 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
       />
     </div>
   </div>
-  <div>
-    <label
-      htmlFor="re_new_password"
-    >
-      Retype new password
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="re_new_password"
+      >
+        Retype new password
+      </label>
       <input
+        className="textfield"
         id="re_new_password"
         name="re_new_password"
         onBlur={[Function]}

@@ -17,16 +17,19 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage whe
         noValidate={true}
         onSubmit={[Function]}
       >
-        <div>
-          <label
-            htmlFor="email"
-          >
-            E-mail
-          </label>
+        <div
+          className=""
+        >
           <div
-            className=""
+            className="form-item"
           >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
             <input
+              className="textfield"
               id="email"
               name="email"
               onBlur={[Function]}
@@ -74,16 +77,19 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage wit
         noValidate={true}
         onSubmit={[Function]}
       >
-        <div>
-          <label
-            htmlFor="email"
-          >
-            E-mail
-          </label>
+        <div
+          className=""
+        >
           <div
-            className=""
+            className="form-item"
           >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
             <input
+              className="textfield"
               id="email"
               name="email"
               onBlur={[Function]}
@@ -129,16 +135,19 @@ exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage wit
         noValidate={true}
         onSubmit={[Function]}
       >
-        <div>
-          <label
-            htmlFor="email"
-          >
-            E-mail
-          </label>
+        <div
+          className=""
+        >
           <div
-            className=""
+            className="form-item"
           >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
             <input
+              className="textfield"
               id="email"
               name="email"
               onBlur={[Function]}

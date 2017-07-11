@@ -11,11 +11,13 @@ import {
   Field,
   reduxForm,
 } from 'redux-form/immutable';
+import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
+import TextField from 'react-form-fields/lib/TextInputField/reduxForm';
+import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
 import { setOfPasswordValidators } from 'validators/lib/setOfPasswordValidators';
 import { matchToPassword as matchToPasswordValidator } from 'validators/lib/matchToPassword';
-import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 export const SignUpForm = (props) => {
@@ -45,39 +47,36 @@ export const SignUpForm = (props) => {
     <form onSubmit={onSubmit} noValidate>
       <Field
         id="firstName"
-        name="first_name"
-        type="text"
+        name="firstName"
         label={firstNameLabel}
         placeholder={firstNameLabel}
         validate={[requiredValidator]}
-        component={WrappedInput}
+        component={TextField}
       />
       <Field
         id="email"
         name="email"
-        type="email"
         label={emailLabel}
         placeholder={emailLabel}
         validate={[requiredValidator, emailValidator]}
-        component={WrappedInput}
+        component={EmailField}
       />
       <Field
         id="password"
         name="password"
-        type="password"
         label={passwordLabel}
         placeholder={passwordLabel}
         validate={setOfPasswordValidators}
-        component={WrappedInput}
+        component={PasswordField}
       />
       <Field
         id="confirmPassword"
-        name="confirm_password"
+        name="confirmPassword"
         type="password"
         label={confirmPasswordLabel}
         placeholder={confirmPasswordLabel}
         validate={[requiredValidator, matchToPasswordValidator]}
-        component={WrappedInput}
+        component={PasswordField}
       />
       <div>
         <button

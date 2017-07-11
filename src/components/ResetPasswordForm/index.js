@@ -11,10 +11,10 @@ import {
   Field,
   reduxForm,
 } from 'redux-form/immutable';
+import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
 import { required as requiredValidator } from 'validators/lib/required';
 import { setOfPasswordValidators } from 'validators/lib/setOfPasswordValidators';
 import { matchToNewPassword as matchToNewPasswordValidator } from 'validators/lib/matchToNewPassword';
-import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 function ResetPasswordForm(props) {
@@ -45,20 +45,18 @@ function ResetPasswordForm(props) {
       <Field
         id="new_password"
         name="new_password"
-        type="password"
         label={newPasswordLabel}
         placeholder={newPasswordPlaceholder}
         validate={setOfPasswordValidators}
-        component={WrappedInput}
+        component={PasswordField}
       />
       <Field
         id="re_new_password"
         name="re_new_password"
-        type="password"
         label={reNewPassword}
         placeholder={reNewPasswordPlaceholder}
         validate={[requiredValidator, matchToNewPasswordValidator]}
-        component={WrappedInput}
+        component={PasswordField}
       />
       <div>
         <button
