@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'babel-polyfill';
 import { fromJS } from 'immutable';
 import {
@@ -13,13 +14,18 @@ import {
 } from 'redux';
 import { combineReducers } from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
-import { Provider } from 'react-redux';
+import {
+  Provider,
+  connect,
+} from 'react-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 import { setBaseUrl } from 'api-client';
+import { createStructuredSelector } from 'reselect';
 import {
   AuthenticationProvider,
   reducer as authReducer,
   sagas as authSagas,
+  selectIsAuthenticated,
 } from '../src/index';
 import signInPageReducer from '../src/containers/SignInPage/reducer';
 import signInPageSagas from '../src/containers/SignInPage/sagas';
@@ -58,6 +64,39 @@ signUpPageSagas.map(sagaMiddleware.run);
 signOutPageSagas.map(sagaMiddleware.run);
 resetPasswordPageSagas.map(sagaMiddleware.run);
 requestPasswordResetPageSagas.map(sagaMiddleware.run);
+
+let IsAuthenticatedWrapper = (props) => {
+  const {
+    isAuthenticated,
+    story,
+  } = props;
+
+  return (
+    <main>
+      {isAuthenticated && <h1>You are authenticated!</h1>}
+      {!isAuthenticated && <h1>You are not authenticated!</h1>}
+
+      <hr/>
+
+      {story()}
+    </main>
+  );
+};
+
+IsAuthenticatedWrapper.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  story: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  isAuthenticated: selectIsAuthenticated,
+});
+
+IsAuthenticatedWrapper = connect(mapStateToProps)(IsAuthenticatedWrapper);
+
+addDecorator((story) => (
+  <IsAuthenticatedWrapper story={story} />
+));
 
 addDecorator((story) => (
   <AuthenticationProvider>
