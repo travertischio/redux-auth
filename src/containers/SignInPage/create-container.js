@@ -28,8 +28,8 @@ export default function createSignInContainer(PageComponent, options = {}) {
   @connect(mapStateToProps, mapDispatchToProps)
   class SignInContainer extends PureComponent {
     static propTypes = {
-      intl: PropTypes.object,
-      onUnMount: PropTypes.func,
+      intl: PropTypes.object.isRequired,
+      onUnMount: PropTypes.func.isRequired,
     };
 
     componentWillUnmount() {

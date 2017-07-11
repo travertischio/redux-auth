@@ -24,7 +24,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
   @connect(mapStateToProps, mapDispatchToProps)
   class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
-      intl: PropTypes.object,
+      intl: PropTypes.object.isRequired,
     };
 
     render() {

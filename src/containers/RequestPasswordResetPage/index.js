@@ -12,10 +12,14 @@ import messages from './messages';
 
 class RequestPasswordResetPage extends PureComponent {
   static propTypes = {
-    RequestPasswordResetPage: PropTypes.object,
-    onSubmitForm: PropTypes.func,
+    RequestPasswordResetPage: PropTypes.object.isRequired,
+    onSubmitForm: PropTypes.func.isRequired,
     errorMessage: PropTypes.object,
   };
+
+  static defaultProps = {
+    errorMessage: null,
+  }
 
   renderSuccessMessage() {
     return (

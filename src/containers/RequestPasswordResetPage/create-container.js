@@ -27,9 +27,9 @@ export default function createRequestPasswordResetContainer(PageComponent, optio
   @connect(mapStateToProps, mapDispatchToProps)
   class RequestPasswordResetContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
-      intl: PropTypes.object,
-      RequestPasswordResetPage: PropTypes.object,
-      onUnMount: PropTypes.func,
+      intl: PropTypes.object.isRequired,
+      RequestPasswordResetPage: PropTypes.object.isRequired,
+      onUnMount: PropTypes.func.isRequired,
     };
 
     componentWillUnmount() {

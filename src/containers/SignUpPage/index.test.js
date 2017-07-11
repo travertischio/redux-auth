@@ -3,7 +3,6 @@ import {
   getStoreWithInitialState,
   findActionByType,
   mountWithIntl,
-  createComponentWithIntl,
   createComponentWithRouter,
 } from 'react-unit-testing-utils';
 import SignUpPage from './index';

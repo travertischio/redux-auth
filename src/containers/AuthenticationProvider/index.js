@@ -34,6 +34,12 @@ const mapDispatchToProps = {
 @connect(mapStateToProps, mapDispatchToProps)
 @compose(AuthenticationProviderContext)
 export default class AuthenticationProvider extends PureComponent {
+  static propTypes = {
+    refreshToken: PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired,
+    hasTokenRefreshed: PropTypes.bool.isRequired,
+  };
+
   componentDidMount() {
     this.props.refreshToken();
   }
@@ -62,9 +68,3 @@ export default class AuthenticationProvider extends PureComponent {
     return this.renderLoading();
   }
 }
-
-AuthenticationProvider.propTypes = {
-  refreshToken: PropTypes.func,
-  children: PropTypes.element,
-  hasTokenRefreshed: PropTypes.bool,
-};

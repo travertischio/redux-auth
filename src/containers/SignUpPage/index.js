@@ -28,8 +28,8 @@ function SignUpPage(props) {
 }
 
 SignUpPage.propTypes = {
-  SignUpPage: PropTypes.object,
-  onSubmitForm: PropTypes.func,
+  SignUpPage: PropTypes.object.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 export default createSignUpContainer(SignUpPage);
