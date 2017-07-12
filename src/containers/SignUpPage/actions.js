@@ -10,9 +10,11 @@ import {
   SIGN_UP_FAILED_ACTION,
 } from './constants';
 
-export const signUpAction = (userData) => ({
+export const signUpAction = (userData, resolve, reject) => ({
   type: SIGN_UP_ACTION,
   payload: userData,
+  resolve,
+  reject,
 });
 
 export const signUpSuccessAction = (response) => ({

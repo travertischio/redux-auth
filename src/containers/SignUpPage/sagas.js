@@ -30,11 +30,19 @@ export function* defaultSaga() {
 }
 
 export function* signUpSaga(action) {
-  try {
-    const response = yield call(signUpApiCall, action.payload);
+  const {
+    payload,
+    resolve,
+    reject,
+  } = action;
 
+  try {
+    const response = yield call(signUpApiCall, payload);
+
+    yield call(resolve, response);
     yield put(signUpSuccessAction(response));
   } catch (error) {
+    yield call(reject, error);
     yield put(signUpFailedAction(error));
   }
 }
