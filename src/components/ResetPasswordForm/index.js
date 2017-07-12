@@ -43,16 +43,16 @@ function ResetPasswordForm(props) {
   return (
     <form onSubmit={onSubmit} noValidate>
       <Field
-        id="new_password"
-        name="new_password"
+        id="newPassword"
+        name="newPassword"
         label={newPasswordLabel}
         placeholder={newPasswordPlaceholder}
         validate={setOfPasswordValidators}
         component={PasswordField}
       />
       <Field
-        id="re_new_password"
-        name="re_new_password"
+        id="reNewPassword"
+        name="reNewPassword"
         label={reNewPassword}
         placeholder={reNewPasswordPlaceholder}
         validate={[requiredValidator, matchToNewPasswordValidator]}

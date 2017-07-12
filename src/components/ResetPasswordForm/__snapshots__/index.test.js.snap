@@ -12,14 +12,14 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
       className="form-item"
     >
       <label
-        htmlFor="new_password"
+        htmlFor="newPassword"
       >
         New password
       </label>
       <input
         className="textfield"
-        id="new_password"
-        name="new_password"
+        id="newPassword"
+        name="newPassword"
         onBlur={[Function]}
         onChange={[Function]}
         onDragStart={[Function]}
@@ -38,14 +38,14 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
       className="form-item"
     >
       <label
-        htmlFor="re_new_password"
+        htmlFor="reNewPassword"
       >
         Retype new password
       </label>
       <input
         className="textfield"
-        id="re_new_password"
-        name="re_new_password"
+        id="reNewPassword"
+        name="reNewPassword"
         onBlur={[Function]}
         onChange={[Function]}
         onDragStart={[Function]}

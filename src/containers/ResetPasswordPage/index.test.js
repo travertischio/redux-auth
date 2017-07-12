@@ -28,8 +28,8 @@ describe('<ResetPasswordPage />', () => {
 
     const newPassword = 'pass123';
 
-    wrapper.find('input[name="new_password"]').simulate('change', { target: { value: newPassword } });
-    wrapper.find('input[name="re_new_password"]').simulate('change', { target: { value: newPassword } });
+    wrapper.find('input[name="newPassword"]').simulate('change', { target: { value: newPassword } });
+    wrapper.find('input[name="reNewPassword"]').simulate('change', { target: { value: newPassword } });
     wrapper.find('form').simulate('submit');
 
     const recivedAction = findActionByType(store, RESET_PASSWORD_ACTION);
