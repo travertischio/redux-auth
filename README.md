@@ -368,7 +368,7 @@ function SignInPage(props) {
   return (
     <div style={style.outerContainer}>
       <Helmet
-        title="Physician App - Sign In"
+        title="Sign In"
         meta={[
           { name: 'description', content: 'Sign In' },
         ]}
