@@ -36,7 +36,8 @@
     "redux-form": "^6.6.3",
     "redux-saga": "^0.15.4",
     "reselect": "^3.0.0",
-    "validators": "https://bitbucket.org/arabellatech/validators#^2.0.0"
+    "validators": "https://bitbucket.org/arabellatech/validators#^2.0.0",
+    "react-form-fields": "https://bitbucket.org/arabellatech/react-form-fields#^1.2.0"
   },
   "peerDependencies": {
     "api-client": "https://bitbucket.org/arabellatech/api-client#^1.3.0",

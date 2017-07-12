@@ -29,10 +29,10 @@ describe('<SignUpPage />', () => {
     const email = 'tester@test.com';
     const password = 'zxy123';
 
-    wrapper.find('input[name="first_name"]').simulate('change', { target: { value: firstName } });
+    wrapper.find('input[name="firstName"]').simulate('change', { target: { value: firstName } });
     wrapper.find('input[name="email"]').simulate('change', { target: { value: email } });
     wrapper.find('input[name="password"]').simulate('change', { target: { value: password } });
-    wrapper.find('input[name="confirm_password"]').simulate('change', { target: { value: password } });
+    wrapper.find('input[name="confirmPassword"]').simulate('change', { target: { value: password } });
     wrapper.find('form').simulate('submit');
 
     const recivedAction = findActionByType(store, SIGN_UP_ACTION);
