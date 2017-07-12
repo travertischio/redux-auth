@@ -8,7 +8,7 @@
 
 ## Quick start
 
-## Install example component in your-project
+## Install redux-auth in your project
 1. Run `yarn add https://bitbucket.org/arabellatech/redux-auth`
 2. Add redux-auth reducer to reducers.js:
 ```javascript
