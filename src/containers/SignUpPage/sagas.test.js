@@ -27,6 +27,11 @@ const signUpAction = {
   },
 };
 
+new Promise((resolve, reject) => { // eslint-disable-line no-new
+  signUpAction.resolve = resolve;
+  signUpAction.reject = reject;
+});
+
 it('defaultSaga', () => {
   const task1 = createMockTask();
   const task2 = createMockTask();
@@ -51,6 +56,8 @@ it('signUpSaga and succeed', () => {
     .next()
     .call(signUpApiCall, signUpAction.payload)
     .next()
+    .call(signUpAction.resolve, undefined)
+    .next()
     .put(signUpSuccessAction())
     .finish()
     .isDone();
@@ -65,6 +72,8 @@ it('signUpSaga and failed', () => {
     .next()
     .call(signUpApiCall, signUpAction.payload)
     .throw(errorResponse)
+    .call(signUpAction.reject, errorResponse)
+    .next()
     .put(signUpFailedAction(errorResponse))
     .finish()
     .isDone();
