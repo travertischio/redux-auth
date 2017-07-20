@@ -12,7 +12,7 @@ import {
   reduxForm,
 } from 'redux-form/immutable';
 import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
-import TextField from 'react-form-fields/lib/TextInputField/reduxForm';
+import TextField from 'react-form-fields/lib/TextField/reduxForm';
 import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
