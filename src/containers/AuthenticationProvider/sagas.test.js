@@ -20,33 +20,73 @@ import {
   refreshToken as refreshTokenApiCall,
   setAuthorizationTokenInHeaders,
 } from '../../api';
-import {
-  defaultSaga,
+import sagas, {
+  watchSetTokenAction,
+  watchSetPermanentTokenAndDeviceIdAction,
+  watchClearTokenAction,
+  watchRefreshTokenAction,
   setTokenSaga,
+  setPermanentTokenAndDeviceIdSaga,
   putRefreshTokenActionWithDelaySaga,
   clearTokenSaga, refreshTokenSaga,
-  setTokenIfExistsSaga } from './sagas';
+  setTokenIfExistsSaga,
+} from './sagas';
 import {
   REFRESH_TOKEN_ACTION,
+  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
   SET_TOKEN_ACTION,
   CLEAR_TOKEN_ACTION,
 } from './constants';
 import {
-  setTokenInStorage,
-  removeTokenFromStorage,
+  setAuthDataInStorage,
+  removeAuthDataFromStorage,
 } from './utils';
 import { selectTokenExpiryTime } from './selectors';
 
-it('defaultSaga', () => {
-  testSaga(defaultSaga)
+
+describe('should export all watchers sagas by default', () => {
+  expect(sagas).toEqual([
+    watchSetTokenAction,
+    watchSetPermanentTokenAndDeviceIdAction,
+    watchClearTokenAction,
+    watchRefreshTokenAction,
+  ]);
+});
+
+it('watchSetTokenAction', () => {
+  testSaga(watchSetTokenAction)
     .next()
     .takeEveryEffect(SET_TOKEN_ACTION, setTokenSaga)
     .next()
     .takeEveryEffect(SET_TOKEN_ACTION, putRefreshTokenActionWithDelaySaga)
     .next()
+    .finish()
+    .isDone();
+});
+
+it('watchSetPermanentTokenAndDeviceIdAction', () => {
+  testSaga(watchSetPermanentTokenAndDeviceIdAction)
+    .next()
+    .takeEveryEffect(SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION, setPermanentTokenAndDeviceIdSaga)
+    .next()
+    .finish()
+    .isDone();
+});
+
+it('watchClearTokenAction', () => {
+  testSaga(watchClearTokenAction)
+    .next()
     .takeEveryEffect(CLEAR_TOKEN_ACTION, clearTokenSaga)
     .next()
+    .finish()
+    .isDone();
+});
+
+it('watchRefreshTokenAction', () => {
+  testSaga(watchRefreshTokenAction)
+    .next()
     .takeEveryEffect(REFRESH_TOKEN_ACTION, refreshTokenSaga)
+    .next()
     .finish()
     .isDone();
 });
@@ -58,9 +98,25 @@ it('setTokenSaga', () => {
 
   testSaga(setTokenSaga, action)
     .next()
-    .call(setTokenInStorage, action.payload)
+    .call(setAuthDataInStorage, { token: action.payload })
     .next()
     .call(setAuthorizationTokenInHeaders, action.payload)
+    .finish()
+    .isDone();
+});
+
+it('setPermanentTokenAndDeviceIdSaga', () => {
+  const action = {
+    payload: {
+      permanentToken: '1cfbe9a1cf13xeedf1a2fc784xb7caf8a95cd48a',
+      deviceId: 5342,
+    },
+  };
+
+  testSaga(setPermanentTokenAndDeviceIdSaga, action)
+    .next()
+    .call(setAuthDataInStorage, { ...action.payload })
+    .next()
     .finish()
     .isDone();
 });
@@ -68,17 +124,19 @@ it('setTokenSaga', () => {
 it('clearTokenSaga', () => {
   testSaga(clearTokenSaga)
     .next()
-    .call(removeTokenFromStorage)
+    .call(removeAuthDataFromStorage)
     .finish()
     .isDone();
 });
 
 it('putRefreshTokenActionWithDelaySaga', () => {
+  const tokenExpiryTime = 50000;
+
   testSaga(putRefreshTokenActionWithDelaySaga)
     .next()
     .select(selectTokenExpiryTime)
-    .next()
-    .call(delay, undefined)
+    .next(tokenExpiryTime)
+    .call(delay, tokenExpiryTime)
     .next()
     .put(refreshTokenAction())
     .finish()
@@ -89,6 +147,7 @@ it('refreshTokenSaga succeed', () => {
   const storeState = fromJS({
     auth: {
       token: 'XYZ123',
+      permanentToken: 'ASD123',
       hasTokenRefreshed: false,
     },
   });
@@ -114,6 +173,7 @@ it('refreshTokenSaga and failed', () => {
   const storeState = fromJS({
     auth: {
       token: 'XYZ123',
+      permanentToken: 'ASD123',
       hasTokenRefreshed: false,
     },
   });
@@ -124,6 +184,24 @@ it('refreshTokenSaga and failed', () => {
       [matchers.call.fn(refreshTokenApiCall), throwError()],
     ])
     .put(clearTokenAction())
+    .put(markTokenAsRefreshedAction())
+    .run();
+});
+
+it('refreshTokenSaga and there is no permanentToken', () => {
+  const storeState = fromJS({
+    auth: {
+      token: 'XYZ123',
+      permanentToken: null,
+      hasTokenRefreshed: false,
+    },
+  });
+
+  expectSaga(refreshTokenSaga)
+    .withState(storeState)
+    .provide([
+      [matchers.call.fn(refreshTokenApiCall), throwError()],
+    ])
     .put(markTokenAsRefreshedAction())
     .run();
 });

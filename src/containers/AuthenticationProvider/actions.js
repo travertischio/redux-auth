@@ -6,6 +6,7 @@
 
 import {
   SET_TOKEN_ACTION,
+  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
   CLEAR_TOKEN_ACTION,
   REFRESH_TOKEN_ACTION,
   MARK_TOKEN_AS_REFRESHED_ACTION,
@@ -15,6 +16,13 @@ export function setTokenAction(token) {
   return {
     type: SET_TOKEN_ACTION,
     payload: token,
+  };
+}
+
+export function setPermanentTokenAndDeviceIdAction(payload) {
+  return {
+    type: SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
+    payload,
   };
 }
 

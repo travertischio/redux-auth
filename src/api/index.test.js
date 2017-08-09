@@ -6,6 +6,7 @@ import {
   requestPasswordReset,
   resetPassword,
   signUp,
+  signOut,
   setAuthorizationTokenInHeaders,
 } from './';
 
@@ -14,7 +15,8 @@ describe('redux-auth API', () => {
 
   const successAuthResponse = {
     token: 'xyz123',
-    permanentToken: null,
+    permanentToken: 'zxv',
+    deviceId: 123,
   };
 
   beforeEach(() => {
@@ -48,14 +50,15 @@ describe('redux-auth API', () => {
     });
   });
 
-  describe('when calling refreshToken(token)', () => {
-    it('should return promise and resolve it with successAuthResponse', (done) => {
-      const token = 'xyz123';
-      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', { token }).reply(200, successAuthResponse);
+  describe('when calling refreshToken(permanentToken)', () => {
+    it('should return promise and resolve it with successAuthResponse and send Permanent-Token in headers', (done) => {
+      const permanentToken = 'XYZ';
+      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', {}).reply(200, successAuthResponse);
 
-      refreshToken(token)
+      refreshToken(permanentToken)
         .then((response) => {
           expect(response.data).toEqual(successAuthResponse);
+          expect(response.config.headers['Permanent-Token']).toEqual(permanentToken);
           done();
         });
     });
@@ -111,7 +114,22 @@ describe('redux-auth API', () => {
     });
   });
 
+  describe('when calling signOut(1234)', () => {
+    it('should return promise and resolve it with successAuthResponse and send Device-Id in headers', (done) => {
+      const deviceId = 1234;
+      mock.onDelete('/auth/logout').reply(204, successAuthResponse);
+
+      signOut(deviceId)
+        .then((response) => {
+          expect(response.data).toEqual(successAuthResponse);
+          expect(response.config.headers['Device-Id']).toEqual(deviceId);
+          done();
+        });
+    });
+  });
+
   describe('when calling setAuthorizationTokenInHeaders(authHeader)', () => {
+    const permanentToken = 'CYZ';
     const token = 'XYZ123';
 
     beforeEach(() => {
@@ -119,9 +137,9 @@ describe('redux-auth API', () => {
     });
 
     it('should request header has set Authorization header', (done) => {
-      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', { token }).reply(200, successAuthResponse);
+      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', {}).reply(200, successAuthResponse);
 
-      refreshToken(token)
+      refreshToken(permanentToken)
         .then((response) => {
           expect(response.config.headers.Authorization).toEqual(`JWT ${token}`);
           done();

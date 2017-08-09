@@ -3149,6 +3149,10 @@ humps@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.0.tgz#dd4a423e9784626fe7b9f19fde0baff659b40173"
 
+humps@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/humps/-/humps-2.0.1.tgz#dd02ea6081bd0568dc5d073184463957ba9ef9aa"
+
 iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
@@ -5239,9 +5243,9 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-"react-form-fields@https://bitbucket.org/arabellatech/react-form-fields#^1.1.1":
-  version "1.1.1"
-  resolved "https://bitbucket.org/arabellatech/react-form-fields#59ec792487d55ee11184324fcb9e9345cdef7b6f"
+"react-form-fields@https://bitbucket.org/arabellatech/react-form-fields#^1.2.0":
+  version "1.3.0"
+  resolved "https://bitbucket.org/arabellatech/react-form-fields#e4e1066809e44cfbadd8445d1378856e95994c96"
   dependencies:
     immutable v4.0.0-rc.2
     lodash "^4.17.4"

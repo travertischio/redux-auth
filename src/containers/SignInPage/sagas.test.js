@@ -5,12 +5,15 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { setTokenAction } from '../AuthenticationProvider/actions';
+import {
+  setTokenAction,
+  setPermanentTokenAndDeviceIdAction,
+} from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
 import {
   defaultSaga,
   signInSaga,
-  setTokenSaga,
+  onSignInSuccessSaga,
 } from './sagas';
 import {
   signInSuccessAction,
@@ -35,7 +38,7 @@ it('defaultSaga', () => {
     .next()
     .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
     .next(task1)
-    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, setTokenSaga)
+    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, onSignInSuccessSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()
@@ -75,13 +78,24 @@ it('setTokenSaga', () => {
     payload: {
       data: {
         token: 'XYZ',
+        permanentToken: 'OPRS',
+        deviceId: 873,
       },
     },
   };
+  const {
+    permanentToken,
+    deviceId,
+  } = action.payload.data;
 
-  testSaga(setTokenSaga, action)
+  testSaga(onSignInSuccessSaga, action)
     .next()
     .put(setTokenAction(action.payload.data.token))
+    .next()
+    .put(setPermanentTokenAndDeviceIdAction({
+      permanentToken,
+      deviceId,
+    }))
     .finish()
     .isDone();
 });

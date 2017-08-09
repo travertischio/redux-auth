@@ -2,6 +2,8 @@ import { fromJS } from 'immutable';
 import {
   selectAuthenticationDomain,
   selectToken,
+  selectPermanentToken,
+  selectDeviceId,
   selectTokenExpiryTime,
   selectIsAuthenticated,
   selectUser,
@@ -29,6 +31,14 @@ it('should return "auth" object from state when calling selectAuthenticationDoma
 
 it('should return token from state when calling selectToken(state)', () => {
   expect(selectToken(state)).toEqual(state.getIn(['auth', 'token']));
+});
+
+it('should return permanent token from state when calling selectPermanentToken(state)', () => {
+  expect(selectPermanentToken(state)).toEqual(state.getIn(['auth', 'permanentToken']));
+});
+
+it('should return device id from state when calling selectDeviceId(state)', () => {
+  expect(selectDeviceId(state)).toEqual(state.getIn(['auth', 'deviceId']));
 });
 
 it('should return selectTokenExpiryTime from state when calling selectTokenExpiryTime(state)', () => {
