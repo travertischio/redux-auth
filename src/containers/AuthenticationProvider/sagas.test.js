@@ -169,7 +169,7 @@ it('refreshTokenSaga succeed', () => {
     .run();
 });
 
-it('refreshTokenSaga and failed', () => {
+it('refreshTokenSaga failed', () => {
   const storeState = fromJS({
     auth: {
       token: 'XYZ123',
@@ -188,7 +188,7 @@ it('refreshTokenSaga and failed', () => {
     .run();
 });
 
-it('refreshTokenSaga and there is no permanentToken', () => {
+it('refreshTokenSaga when there is no permanentToken', () => {
   const storeState = fromJS({
     auth: {
       token: 'XYZ123',
