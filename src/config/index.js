@@ -9,6 +9,7 @@ const config = {
   redirectPathAfterSignUp: '/',
   redirectPathAfterSignOut: '/sign-in',
   adminRole: '20_example_admin',
+  camelizeUserDataKeys: false,
 };
 
 config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);

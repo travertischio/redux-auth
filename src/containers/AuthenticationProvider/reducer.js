@@ -4,13 +4,24 @@
  *
  */
 
-import { SET_TOKEN_ACTION, CLEAR_TOKEN_ACTION, MARK_TOKEN_AS_REFRESHED_ACTION } from './constants';
-import { getTokenFromStorage, getStateDataFromToken, getEmptyStateData } from './utils';
+import {
+  SET_TOKEN_ACTION,
+  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
+  CLEAR_TOKEN_ACTION,
+  MARK_TOKEN_AS_REFRESHED_ACTION,
+} from './constants';
+import {
+  getAuthDataFromStorage,
+  getStateDataFromToken,
+  getEmptyStateData,
+} from './utils';
 
 function authenticationReducer(state = getInitialState(), action) {
   switch (action.type) {
     case SET_TOKEN_ACTION:
       return onSetTokenAction(state, action.payload);
+    case SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION:
+      return onSetPermanentTokenAndDeviceIdAction(state, action.payload);
     case CLEAR_TOKEN_ACTION:
       return onClearTokenAction(state);
     case MARK_TOKEN_AS_REFRESHED_ACTION:
@@ -21,11 +32,11 @@ function authenticationReducer(state = getInitialState(), action) {
 }
 
 function getInitialState() {
-  const token = getTokenFromStorage();
+  const authData = getAuthDataFromStorage();
   let stateData = getEmptyStateData();
 
-  if (token) {
-    stateData = stateData.set('token', token);
+  if (authData) {
+    stateData = stateData.merge(authData);
   }
 
   return stateData;
@@ -33,12 +44,22 @@ function getInitialState() {
 
 function onSetTokenAction(state, token) {
   const stateData = getStateDataFromToken(token);
+
   return state
     .merge(stateData);
 }
 
+function onSetPermanentTokenAndDeviceIdAction(state, payload) {
+  return state
+    .merge({
+      permanentToken: payload.permanentToken,
+      deviceId: payload.deviceId,
+    });
+}
+
 function onClearTokenAction(state) {
   const stateData = getEmptyStateData();
+
   return state
     .merge(stateData)
     .delete('tokenExpiryTime')
@@ -46,7 +67,8 @@ function onClearTokenAction(state) {
 }
 
 function onMarkTokenAsRefreshedAction(state) {
-  return state.set('hasTokenRefreshed', true);
+  return state
+    .set('hasTokenRefreshed', true);
 }
 
 export default authenticationReducer;

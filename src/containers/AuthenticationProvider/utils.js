@@ -1,29 +1,37 @@
 /* eslint camelcase: 0 */
 import jwt_decode from 'jwt-decode';
+import humps from 'humps';
 import { fromJS } from 'immutable';
 import moment from 'moment';
-import { TOKEN_KEY } from './constants';
+import { AUTH_KEY } from './constants';
+import config from '../../config';
 
-export function setTokenInStorage(token) {
+export function setAuthDataInStorage(authData) {
   try {
-    localStorage.setItem(TOKEN_KEY, token);
+    const currentAuthData = getAuthDataFromStorage();
+    const mergedAuthData = JSON.stringify({
+      ...currentAuthData,
+      ...authData,
+    });
+
+    localStorage.setItem(AUTH_KEY, mergedAuthData);
     return true;
   } catch (e) {
     return false;
   }
 }
 
-export function getTokenFromStorage() {
+export function getAuthDataFromStorage() {
   try {
-    return localStorage.getItem(TOKEN_KEY);
+    return JSON.parse(localStorage.getItem(AUTH_KEY));
   } catch (e) {
     return undefined;
   }
 }
 
-export function removeTokenFromStorage() {
+export function removeAuthDataFromStorage() {
   try {
-    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(AUTH_KEY);
     return true;
   } catch (e) {
     return false;
@@ -32,8 +40,12 @@ export function removeTokenFromStorage() {
 
 export function getStateDataFromToken(token) {
   try {
-    const data = jwt_decode(token);
+    let data = jwt_decode(token);
     const tokenExpiryTime = calculateExpiryTime(data.exp);
+
+    if (config.camelizeUserDataKeys) {
+      data = humps.camelizeKeys(data);
+    }
 
     return fromJS({
       isAuthenticated: true,
@@ -60,5 +72,7 @@ export function getEmptyStateData() {
     hasTokenRefreshed: false,
     user: null,
     token: null,
+    permanentToken: null,
+    deviceId: null,
   });
 }

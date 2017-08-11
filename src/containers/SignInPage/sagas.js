@@ -8,8 +8,14 @@ import {
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signIn as signInApiCall } from '../../api';
-import { setTokenAction } from '../AuthenticationProvider/actions';
-import { selectTokenFromActionPayload } from '../AuthenticationProvider/selectors';
+import {
+  setTokenAction,
+  setPermanentTokenAndDeviceIdAction,
+} from '../AuthenticationProvider/actions';
+import {
+  selectTokenFromActionPayload,
+  selectPermanentTokenAndDeviceIdFromActionPayload,
+} from '../AuthenticationProvider/selectors';
 import {
   signInSuccessAction,
   signInFailedAction,
@@ -21,7 +27,7 @@ import {
 
 export function* defaultSaga() {
   const signInActionWatcher = yield takeLatest(SIGN_IN_ACTION, signInSaga);
-  const signInSuccessActionWatcher = yield takeEvery(SIGN_IN_SUCCESS_ACTION, setTokenSaga);
+  const signInSuccessActionWatcher = yield takeEvery(SIGN_IN_SUCCESS_ACTION, onSignInSuccessSaga);
 
   yield take(LOCATION_CHANGE);
   yield cancel(signInActionWatcher);
@@ -38,9 +44,12 @@ export function* signInSaga(action) {
   }
 }
 
-export function* setTokenSaga(action) {
+export function* onSignInSuccessSaga(action) {
   const token = selectTokenFromActionPayload(action);
+  const payload = selectPermanentTokenAndDeviceIdFromActionPayload(action);
+
   yield put(setTokenAction(token));
+  yield put(setPermanentTokenAndDeviceIdAction(payload));
 }
 
 export default [

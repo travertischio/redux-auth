@@ -1,11 +1,13 @@
 import {
   setTokenAction,
+  setPermanentTokenAndDeviceIdAction,
   clearTokenAction,
   refreshTokenAction,
   markTokenAsRefreshedAction,
 } from './actions';
 import {
   SET_TOKEN_ACTION,
+  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
   CLEAR_TOKEN_ACTION,
   REFRESH_TOKEN_ACTION,
   MARK_TOKEN_AS_REFRESHED_ACTION,
@@ -20,6 +22,16 @@ describe('Authentication actions', () => {
     };
 
     expect(setTokenAction(payload)).toEqual(expected);
+  });
+
+  it('setPermanentTokenAndDeviceIdAction should return SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION type and payload', () => {
+    const payload = {};
+    const expected = {
+      type: SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
+      payload,
+    };
+
+    expect(setPermanentTokenAndDeviceIdAction(payload)).toEqual(expected);
   });
 
   it('clearTokenAction should return CLEAR_TOKEN_ACTION type', () => {

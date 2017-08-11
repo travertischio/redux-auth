@@ -8,6 +8,16 @@ const selectToken = createSelector(
   (authState) => authState.get('token')
 );
 
+const selectPermanentToken = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.get('permanentToken')
+);
+
+const selectDeviceId = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.get('deviceId')
+);
+
 const selectTokenExpiryTime = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.get('tokenExpiryTime')
@@ -32,13 +42,20 @@ const selectHasTokenRefreshed = createSelector(
 );
 
 const selectTokenFromActionPayload = (action) => _get(action, ['payload', 'data', 'token']);
+const selectPermanentTokenAndDeviceIdFromActionPayload = (action) => ({
+  permanentToken: _get(action, ['payload', 'data', 'permanentToken']),
+  deviceId: _get(action, ['payload', 'data', 'deviceId']),
+});
 
 export {
   selectAuthenticationDomain,
   selectToken,
+  selectPermanentToken,
+  selectDeviceId,
   selectTokenExpiryTime,
   selectIsAuthenticated,
   selectUser,
   selectHasTokenRefreshed,
   selectTokenFromActionPayload,
+  selectPermanentTokenAndDeviceIdFromActionPayload,
 };

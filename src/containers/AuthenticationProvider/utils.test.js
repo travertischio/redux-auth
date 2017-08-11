@@ -1,8 +1,17 @@
 import { Map } from 'immutable';
+import humps from 'humps';
 import * as MockDate from 'mockdate';
 import isNumber from 'lodash/isNumber';
-import { setTokenInStorage, getTokenFromStorage, removeTokenFromStorage, getStateDataFromToken, getEmptyStateData, calculateExpiryTime } from './utils';
-import { TOKEN_KEY } from './constants';
+import {
+  setAuthDataInStorage,
+  getAuthDataFromStorage,
+  removeAuthDataFromStorage,
+  getStateDataFromToken,
+  getEmptyStateData,
+  calculateExpiryTime,
+} from './utils';
+import { AUTH_KEY } from './constants';
+import { setConfig } from '../../config';
 
 describe('authentication utils', () => {
   const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJ1c2VybmFtZSI6InRlc3RlckB0ZXN0LmNvbSIsImV4cCI6MTQ5NDMzMDE4NSwib3JpZ19pYXQiOjE0OTQzMjk4ODUsInVzZXIiOnsiZmlyc3RfbmFtZSI6IkpvaG4iLCJpZCI6NDYsImxhc3RfbmFtZSI6IlNtaXRoIiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJyb2xlIjoiMTBfZXhhbXBsZV91c2VyIiwiYXZhdGFyIjpudWxsfX0.H9D75K9NhbQutLFzqAbvrZYe9b0jmTUwaaazq0BzUrM';
@@ -26,35 +35,37 @@ describe('authentication utils', () => {
     hasTokenRefreshed: false,
     user: null,
     token: null,
+    permanentToken: null,
+    deviceId: null,
   };
 
-  describe('when calling setTokenInStorage(token)', () => {
+  describe('when calling setAuthDataInStorage({ token })', () => {
     let result;
 
     beforeEach(() => {
-      result = setTokenInStorage(token);
+      result = setAuthDataInStorage({ token });
     });
 
-    it('should set a token in a localStorage ', () => {
-      const tokenFromLocalStorage = localStorage.getItem(TOKEN_KEY);
-      expect(tokenFromLocalStorage).toEqual(token);
+    it('should set an object with a token in a localStorage', () => {
+      const objectFromLocalStorage = JSON.parse(localStorage.getItem(AUTH_KEY));
+      expect(objectFromLocalStorage.token).toEqual(token);
     });
 
     it('should returns true', () => {
       expect(result).toBe(true);
     });
 
-    it('should returns the token when calling getTokenFromStorage()', () => {
-      expect(getTokenFromStorage()).toEqual(token);
+    it('should returns an object with token when calling getAuthDataFromStorage()', () => {
+      expect(getAuthDataFromStorage()).toEqual({ token });
     });
 
     describe('when calling removeTokenFromStorage()', () => {
       beforeEach(() => {
-        result = removeTokenFromStorage();
+        result = removeAuthDataFromStorage();
       });
 
-      it('should returns undefined when calling getTokenFromStorage()', () => {
-        expect(getTokenFromStorage()).toBeUndefined();
+      it('should returns undefined when calling getAuthDataFromStorage()', () => {
+        expect(getAuthDataFromStorage()).toBeUndefined();
       });
 
       it('should returns true', () => {
@@ -100,6 +111,39 @@ describe('authentication utils', () => {
 
     it('should stateData.user be equal to decodedToken.user', () => {
       expect(stateData.get('user').toJS()).toEqual(decodedToken.user);
+    });
+
+    it('should stateData.tokenExpiryTime be a number', () => {
+      expect(isNumber(stateData.get('tokenExpiryTime'))).toBe(true);
+    });
+
+    it('should stateData.token be the same as token', () => {
+      expect(stateData.get('token')).toBe(token);
+    });
+  });
+
+  describe('when calling getStateDataFromToken(token) with a valid token and camelizeUserDataKeys is config is set to true', () => {
+    let stateData;
+
+    beforeEach(() => {
+      setConfig({ camelizeUserDataKeys: true });
+      stateData = getStateDataFromToken(token);
+    });
+
+    it('should stateData be instance of Immutable.Map', () => {
+      expect(stateData instanceof Map).toBe(true);
+    });
+
+    it('should stateData.isAuthenticated be true', () => {
+      expect(stateData.get('isAuthenticated')).toBe(true);
+    });
+
+    it('should stateData.hasTokenRefreshed be true', () => {
+      expect(stateData.get('hasTokenRefreshed')).toBe(true);
+    });
+
+    it('should stateData.user has camelized keys', () => {
+      expect(stateData.get('user').toJS()).toEqual(humps.camelizeKeys(decodedToken.user));
     });
 
     it('should stateData.tokenExpiryTime be a number', () => {
@@ -180,23 +224,23 @@ describe('authentication utils', () => {
       };
     });
 
-    describe('when calling setTokenInStorage(token)', () => {
+    describe('when calling setAuthDataInStorage(token)', () => {
       let result;
 
       beforeEach(() => {
-        result = setTokenInStorage(token);
+        result = setAuthDataInStorage(token);
       });
 
       it('should return false', () => {
         expect(result).toBeFalsy();
       });
 
-      it('should return undefiend when calling getTokenFromStorage', () => {
-        expect(getTokenFromStorage()).toBeUndefined();
+      it('should return undefiend when calling getAuthDataFromStorage', () => {
+        expect(getAuthDataFromStorage()).toBeUndefined();
       });
 
-      it('should return false when calling removeTokenFromStorage()', () => {
-        expect(removeTokenFromStorage()).toBeFalsy();
+      it('should return false when calling removeAuthDataFromStorage()', () => {
+        expect(removeAuthDataFromStorage()).toBeFalsy();
       });
     });
   });
