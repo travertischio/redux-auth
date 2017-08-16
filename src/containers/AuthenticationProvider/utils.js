@@ -1,20 +1,24 @@
-/* eslint camelcase: 0 */
+  /* eslint camelcase: 0 */
 import jwt_decode from 'jwt-decode';
 import humps from 'humps';
 import { fromJS } from 'immutable';
 import moment from 'moment';
+import AES from 'crypto-js/aes';
+import encUtf8 from 'crypto-js/enc-utf8';
 import { AUTH_KEY } from './constants';
 import config from '../../config';
 
 export function setAuthDataInStorage(authData) {
   try {
     const currentAuthData = getAuthDataFromStorage();
-    const mergedAuthData = JSON.stringify({
+    const mergedAuthData = {
       ...currentAuthData,
       ...authData,
-    });
+    };
+    const authDataAsString = JSON.stringify(mergedAuthData);
+    const encryptedAuthData = AES.encrypt(authDataAsString, config.encryptSecretKey);
 
-    localStorage.setItem(AUTH_KEY, mergedAuthData);
+    localStorage.setItem(AUTH_KEY, encryptedAuthData);
     return true;
   } catch (e) {
     return false;
@@ -23,7 +27,11 @@ export function setAuthDataInStorage(authData) {
 
 export function getAuthDataFromStorage() {
   try {
-    return JSON.parse(localStorage.getItem(AUTH_KEY));
+    const localStorageItem = localStorage.getItem(AUTH_KEY);
+    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, config.encryptSecretKey);
+    const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
+
+    return JSON.parse(decryptedLocalStorageItem);
   } catch (e) {
     return undefined;
   }

@@ -2,6 +2,8 @@ import { Map } from 'immutable';
 import humps from 'humps';
 import * as MockDate from 'mockdate';
 import isNumber from 'lodash/isNumber';
+import AES from 'crypto-js/aes';
+import encUtf8 from 'crypto-js/enc-utf8';
 import {
   setAuthDataInStorage,
   getAuthDataFromStorage,
@@ -11,7 +13,7 @@ import {
   calculateExpiryTime,
 } from './utils';
 import { AUTH_KEY } from './constants';
-import { setConfig } from '../../config';
+import config, { setConfig } from '../../config';
 
 describe('authentication utils', () => {
   const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJ1c2VybmFtZSI6InRlc3RlckB0ZXN0LmNvbSIsImV4cCI6MTQ5NDMzMDE4NSwib3JpZ19pYXQiOjE0OTQzMjk4ODUsInVzZXIiOnsiZmlyc3RfbmFtZSI6IkpvaG4iLCJpZCI6NDYsImxhc3RfbmFtZSI6IlNtaXRoIiwiZW1haWwiOiJ0ZXN0ZXJAdGVzdC5jb20iLCJyb2xlIjoiMTBfZXhhbXBsZV91c2VyIiwiYXZhdGFyIjpudWxsfX0.H9D75K9NhbQutLFzqAbvrZYe9b0jmTUwaaazq0BzUrM';
@@ -46,9 +48,13 @@ describe('authentication utils', () => {
       result = setAuthDataInStorage({ token });
     });
 
-    it('should set an object with a token in a localStorage', () => {
-      const objectFromLocalStorage = JSON.parse(localStorage.getItem(AUTH_KEY));
-      expect(objectFromLocalStorage.token).toEqual(token);
+    it('should set encrtyped an object with a token in a localStorage', () => {
+      const localStorageItem = localStorage.getItem(AUTH_KEY);
+      const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, config.encryptSecretKey);
+      const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
+      const decryptedLocalStorageObject = JSON.parse(decryptedLocalStorageItem);
+
+      expect(decryptedLocalStorageObject.token).toEqual(token);
     });
 
     it('should returns true', () => {
@@ -70,6 +76,28 @@ describe('authentication utils', () => {
 
       it('should returns true', () => {
         expect(result).toBe(true);
+      });
+    });
+
+    describe('when change encrypt secret key', () => {
+      const newEncryptSecretKey = 'NNV![vhXjSs7VUHPj?{@uPs0]/atO`';
+
+      beforeEach(() => {
+        setConfig({ encryptSecretKey: newEncryptSecretKey });
+      });
+
+      it('should not get auth data from localStorage', () => {
+        expect(getAuthDataFromStorage()).toBeUndefined();
+      });
+
+      describe('when calling setAuthDataInStorage({ token }) one more time (using new encryptSecretKey)', () => {
+        beforeEach(() => {
+          result = setAuthDataInStorage({ token });
+        });
+
+        it('should returns an object with token when calling getAuthDataFromStorage()', () => {
+          expect(getAuthDataFromStorage()).toEqual({ token });
+        });
       });
     });
   });
