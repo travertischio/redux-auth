@@ -48,12 +48,12 @@ describe('<RequestPasswordResetPage />', () => {
     expect(recivedAction).toEqual(destroyPageAction());
   });
 
-  it('should NOT render RequestPasswordResetPage when user IS authenticated', () => {
+  it('should render RequestPasswordResetPage when user IS authenticated', () => {
     const initialState = {
       auth: {
         isAuthenticated: true,
-        user: {},
       },
+      requestPasswordResetPage: {},
     };
     const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -61,9 +61,6 @@ describe('<RequestPasswordResetPage />', () => {
 
   it('should render RequestPasswordResetPage when user IS NOT authenticated', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
       requestPasswordResetPage: {},
     };
     const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
@@ -72,9 +69,6 @@ describe('<RequestPasswordResetPage />', () => {
 
   it('should render RequestPasswordResetPage with loading indicator when loading is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
       requestPasswordResetPage: {
         loading: true,
       },
@@ -85,9 +79,6 @@ describe('<RequestPasswordResetPage />', () => {
 
   it('should render RequestPasswordResetPage with success message when sent request', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
       requestPasswordResetPage: {
         sent: true,
       },
@@ -98,9 +89,6 @@ describe('<RequestPasswordResetPage />', () => {
 
   it('should render RequestPasswordResetPage with error message when errorMessage is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
       requestPasswordResetPage: {
         errorMessage: 'serverErrorUnknown',
       },

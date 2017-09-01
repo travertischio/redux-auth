@@ -10,7 +10,6 @@ const config = {
   redirectPathAfterSignUp: '/',
   redirectPathAfterSignOut: '/sign-in',
   adminRole: '20_example_admin',
-  requestPasswordResetAuthWrapper: UserIsNotAuthenticated,
 };
 
 config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);
