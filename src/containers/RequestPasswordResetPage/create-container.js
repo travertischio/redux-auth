@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectRequestPasswordResetPage from './selectors';
 import messages from './messages';
 import {
   requestPasswordResetAction,
   destroyPageAction,
   } from './actions';
+import config from '../../config';
 
 export default function createRequestPasswordResetContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -22,10 +23,10 @@ export default function createRequestPasswordResetContainer(PageComponent, optio
     onUnMount: destroyPageAction,
   };
 
-  @UserIsNotAuthenticated
+  @compose(config.requestPasswordResetAuthWrapper)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
-  class RequestPasswordResetContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  class RequestPasswordResetContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,
       RequestPasswordResetPage: PropTypes.object.isRequired,
