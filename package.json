@@ -29,6 +29,7 @@
     "immutable": "^3.8.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
+    "query-string": "^5.0.0",
     "react-form-fields": "https://bitbucket.org/arabellatech/react-form-fields#^1.2.0",
     "react-helmet": "^5.0.3",
     "react-redux": "^5.0.4",

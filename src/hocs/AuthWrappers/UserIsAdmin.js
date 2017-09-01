@@ -1,12 +1,12 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper';
-import { routerActions } from 'react-router-redux';
+import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
 
 const UserIsAdmin = UserAuthWrapper({
   authSelector: selectUser,
   predicate: isAdmin,
-  redirectAction: routerActions.replace,
+  redirectAction: redirectActionWithSupportParamInQueryString,
   failureRedirectPath: config.userIsNotAdminRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserIsAdmin',

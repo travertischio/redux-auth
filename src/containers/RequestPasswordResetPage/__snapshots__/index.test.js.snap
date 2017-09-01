@@ -1,8 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RequestPasswordResetPage /> should NOT render RequestPasswordResetPage when user IS authenticated 1`] = `<main />`;
-
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage when user IS NOT authenticated 1`] = `
+<main>
+  <div
+    className="request-password-reset-page"
+  >
+    <div>
+      <h1>
+        <span>
+          Let’s find your account
+        </span>
+      </h1>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
+        <div
+          className=""
+        >
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
+            <input
+              className="textfield"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="E-mail"
+              type="email"
+              value=""
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+`;
+
+exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage when user IS authenticated 1`] = `
 <main>
   <div
     className="request-password-reset-page"

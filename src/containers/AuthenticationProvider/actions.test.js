@@ -4,6 +4,7 @@ import {
   clearTokenAction,
   refreshTokenAction,
   markTokenAsRefreshedAction,
+  redirectActionWithSupportParamInQueryString,
 } from './actions';
 import {
   SET_TOKEN_ACTION,
@@ -56,5 +57,18 @@ describe('Authentication actions', () => {
     };
 
     expect(markTokenAsRefreshedAction()).toEqual(expected);
+  });
+
+  it('redirectActionWithSupportParamInQueryString should return redirect action without changing argumnets if in location query string there is not redirect param', () => {
+    const args = { pathname: '/home' };
+    const action = {
+      payload: {
+        args: [args],
+        method: 'replace',
+      },
+      type: '@@router/CALL_HISTORY_METHOD',
+    };
+
+    expect(redirectActionWithSupportParamInQueryString(args)).toEqual(action);
   });
 });

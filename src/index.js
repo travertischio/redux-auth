@@ -18,6 +18,7 @@ import {
   setTokenAction,
   clearTokenAction,
   refreshTokenAction,
+  redirectActionWithSupportParamInQueryString,
 } from './containers/AuthenticationProvider/actions';
 
 export default AuthenticationProvider;
@@ -39,4 +40,5 @@ export {
   setTokenAction,
   clearTokenAction,
   refreshTokenAction,
+  redirectActionWithSupportParamInQueryString,
 };

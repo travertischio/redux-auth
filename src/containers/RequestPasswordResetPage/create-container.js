@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import UserIsNotAuthenticated from '../../hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectRequestPasswordResetPage from './selectors';
 import messages from './messages';
 import {
@@ -22,10 +21,9 @@ export default function createRequestPasswordResetContainer(PageComponent, optio
     onUnMount: destroyPageAction,
   };
 
-  @UserIsNotAuthenticated
-  @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
-  class RequestPasswordResetContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  @injectIntl
+  class RequestPasswordResetContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,
       RequestPasswordResetPage: PropTypes.object.isRequired,
