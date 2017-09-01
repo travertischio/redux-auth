@@ -1,5 +1,4 @@
 import creactUserIsNotAuthenticatedAuthWrapper from '../hocs/AuthWrappers/creactUserIsNotAuthenticatedAuthWrapper';
-import UserIsNotAuthenticated from '../hocs/AuthWrappers/UserIsNotAuthenticated';
 
 const config = {
   userIsNotAuthenticatedRedirectPath: '/sign-in',
