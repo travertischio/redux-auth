@@ -35,7 +35,6 @@ export const onSignUpSuccessAction = (state) => state.merge({
   errorMessage: null,
 });
 
-// TODO handle field errors!
 export const onSignUpFailedAction = (state, rejection) => {
   const { response } = rejection;
   let errorMessage = 'Ooops, something went wrong, please try again later.';

@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'recompose';
+import { SubmissionError } from 'redux-form/immutable';
 import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
@@ -15,16 +16,20 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     SignUpPage: selectSignUpPage,
   });
 
-  const mapDispatchToProps = {
-    onSubmitForm: signUpAction,
-  };
+  const mapDispatchToProps = (dispatch) => ({
+    onSubmitForm: (values) => new Promise((resolve, reject) => {
+      dispatch(signUpAction(values, resolve, reject));
+    }).catch((error) => {
+      throw new SubmissionError(error.response.data);
+    }),
+  });
 
   @compose(config.signUpAuthWrapper)
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
   class SignUpContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
     static propTypes = {
-      intl: PropTypes.object,
+      intl: PropTypes.object.isRequired,
     };
 
     render() {

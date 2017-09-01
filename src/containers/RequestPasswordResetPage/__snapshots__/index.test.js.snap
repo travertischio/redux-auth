@@ -1,185 +1,202 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RequestPasswordResetPage /> should NOT render RequestPasswordResetPage when user IS authenticated 1`] = `null`;
+exports[`<RequestPasswordResetPage /> should NOT render RequestPasswordResetPage when user IS authenticated 1`] = `<main />`;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage when user IS NOT authenticated 1`] = `
-<div
-  className="request-password-reset-page"
->
-  <div>
-    <h1>
-      <span>
-        Let’s find your account
-      </span>
-    </h1>
-    <form
-      noValidate={true}
-      onSubmit={[Function]}
-    >
-      <div>
-        <label
-          htmlFor="email"
-        >
-          E-mail
-        </label>
+<main>
+  <div
+    className="request-password-reset-page"
+  >
+    <div>
+      <h1>
+        <span>
+          Let’s find your account
+        </span>
+      </h1>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
         <div
           className=""
         >
-          <input
-            id="email"
-            name="email"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
-            placeholder="E-mail"
-            type="email"
-            value=""
-          />
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
+            <input
+              className="textfield"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="E-mail"
+              type="email"
+              value=""
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <button
-          disabled={true}
-          type="submit"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</main>
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with error message when errorMessage is in the props 1`] = `
-<div
-  className="request-password-reset-page"
->
-  <div>
-    <h1>
-      <span>
-        Let’s find your account
-      </span>
-    </h1>
-    <p>
-      <span>
-        An error occurred during sending request password rest. Please try again.
-      </span>
-    </p>
-    <form
-      noValidate={true}
-      onSubmit={[Function]}
-    >
-      <div>
-        <label
-          htmlFor="email"
-        >
-          E-mail
-        </label>
+<main>
+  <div
+    className="request-password-reset-page"
+  >
+    <div>
+      <h1>
+        <span>
+          Let’s find your account
+        </span>
+      </h1>
+      <p>
+        <span>
+          An error occurred during sending request password rest. Please try again.
+        </span>
+      </p>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
         <div
           className=""
         >
-          <input
-            id="email"
-            name="email"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
-            placeholder="E-mail"
-            type="email"
-            value=""
-          />
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
+            <input
+              className="textfield"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="E-mail"
+              type="email"
+              value=""
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <button
-          disabled={true}
-          type="submit"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</main>
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with loading indicator when loading is in the props 1`] = `
-<div
-  className="request-password-reset-page"
->
-  <div>
-    <h1>
-      <span>
-        Let’s find your account
-      </span>
-    </h1>
+<main>
+  <div
+    className="request-password-reset-page"
+  >
     <div>
-      Processing... Please wait.
-    </div>
-    <form
-      noValidate={true}
-      onSubmit={[Function]}
-    >
+      <h1>
+        <span>
+          Let’s find your account
+        </span>
+      </h1>
       <div>
-        <label
-          htmlFor="email"
-        >
-          E-mail
-        </label>
+        Processing... Please wait.
+      </div>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
         <div
           className=""
         >
-          <input
-            id="email"
-            name="email"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onDragStart={[Function]}
-            onDrop={[Function]}
-            onFocus={[Function]}
-            placeholder="E-mail"
-            type="email"
-            value=""
-          />
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
+            <input
+              className="textfield"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="E-mail"
+              type="email"
+              value=""
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <button
-          disabled={true}
-          type="submit"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</main>
 `;
 
 exports[`<RequestPasswordResetPage /> should render RequestPasswordResetPage with success message when sent request 1`] = `
-<div
-  className="request-password-reset-page"
->
-  <div>
-    <h1>
-      <span>
-        We just emailed you a link
-      </span>
-    </h1>
-    <p>
-      <span>
-        Please check your email and click the secure link.
-      </span>
-    </p>
-    <p>
-      <span>
-        If you don’t see our email, check your spam folder. Still having trouble? Get troubleshooting tips.
-      </span>
-    </p>
+<main>
+  <div
+    className="request-password-reset-page"
+  >
+    <div>
+      <h1>
+        <span>
+          We just emailed you a link
+        </span>
+      </h1>
+      <p>
+        <span>
+          Please check your email and click the secure link.
+        </span>
+      </p>
+      <p>
+        <span>
+          If you don’t see our email, check your spam folder. Still having trouble? Get troubleshooting tips.
+        </span>
+      </p>
+    </div>
   </div>
-</div>
+</main>
 `;

@@ -3,7 +3,7 @@ import {
   getStoreWithInitialState,
   findActionByType,
   mountWithIntl,
-  createComponentWithIntl,
+  createComponentWithRouter,
 } from 'react-unit-testing-utils';
 import ResetPasswordPage from './index';
 import { destroyPageAction } from './actions';
@@ -28,8 +28,8 @@ describe('<ResetPasswordPage />', () => {
 
     const newPassword = 'pass123';
 
-    wrapper.find('input[name="new_password"]').simulate('change', { target: { value: newPassword } });
-    wrapper.find('input[name="re_new_password"]').simulate('change', { target: { value: newPassword } });
+    wrapper.find('input[name="newPassword"]').simulate('change', { target: { value: newPassword } });
+    wrapper.find('input[name="reNewPassword"]').simulate('change', { target: { value: newPassword } });
     wrapper.find('form').simulate('submit');
 
     const recivedAction = findActionByType(store, RESET_PASSWORD_ACTION);
@@ -38,11 +38,17 @@ describe('<ResetPasswordPage />', () => {
 
   it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
     const initialState = {
-      resetPasswordPage: {},
+      resetPasswordPage: {
+        loading: false,
+        errorMessage: 'serverErrorInvalid',
+      },
     };
-    const { component, store } = renderResetPasswordPageWithState(initialState);
-    component.unmount();
+    const { wrapper, store } = renderResetPasswordPageWithState(initialState);
+
+    wrapper.unmount();
+
     const recivedAction = findActionByType(store, DESTROY_PAGE_ACTION);
+
     expect(recivedAction).toEqual(destroyPageAction());
   });
 
@@ -55,6 +61,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with loading indicator when loading is in the props', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {
         loading: true,
       },
@@ -66,18 +75,6 @@ describe('<ResetPasswordPage />', () => {
     const initialState = {
       auth: {
         isAuthenticated: false,
-      },
-      resetPasswordPage: {
-        success: true,
-      },
-    };
-    expectComponentWithStateToMatchSnapshot(initialState);
-  });
-
-  it('should render ResetPasswordPage with success message', () => {
-    const initialState = {
-      auth: {
-        isAuthenticated: true,
       },
       resetPasswordPage: {
         success: true,
@@ -115,11 +112,11 @@ describe('<ResetPasswordPage />', () => {
 });
 
 function expectComponentWithStateToMatchSnapshot(initialState) {
-  const { component } = renderResetPasswordPageWithState(initialState);
-  expect(component.toJSON()).toMatchSnapshot();
+  const { wrapper } = renderResetPasswordPageWithState(initialState);
+  expect(wrapper.toJSON()).toMatchSnapshot();
 }
 
 function renderResetPasswordPageWithState(initialState) {
   const routeParams = { resetPasswordToken: 'XYZ123' };
-  return createComponentWithIntl(<ResetPasswordPage routeParams={routeParams} />, initialState);
+  return createComponentWithRouter(<ResetPasswordPage routeParams={routeParams} />, initialState);
 }

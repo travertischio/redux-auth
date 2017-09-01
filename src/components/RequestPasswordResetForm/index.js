@@ -11,9 +11,9 @@ import {
   Field,
   reduxForm,
 } from 'redux-form/immutable';
+import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
-import WrappedInput from '../WrappedInput';
 import messages from './messages';
 
 function RequestPasswordResetForm(props) {
@@ -41,11 +41,10 @@ function RequestPasswordResetForm(props) {
       <Field
         id="email"
         name="email"
-        type="email"
         label={emailLabel}
         placeholder={emailLabel}
         validate={[requiredValidator, emailValidator]}
-        component={WrappedInput}
+        component={EmailField}
       />
       <div>
         <button

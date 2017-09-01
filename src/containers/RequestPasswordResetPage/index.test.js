@@ -3,7 +3,7 @@ import {
   getStoreWithInitialState,
   findActionByType,
   mountWithIntl,
-  createComponentWithIntl,
+  createComponentWithRouter,
 } from 'react-unit-testing-utils';
 import RequestPasswordResetPage from './index';
 import { destroyPageAction } from './actions';
@@ -42,8 +42,8 @@ describe('<RequestPasswordResetPage />', () => {
       },
       requestPasswordResetPage: {},
     };
-    const { component, store } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    component.unmount();
+    const { wrapper, store } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    wrapper.unmount();
     const recivedAction = findActionByType(store, DESTROY_PAGE_ACTION);
     expect(recivedAction).toEqual(destroyPageAction());
   });
@@ -55,8 +55,8 @@ describe('<RequestPasswordResetPage />', () => {
         user: {},
       },
     };
-    const { component } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render RequestPasswordResetPage when user IS NOT authenticated', () => {
@@ -66,8 +66,8 @@ describe('<RequestPasswordResetPage />', () => {
       },
       requestPasswordResetPage: {},
     };
-    const { component } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render RequestPasswordResetPage with loading indicator when loading is in the props', () => {
@@ -79,8 +79,8 @@ describe('<RequestPasswordResetPage />', () => {
         loading: true,
       },
     };
-    const { component } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render RequestPasswordResetPage with success message when sent request', () => {
@@ -92,8 +92,8 @@ describe('<RequestPasswordResetPage />', () => {
         sent: true,
       },
     };
-    const { component } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render RequestPasswordResetPage with error message when errorMessage is in the props', () => {
@@ -105,7 +105,7 @@ describe('<RequestPasswordResetPage />', () => {
         errorMessage: 'serverErrorUnknown',
       },
     };
-    const { component } = createComponentWithIntl(<RequestPasswordResetPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 });

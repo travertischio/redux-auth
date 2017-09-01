@@ -28,8 +28,8 @@ function SignInPage(props) {
 }
 
 SignInPage.propTypes = {
-  SignInPage: PropTypes.object,
-  onSubmitForm: PropTypes.func,
+  SignInPage: PropTypes.object.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
 };
 
 export default createSignInContainer(SignInPage);

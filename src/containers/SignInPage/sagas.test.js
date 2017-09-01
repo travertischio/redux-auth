@@ -2,8 +2,7 @@
  * Test SignInPage sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
-import testSaga from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenAction } from '../AuthenticationProvider/actions';
@@ -34,9 +33,9 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatestFork(SIGN_IN_ACTION, signInSaga)
+    .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
     .next(task1)
-    .takeEveryFork(SIGN_IN_SUCCESS_ACTION, setTokenSaga)
+    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, setTokenSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()

@@ -2,8 +2,7 @@
  * Test SignUpPage sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
-import testSaga from 'redux-saga-test-plan';
+import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
@@ -27,6 +26,11 @@ const signUpAction = {
     password: 'xyz123',
   },
 };
+
+new Promise((resolve, reject) => { // eslint-disable-line no-new
+  signUpAction.resolve = resolve;
+  signUpAction.reject = reject;
+});
 
 it('defaultSaga', () => {
   const task1 = createMockTask();
@@ -52,6 +56,8 @@ it('signUpSaga and succeed', () => {
     .next()
     .call(signUpApiCall, signUpAction.payload)
     .next()
+    .call(signUpAction.resolve, undefined)
+    .next()
     .put(signUpSuccessAction())
     .finish()
     .isDone();
@@ -66,6 +72,8 @@ it('signUpSaga and failed', () => {
     .next()
     .call(signUpApiCall, signUpAction.payload)
     .throw(errorResponse)
+    .call(signUpAction.reject, errorResponse)
+    .next()
     .put(signUpFailedAction(errorResponse))
     .finish()
     .isDone();

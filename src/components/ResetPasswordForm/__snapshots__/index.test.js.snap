@@ -5,18 +5,21 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
   noValidate={true}
   onSubmit={[Function]}
 >
-  <div>
-    <label
-      htmlFor="new_password"
-    >
-      New password
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="newPassword"
+      >
+        New password
+      </label>
       <input
-        id="new_password"
-        name="new_password"
+        className="textfield"
+        id="newPassword"
+        name="newPassword"
         onBlur={[Function]}
         onChange={[Function]}
         onDragStart={[Function]}
@@ -28,18 +31,21 @@ exports[`<ResetPasswordForm /> should render ResetPasswordForm 1`] = `
       />
     </div>
   </div>
-  <div>
-    <label
-      htmlFor="re_new_password"
-    >
-      Retype new password
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="reNewPassword"
+      >
+        Retype new password
+      </label>
       <input
-        id="re_new_password"
-        name="re_new_password"
+        className="textfield"
+        id="reNewPassword"
+        name="reNewPassword"
         onBlur={[Function]}
         onChange={[Function]}
         onDragStart={[Function]}

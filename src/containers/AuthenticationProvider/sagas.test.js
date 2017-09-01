@@ -2,7 +2,6 @@
  * Test AuthenticationProvider sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
 import { fromJS } from 'immutable';
 import { delay } from 'redux-saga';
 import {
@@ -41,13 +40,13 @@ import { selectTokenExpiryTime } from './selectors';
 it('defaultSaga', () => {
   testSaga(defaultSaga)
     .next()
-    .takeEveryFork(SET_TOKEN_ACTION, setTokenSaga)
+    .takeEveryEffect(SET_TOKEN_ACTION, setTokenSaga)
     .next()
-    .takeEveryFork(SET_TOKEN_ACTION, putRefreshTokenActionWithDelaySaga)
+    .takeEveryEffect(SET_TOKEN_ACTION, putRefreshTokenActionWithDelaySaga)
     .next()
-    .takeEveryFork(CLEAR_TOKEN_ACTION, clearTokenSaga)
+    .takeEveryEffect(CLEAR_TOKEN_ACTION, clearTokenSaga)
     .next()
-    .takeEveryFork(REFRESH_TOKEN_ACTION, refreshTokenSaga)
+    .takeEveryEffect(REFRESH_TOKEN_ACTION, refreshTokenSaga)
     .finish()
     .isDone();
 });

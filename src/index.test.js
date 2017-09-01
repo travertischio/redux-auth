@@ -10,7 +10,15 @@ import UserHasRole from './hocs/AuthWrappers/UserHasRole';
 import UserIsAdmin from './hocs/AuthWrappers/UserIsAdmin';
 import UserIsAuthenticated from './hocs/AuthWrappers/UserIsAuthenticated';
 import UserIsNotAuthenticated from './hocs/AuthWrappers/UserIsNotAuthenticated';
-import { selectUser } from './containers/AuthenticationProvider/selectors';
+import {
+  selectUser,
+  selectIsAuthenticated,
+ } from './containers/AuthenticationProvider/selectors';
+import {
+  setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
+ } from './containers/AuthenticationProvider/actions';
 
 import exportedAuthenticationProvider, {
  reducer as exportedReducer,
@@ -25,6 +33,10 @@ import exportedAuthenticationProvider, {
  UserIsAuthenticated as exportedUserIsAuthenticated,
  UserIsNotAuthenticated as exportedUserIsNotAuthenticated,
  selectUser as exportedSelectUser,
+ selectIsAuthenticated as exportedSelectIsAuthenticated,
+ setTokenAction as exportedSetTokenAction,
+ clearTokenAction as exportedClearTokenAction,
+ refreshTokenAction as exportedRefreshTokenAction,
 } from './';
 
 describe('redux-auth exports', () => {
@@ -32,51 +44,67 @@ describe('redux-auth exports', () => {
     expect(exportedAuthenticationProvider).toBe(AuthenticationProvider);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export reducer', () => {
     expect(exportedReducer).toBe(reducer);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export sagas', () => {
     expect(exportedSagas).toBe(sagas);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export setConfig', () => {
     expect(exportedSetConfig).toBe(setConfig);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export createRequestPasswordResetContainer', () => {
     expect(exportedCreateRequestPasswordResetContainer).toBe(createRequestPasswordResetContainer);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export createResetPasswordContainer', () => {
     expect(exportedCreateResetPasswordContainer).toBe(createResetPasswordContainer);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export createSignInContainer', () => {
     expect(exportedCreateSignInContainer).toBe(createSignInContainer);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export createSignUpContainer', () => {
     expect(exportedCreateSignUpContainer).toBe(createSignUpContainer);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export UserHasRole', () => {
     expect(exportedUserHasRole).toBe(UserHasRole);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export UserIsAdmin', () => {
     expect(exportedUserIsAdmin).toBe(UserIsAdmin);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export UserIsAuthenticated', () => {
     expect(exportedUserIsAuthenticated).toBe(UserIsAuthenticated);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export UserIsNotAuthenticated', () => {
     expect(exportedUserIsNotAuthenticated).toBe(UserIsNotAuthenticated);
   });
 
-  it('should export AuthenticationProvider by default', () => {
+  it('should export selectUser', () => {
     expect(exportedSelectUser).toBe(selectUser);
+  });
+
+  it('should export setTokenAction', () => {
+    expect(exportedSetTokenAction).toBe(setTokenAction);
+  });
+
+  it('should export selectIsAuthenticated', () => {
+    expect(exportedSelectIsAuthenticated).toBe(selectIsAuthenticated);
+  });
+
+  it('should export clearTokenAction', () => {
+    expect(exportedClearTokenAction).toBe(clearTokenAction);
+  });
+
+  it('should export refreshTokenAction', () => {
+    expect(exportedRefreshTokenAction).toBe(refreshTokenAction);
   });
 });

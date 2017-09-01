@@ -5,16 +5,19 @@ exports[`<SignInForm /> should render SignInForm 1`] = `
   noValidate={true}
   onSubmit={[Function]}
 >
-  <div>
-    <label
-      htmlFor="email"
-    >
-      E-mail
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="email"
+      >
+        E-mail
+      </label>
       <input
+        className="textfield"
         id="email"
         name="email"
         onBlur={[Function]}
@@ -28,16 +31,19 @@ exports[`<SignInForm /> should render SignInForm 1`] = `
       />
     </div>
   </div>
-  <div>
-    <label
-      htmlFor="password"
-    >
-      Password
-    </label>
+  <div
+    className=""
+  >
     <div
-      className=""
+      className="form-item"
     >
+      <label
+        htmlFor="password"
+      >
+        Password
+      </label>
       <input
+        className="textfield"
         id="password"
         name="password"
         onBlur={[Function]}

@@ -7,18 +7,22 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import createRequestPasswordResetContainer from './create-container';
+import createResetPasswordContainer from './create-container';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import messages from './messages';
 
 class ResetPasswordPage extends PureComponent {
   static propTypes = {
-    ResetPasswordPage: PropTypes.object,
-    routeParams: PropTypes.object,
-    isAuthenticated: PropTypes.bool,
-    onSubmitForm: PropTypes.func,
+    ResetPasswordPage: PropTypes.object.isRequired,
+    routeParams: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    onSubmitForm: PropTypes.func.isRequired,
     errorMessage: PropTypes.object,
   };
+
+  static defaultProps = {
+    errorMessage: null,
+  }
 
   renderSuccessMessage() {
     return (
@@ -92,7 +96,10 @@ class ResetPasswordPage extends PureComponent {
 
     return (
       <div>
-        <ResetPasswordForm onSubmit={onSubmitForm} initialValues={initialValues} />
+        <ResetPasswordForm
+          onSubmit={onSubmitForm}
+          initialValues={initialValues}
+        />
       </div>
     );
   }
@@ -108,4 +115,4 @@ class ResetPasswordPage extends PureComponent {
   }
 }
 
-export default createRequestPasswordResetContainer(ResetPasswordPage);
+export default createResetPasswordContainer(ResetPasswordPage);

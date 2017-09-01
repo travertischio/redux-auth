@@ -1,8 +1,6 @@
+import { delay } from 'redux-saga';
 import {
   takeEvery,
-  delay,
-} from 'redux-saga';
-import {
   call,
   put,
   select,

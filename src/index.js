@@ -10,7 +10,15 @@ import UserHasRole from './hocs/AuthWrappers/UserHasRole';
 import UserIsAdmin from './hocs/AuthWrappers/UserIsAdmin';
 import UserIsAuthenticated from './hocs/AuthWrappers/UserIsAuthenticated';
 import UserIsNotAuthenticated from './hocs/AuthWrappers/UserIsNotAuthenticated';
-import { selectUser } from './containers/AuthenticationProvider/selectors';
+import {
+  selectUser,
+  selectIsAuthenticated,
+ } from './containers/AuthenticationProvider/selectors';
+import {
+  setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
+} from './containers/AuthenticationProvider/actions';
 
 export default AuthenticationProvider;
 export {
@@ -27,4 +35,8 @@ export {
   UserIsAuthenticated,
   UserIsNotAuthenticated,
   selectUser,
+  selectIsAuthenticated,
+  setTokenAction,
+  clearTokenAction,
+  refreshTokenAction,
 };

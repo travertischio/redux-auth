@@ -1,8 +1,17 @@
 import { fromJS } from 'immutable';
 import * as MockDate from 'mockdate';
 import authenticationReducer from './reducer';
-import { getEmptyStateData, getStateDataFromToken, setTokenInStorage } from './utils';
-import { setTokenAction, clearTokenAction, markTokenAsRefreshedAction, refreshTokenAction } from './actions';
+import {
+  getEmptyStateData,
+  getStateDataFromToken,
+  setTokenInStorage,
+} from './utils';
+import {
+  setTokenAction,
+  clearTokenAction,
+  markTokenAsRefreshedAction,
+  refreshTokenAction,
+} from './actions';
 
 describe('authenticationReducer', () => {
   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlYW1AYXJhYmVsLmxhIiwib3JpZ19pYXQiOjE0OTIwMTAwNzYsInVzZXIiOnsiZmlyc3RfbmFtZSI6InRlYW0iLCJsYXN0X25hbWUiOiJhcmFiZWxsYSB0ZXN0IiwiYXZhdGFyIjpudWxsLCJlbWFpbCI6InRlYW1AYXJhYmVsLmxhIiwiaWQiOjF9LCJleHAiOjE0OTIwMTAzNzYsInVzZXJfaWQiOjEsImVtYWlsIjoidGVhbUBhcmFiZWwubGEifQ.hRSOsGt-Q6amkh2oJS2ZqHsESQA7fZ_qRgFYME5qTw8';

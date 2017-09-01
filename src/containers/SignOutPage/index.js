@@ -14,7 +14,11 @@ const mapDispatchToProps = {
 };
 
 @connect(null, mapDispatchToProps)
-export default class SignOutPage extends Component { // eslint-disable-line react/prefer-stateless-function
+export default class SignOutPage extends Component {
+  static propTypes = {
+    signOut: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     this.props.signOut();
   }
@@ -23,7 +27,3 @@ export default class SignOutPage extends Component { // eslint-disable-line reac
     return null;
   }
 }
-
-SignOutPage.propTypes = {
-  signOut: PropTypes.func,
-};

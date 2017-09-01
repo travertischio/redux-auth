@@ -1,9 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserIsAdmin should display PageComponent when user has admin role 1`] = `
-<div>
-  Page only for admins
-</div>
+exports[`UserIsAdmin should not render PageComponent when user has no admin role 1`] = `<main />`;
+
+exports[`UserIsAdmin should not render PageComponent when user is not authenticated 1`] = `<main />`;
+
+exports[`UserIsAdmin should not render PageComponent when user is not authenticated 2`] = `<main />`;
+
+exports[`UserIsAdmin should redner PageComponent when user has admin role 1`] = `
+<main>
+  <div>
+    Page only for admins
+  </div>
+</main>
 `;
 
-exports[`UserIsAdmin when user has not admin role should display PageComponent when user has not admin role 1`] = `null`;
+exports[`UserIsAdmin should render PageComponent when user has admin role and admin role is change in the config 1`] = `
+<main>
+  <div>
+    Page only for admins
+  </div>
+</main>
+`;

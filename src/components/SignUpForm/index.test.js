@@ -41,33 +41,21 @@ describe('<SignUpForm />', () => {
     it('it renders one submit <button /> component', () => {
       expect(wrapper.find('button[type="submit"]').length).toBe(1);
     });
-  });
 
-  describe('form content:', () => {
-    let input;
-
-    it('should have [name=first_name][type=text] field', () => {
-      input = wrapper.find('[name="first_name"]');
-
-      expect(input.props().type).toBe('text');
+    it('should have [name=firstName][type=text] field', () => {
+      expect(wrapper.find('[name="firstName"]').length).toBe(1);
     });
 
     it('should have [name=email][type=email] field', () => {
-      input = wrapper.find('[name="email"]');
-
-      expect(input.props().type).toBe('email');
+      expect(wrapper.find('[name="email"]').length).toBe(1);
     });
 
     it('should have [name=password][type=password] field', () => {
-      input = wrapper.find('[name="password"]');
-
-      expect(input.props().type).toBe('password');
+      expect(wrapper.find('[name="password"]').length).toBe(1);
     });
 
-    it('should have [name=confirm_password][type=password] field', () => {
-      input = wrapper.find('[name="confirm_password"]');
-
-      expect(input.props().type).toBe('password');
+    it('should have [name=confirmPassword][type=password] field', () => {
+      expect(wrapper.find('[name="confirmPassword"]').length).toBe(1);
     });
   });
 });

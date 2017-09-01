@@ -3,8 +3,9 @@ import {
   getStoreWithInitialState,
   findActionByType,
   mountWithIntl,
-  createComponentWithIntl,
+  createComponentWithRouter,
 } from 'react-unit-testing-utils';
+import { SubmissionError } from 'redux-form/immutable';
 import SignUpPage from './index';
 // import { destroyPageAction } from './actions';
 import {
@@ -13,7 +14,8 @@ import {
 } from './constants';
 
 describe('<SignUpPage />', () => {
-  it('should dispatch action SIGN_UP_ACTION when fill and submit the form', () => {
+  describe('when submitting form', () => {
+    let wrapper;
     const store = getStoreWithInitialState({
       auth: {
         isAuthenticated: false,
@@ -21,23 +23,45 @@ describe('<SignUpPage />', () => {
       signUpPage: {},
     });
 
-    const wrapper = mountWithIntl(<SignUpPage />, {
-      store,
+    beforeEach(() => {
+      wrapper = mountWithIntl(<SignUpPage />, {
+        store,
+      });
     });
 
-    const firstName = 'John';
-    const email = 'tester@test.com';
-    const password = 'zxy123';
+    it('should reject SubmissionError when backend rejects request', (done) => {
+      const errorResponse = {
+        response: {
+          data: {
+            non_field_errors: ['Username already exists'],
+          },
+        },
+      };
 
-    wrapper.find('input[name="first_name"]').simulate('change', { target: { value: firstName } });
-    wrapper.find('input[name="email"]').simulate('change', { target: { value: email } });
-    wrapper.find('input[name="password"]').simulate('change', { target: { value: password } });
-    wrapper.find('input[name="confirm_password"]').simulate('change', { target: { value: password } });
-    wrapper.find('form').simulate('submit');
+      wrapper.children().get(1).props.onSubmitForm().catch((error) => {
+        expect(error).toEqual(new SubmissionError(errorResponse));
+        done();
+      });
 
-    const recivedAction = findActionByType(store, SIGN_UP_ACTION);
+      const recivedAction = findActionByType(store, SIGN_UP_ACTION);
+      recivedAction.reject(errorResponse);
+    });
 
-    expect(recivedAction.type).toEqual(SIGN_UP_ACTION);
+    it('should dispatch action SIGN_UP_ACTION', () => {
+      const firstName = 'John';
+      const email = 'tester@test.com';
+      const password = 'zxy123';
+
+      wrapper.find('input[name="firstName"]').simulate('change', { target: { value: firstName } });
+      wrapper.find('input[name="email"]').simulate('change', { target: { value: email } });
+      wrapper.find('input[name="password"]').simulate('change', { target: { value: password } });
+      wrapper.find('input[name="confirmPassword"]').simulate('change', { target: { value: password } });
+      wrapper.find('form').simulate('submit');
+
+      const recivedAction = findActionByType(store, SIGN_UP_ACTION);
+
+      expect(recivedAction.type).toEqual(SIGN_UP_ACTION);
+    });
   });
 
   // it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
@@ -47,8 +71,8 @@ describe('<SignUpPage />', () => {
   //     },
   //     signUpPage: {},
   //   };
-  //   const { component, store } = createComponentWithIntl(<SignUpPage />, initialState);
-  //   component.unmount();
+  //   const { wrapper, store } = createComponentWithRouter(<SignUpPage />, initialState);
+  //   wrapper.unmount();
   //   const recivedAction = findActionByType(store, DESTROY_PAGE_ACTION);
   //   expect(recivedAction).toEqual(destroyPageAction());
   // });
@@ -60,8 +84,8 @@ describe('<SignUpPage />', () => {
         user: {},
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage when user IS NOT authenticated', () => {
@@ -71,8 +95,8 @@ describe('<SignUpPage />', () => {
       },
       signUpPage: {},
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage with loading indicator when loading is in the props', () => {
@@ -84,8 +108,8 @@ describe('<SignUpPage />', () => {
         loading: true,
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('should render SignUpPage with error message when errorMessage is in the props', () => {
@@ -97,7 +121,7 @@ describe('<SignUpPage />', () => {
         errorMessage: 'Ooops, something went wrong, please try again later.',
       },
     };
-    const { component } = createComponentWithIntl(<SignUpPage />, initialState);
-    expect(component.toJSON()).toMatchSnapshot();
+    const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 });

@@ -1,8 +1,6 @@
 import {
   takeLatest,
   takeEvery,
-} from 'redux-saga';
-import {
   take,
   call,
   cancel,
