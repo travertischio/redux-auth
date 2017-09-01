@@ -26,7 +26,7 @@ export default function createResetPasswordContainer(PageComponent, options = {}
   @connect(mapStateToProps, mapDispatchToProps)
   @compose(AuthenticationContext)
   @injectIntl
-  class ResetPasswordContainer extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+  class ResetPasswordContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,
       ResetPasswordPage: PropTypes.object.isRequired,
