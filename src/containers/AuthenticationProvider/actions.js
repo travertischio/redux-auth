@@ -3,7 +3,8 @@
  * AuthenticationProvider actions
  *
  */
-
+import { routerActions } from 'react-router-redux';
+import queryString from 'query-string';
 import {
   SET_TOKEN_ACTION,
   CLEAR_TOKEN_ACTION,
@@ -34,4 +35,16 @@ export function markTokenAsRefreshedAction() {
   return {
     type: MARK_TOKEN_AS_REFRESHED_ACTION,
   };
+}
+
+export function redirectActionWithSupportParamInQueryString(action) {
+  const { redirect } = queryString.parse(location.search);
+
+  if (redirect) {
+    return routerActions.replace({
+      pathname: redirect,
+    });
+  }
+
+  return routerActions.replace(action);
 }

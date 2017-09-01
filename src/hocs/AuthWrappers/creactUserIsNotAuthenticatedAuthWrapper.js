@@ -1,12 +1,12 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper';
-import { routerActions } from 'react-router-redux';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
+import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 
 function creactUserIsNotAuthenticatedAuthWrapper(failureRedirectPath) {
   return UserAuthWrapper({
     authSelector: selectUser,
     predicate: isNotAuthenticated,
-    redirectAction: routerActions.replace,
+    redirectAction: redirectActionWithSupportParamInQueryString,
     allowRedirectBack: false,
     wrapperDisplayName: 'UserIsNotAuthenticated',
     failureRedirectPath,
