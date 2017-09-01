@@ -110,7 +110,7 @@ describe('redux-auth exports', () => {
     expect(exportedRefreshTokenAction).toBe(refreshTokenAction);
   });
 
-  it('should export refreshTokenAction', () => {
+  it('should export redirectActionWithSupportParamInQueryString', () => {
     expect(exportedRedirectActionWithSupportParamInQueryString).toBe(redirectActionWithSupportParamInQueryString);
   });
 });
