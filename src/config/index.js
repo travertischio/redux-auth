@@ -1,5 +1,4 @@
 import creactUserIsNotAuthenticatedAuthWrapper from '../hocs/AuthWrappers/creactUserIsNotAuthenticatedAuthWrapper';
-import UserIsNotAuthenticated from '../hocs/AuthWrappers/UserIsNotAuthenticated';
 
 const config = {
   userIsNotAuthenticatedRedirectPath: '/sign-in',
@@ -10,7 +9,6 @@ const config = {
   redirectPathAfterSignUp: '/',
   redirectPathAfterSignOut: '/sign-in',
   adminRole: '20_example_admin',
-  requestPasswordResetAuthWrapper: UserIsNotAuthenticated,
 };
 
 config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);

@@ -18,6 +18,7 @@ import {
   setTokenAction,
   clearTokenAction,
   refreshTokenAction,
+  redirectActionWithSupportParamInQueryString,
  } from './containers/AuthenticationProvider/actions';
 
 import exportedAuthenticationProvider, {
@@ -37,6 +38,7 @@ import exportedAuthenticationProvider, {
  setTokenAction as exportedSetTokenAction,
  clearTokenAction as exportedClearTokenAction,
  refreshTokenAction as exportedRefreshTokenAction,
+ redirectActionWithSupportParamInQueryString as exportedRedirectActionWithSupportParamInQueryString,
 } from './';
 
 describe('redux-auth exports', () => {
@@ -106,5 +108,9 @@ describe('redux-auth exports', () => {
 
   it('should export refreshTokenAction', () => {
     expect(exportedRefreshTokenAction).toBe(refreshTokenAction);
+  });
+
+  it('should export redirectActionWithSupportParamInQueryString', () => {
+    expect(exportedRedirectActionWithSupportParamInQueryString).toBe(redirectActionWithSupportParamInQueryString);
   });
 });
