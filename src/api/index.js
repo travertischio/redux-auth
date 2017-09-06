@@ -29,3 +29,7 @@ export function setAuthorizationTokenInHeaders(token) {
     Authorization: `JWT ${token}`,
   });
 }
+
+export function removeAuthorizationTokenInHeaders() {
+  delete apiClient.defaults.headers.Authorization;
+}

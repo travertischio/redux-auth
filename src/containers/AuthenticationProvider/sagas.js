@@ -24,6 +24,7 @@ import {
 import {
   refreshToken as refreshTokenApiCall,
   setAuthorizationTokenInHeaders,
+  removeAuthorizationTokenInHeaders,
 } from '../../api';
 import {
   REFRESH_TOKEN_ACTION,
@@ -52,6 +53,7 @@ export function* putRefreshTokenActionWithDelaySaga() {
 
 export function* clearTokenSaga() {
   yield call(removeTokenFromStorage);
+  yield call(removeAuthorizationTokenInHeaders);
 }
 
 export function* refreshTokenSaga() {
