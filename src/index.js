@@ -20,6 +20,7 @@ import {
   refreshTokenAction,
   redirectActionWithSupportParamInQueryString,
 } from './containers/AuthenticationProvider/actions';
+import { removeAuthorizationTokenInHeaders } from './api';
 
 export default AuthenticationProvider;
 export {
@@ -41,4 +42,5 @@ export {
   clearTokenAction,
   refreshTokenAction,
   redirectActionWithSupportParamInQueryString,
+  removeAuthorizationTokenInHeaders,
 };

@@ -7,6 +7,7 @@ import {
   resetPassword,
   signUp,
   setAuthorizationTokenInHeaders,
+  removeAuthorizationTokenInHeaders,
 } from './';
 
 describe('redux-auth API', () => {
@@ -118,7 +119,7 @@ describe('redux-auth API', () => {
       setAuthorizationTokenInHeaders(token);
     });
 
-    it('should request header has set Authorization header', (done) => {
+    it('should request headers have "Authorization" header', (done) => {
       mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', { token }).reply(200, successAuthResponse);
 
       refreshToken(token)
@@ -126,6 +127,22 @@ describe('redux-auth API', () => {
           expect(response.config.headers.Authorization).toEqual(`JWT ${token}`);
           done();
         });
+    });
+
+    describe('when calling removeAuthorizationTokenInHeaders()', () => {
+      beforeEach(() => {
+        removeAuthorizationTokenInHeaders();
+      });
+
+      it('should request headers have not "Authorization" header', (done) => {
+        mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', { token }).reply(200, successAuthResponse);
+
+        refreshToken(token)
+          .then((response) => {
+            expect(response.config.headers.Authorization).toEqual(undefined);
+            done();
+          });
+      });
     });
   });
 });
