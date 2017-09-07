@@ -19,6 +19,7 @@ import {
 import {
   refreshToken as refreshTokenApiCall,
   setAuthorizationTokenInHeaders,
+  removeAuthorizationTokenInHeaders,
 } from '../../api';
 import sagas, {
   watchSetTokenAction,
@@ -125,6 +126,9 @@ it('clearTokenSaga', () => {
   testSaga(clearTokenSaga)
     .next()
     .call(removeAuthDataFromStorage)
+    .next()
+    .call(removeAuthorizationTokenInHeaders)
+    .next()
     .finish()
     .isDone();
 });
