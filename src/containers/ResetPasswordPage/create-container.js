@@ -54,12 +54,14 @@ export default function createResetPasswordContainer(PageComponent, options = {}
 
       return (
         <div className={options.className || 'reset-password-page'}>
-          <Helmet
-            title={pageTitle}
-            meta={[
-              { name: 'description', content: pageDescription },
-            ]}
-          />
+          {!options.noHelmet &&
+            <Helmet
+              title={pageTitle}
+              meta={[
+                { name: 'description', content: pageDescription },
+              ]}
+            />
+          }
 
           <PageComponent errorMessage={this.getErrorMessage()} {...this.props} />
         </div>
