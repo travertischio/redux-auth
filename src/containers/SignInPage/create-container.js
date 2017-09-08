@@ -43,12 +43,14 @@ export default function createSignInContainer(PageComponent, options = {}) {
 
       return (
         <div className={options.className || 'sign-in-page'}>
-          <Helmet
-            title={pageTitle}
-            meta={[
-              { name: 'description', content: pageDescription },
-            ]}
-          />
+          {!options.noHelmet &&
+            <Helmet
+              title={pageTitle}
+              meta={[
+                { name: 'description', content: pageDescription },
+              ]}
+            />
+          }
 
           <PageComponent {...this.props} />
         </div>
