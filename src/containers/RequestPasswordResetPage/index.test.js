@@ -10,7 +10,7 @@ import { destroyPageAction } from './actions';
 import {
   REQUEST_PASSWORD_RESET_ACTION,
   DESTROY_PAGE_ACTION,
- } from './constants';
+} from './constants';
 
 describe('<RequestPasswordResetPage />', () => {
   it('should dispatch action REQUEST_PASSWORD_RESET_ACTION when fill and submit the form', () => {
