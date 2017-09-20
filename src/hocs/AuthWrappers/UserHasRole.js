@@ -1,20 +1,23 @@
 import _includes from 'lodash/includes';
-import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
 
-const UserHasRole = (expectedRoles) => UserAuthWrapper({
-  authSelector: selectUser,
-  predicate: getUserHasOfEpectedRoleFn(expectedRoles),
+const UserHasRole = (expectedRoles) => connectedReduxRedirect({
+  authenticatedSelector: makeUserHasOfEpectedRoleSelector(expectedRoles),
   redirectAction: redirectActionWithSupportParamInQueryString,
-  failureRedirectPath: config.userHasNoRoleRedirectPath,
+  redirectPath: config.userHasNoRoleRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserHasRole',
 });
 
-function getUserHasOfEpectedRoleFn(expectedRoles) {
-  return (user) => user && _includes(expectedRoles, user.role);
+function makeUserHasOfEpectedRoleSelector(expectedRoles) {
+  return (state) => {
+    const user = selectUser(state);
+
+    return user && _includes(expectedRoles, user.role);
+  };
 }
 
 export default UserHasRole;
