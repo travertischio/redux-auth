@@ -12,6 +12,7 @@ import {
 } from 'react-router-redux';
 import { clearTokenAction } from '../AuthenticationProvider/actions';
 import { selectDeviceId } from '../AuthenticationProvider/selectors';
+import { signOutFailedAction } from './actions';
 import { SIGN_OUT_ACTION } from './constants';
 import { signOut as signOutApiCall } from '../../api';
 import config from '../../config';
@@ -26,8 +27,10 @@ export function* defaultSaga() {
 export function* signOutSaga() {
   const deviceId = yield select(selectDeviceId);
 
-  if (deviceId) {
+  try {
     yield call(signOutApiCall, deviceId);
+  } catch (error) {
+    yield put(signOutFailedAction());
   }
 
   yield put(clearTokenAction());
