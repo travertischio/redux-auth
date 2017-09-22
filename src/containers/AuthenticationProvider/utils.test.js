@@ -24,9 +24,9 @@ describe('authentication utils', () => {
     exp: 1494330185,
     orig_iat: 1494329885,
     user: {
-      first_name: 'John',
+      firstName: 'John',
       id: 46,
-      last_name: 'Smith',
+      lastName: 'Smith',
       email: 'tester@test.com',
       role: '10_example_user',
       avatar: null,

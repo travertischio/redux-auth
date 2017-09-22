@@ -9,7 +9,7 @@ const config = {
   redirectPathAfterSignUp: '/',
   redirectPathAfterSignOut: '/sign-in',
   adminRole: '20_example_admin',
-  camelizeUserDataKeys: false,
+  camelizeUserDataKeys: true,
   encryptSecretKey: 'bIHB|Cb&+ei9{"C("Aax7<k:P^a;cz',
 };
 
