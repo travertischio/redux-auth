@@ -17,6 +17,7 @@ describe('UserIsNotAuthenticated', () => {
   it('should not redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
+        isAuthenticated: true,
         user: {
           id: 1,
         },
@@ -53,6 +54,7 @@ describe('UserIsNotAuthenticated with custom failure redirect path', () => {
   it('should not redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
+        isAuthenticated: true,
         user: {
           id: 1,
         },

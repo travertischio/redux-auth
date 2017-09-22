@@ -13,7 +13,7 @@ import UserIsNotAuthenticated from './hocs/AuthWrappers/UserIsNotAuthenticated';
 import {
   selectUser,
   selectIsAuthenticated,
- } from './containers/AuthenticationProvider/selectors';
+} from './containers/AuthenticationProvider/selectors';
 import {
   setTokenAction,
   clearTokenAction,

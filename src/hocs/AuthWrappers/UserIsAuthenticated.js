@@ -1,12 +1,12 @@
-import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
-import { selectUser } from '../../containers/AuthenticationProvider/selectors';
+import { selectIsAuthenticated } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
 
-const UserIsAuthenticated = UserAuthWrapper({
-  authSelector: selectUser,
+const UserIsAuthenticated = connectedReduxRedirect({
+  authenticatedSelector: selectIsAuthenticated,
   redirectAction: redirectActionWithSupportParamInQueryString,
-  failureRedirectPath: config.userIsNotAuthenticatedRedirectPath,
+  redirectPath: config.userIsNotAuthenticatedRedirectPath,
   wrapperDisplayName: 'UserIsAuthenticated',
 });
 

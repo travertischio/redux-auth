@@ -9,7 +9,7 @@ import messages from './messages';
 import {
   requestPasswordResetAction,
   destroyPageAction,
-  } from './actions';
+} from './actions';
 
 export default function createRequestPasswordResetContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({

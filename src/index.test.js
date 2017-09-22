@@ -13,34 +13,34 @@ import UserIsNotAuthenticated from './hocs/AuthWrappers/UserIsNotAuthenticated';
 import {
   selectUser,
   selectIsAuthenticated,
- } from './containers/AuthenticationProvider/selectors';
+} from './containers/AuthenticationProvider/selectors';
 import {
   setTokenAction,
   clearTokenAction,
   refreshTokenAction,
   redirectActionWithSupportParamInQueryString,
- } from './containers/AuthenticationProvider/actions';
+} from './containers/AuthenticationProvider/actions';
 import { removeAuthorizationTokenInHeaders } from './api';
 
 import exportedAuthenticationProvider, {
- reducer as exportedReducer,
- sagas as exportedSagas,
- setConfig as exportedSetConfig,
- createRequestPasswordResetContainer as exportedCreateRequestPasswordResetContainer,
- createResetPasswordContainer as exportedCreateResetPasswordContainer,
- createSignInContainer as exportedCreateSignInContainer,
- createSignUpContainer as exportedCreateSignUpContainer,
- UserHasRole as exportedUserHasRole,
- UserIsAdmin as exportedUserIsAdmin,
- UserIsAuthenticated as exportedUserIsAuthenticated,
- UserIsNotAuthenticated as exportedUserIsNotAuthenticated,
- selectUser as exportedSelectUser,
- selectIsAuthenticated as exportedSelectIsAuthenticated,
- setTokenAction as exportedSetTokenAction,
- clearTokenAction as exportedClearTokenAction,
- refreshTokenAction as exportedRefreshTokenAction,
- redirectActionWithSupportParamInQueryString as exportedRedirectActionWithSupportParamInQueryString,
- removeAuthorizationTokenInHeaders as exportedRemoveAuthorizationTokenInHeaders,
+  reducer as exportedReducer,
+  sagas as exportedSagas,
+  setConfig as exportedSetConfig,
+  createRequestPasswordResetContainer as exportedCreateRequestPasswordResetContainer,
+  createResetPasswordContainer as exportedCreateResetPasswordContainer,
+  createSignInContainer as exportedCreateSignInContainer,
+  createSignUpContainer as exportedCreateSignUpContainer,
+  UserHasRole as exportedUserHasRole,
+  UserIsAdmin as exportedUserIsAdmin,
+  UserIsAuthenticated as exportedUserIsAuthenticated,
+  UserIsNotAuthenticated as exportedUserIsNotAuthenticated,
+  selectUser as exportedSelectUser,
+  selectIsAuthenticated as exportedSelectIsAuthenticated,
+  setTokenAction as exportedSetTokenAction,
+  clearTokenAction as exportedClearTokenAction,
+  refreshTokenAction as exportedRefreshTokenAction,
+  redirectActionWithSupportParamInQueryString as exportedRedirectActionWithSupportParamInQueryString,
+  removeAuthorizationTokenInHeaders as exportedRemoveAuthorizationTokenInHeaders,
 } from './';
 
 describe('redux-auth exports', () => {

@@ -1,5 +1,4 @@
-  /* eslint camelcase: 0 */
-import jwt_decode from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 import humps from 'humps';
 import { fromJS } from 'immutable';
 import moment from 'moment';
@@ -48,7 +47,7 @@ export function removeAuthDataFromStorage() {
 
 export function getStateDataFromToken(token) {
   try {
-    let data = jwt_decode(token);
+    let data = jwtDecode(token);
     const tokenExpiryTime = calculateExpiryTime(data.exp);
 
     if (config.camelizeUserDataKeys) {

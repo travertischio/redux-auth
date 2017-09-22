@@ -1,18 +1,19 @@
-import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
 
-const UserIsAdmin = UserAuthWrapper({
-  authSelector: selectUser,
-  predicate: isAdmin,
+const UserIsAdmin = connectedReduxRedirect({
+  authenticatedSelector: isAdminSelector,
   redirectAction: redirectActionWithSupportParamInQueryString,
-  failureRedirectPath: config.userIsNotAdminRedirectPath,
+  redirectPath: config.userIsNotAdminRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserIsAdmin',
 });
 
-function isAdmin(user) {
+function isAdminSelector(state) {
+  const user = selectUser(state);
+
   return user && user.role === config.adminRole;
 }
 
