@@ -42,6 +42,7 @@ const selectHasTokenRefreshed = createSelector(
 );
 
 const selectTokenFromActionPayload = (action) => _get(action, ['payload', 'data', 'token']);
+
 const selectPermanentTokenAndDeviceIdFromActionPayload = (action) => ({
   permanentToken: _get(action, ['payload', 'data', 'permanentToken']),
   deviceId: _get(action, ['payload', 'data', 'deviceId']),
