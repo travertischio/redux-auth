@@ -24,6 +24,10 @@ export function signUp(payload) {
   return apiClient.post('/user/register', payload);
 }
 
+export function signOut() {
+  return apiClient.get('/auth/logout');
+}
+
 export function setAuthorizationTokenInHeaders(token) {
   setHeaders({
     Authorization: `JWT ${token}`,
