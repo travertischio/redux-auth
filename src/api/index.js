@@ -25,7 +25,7 @@ export function signUp(payload) {
 }
 
 export function signOut() {
-  return apiClient.post('/auth/logout');
+  return apiClient.get('/auth/logout');
 }
 
 export function setAuthorizationTokenInHeaders(token) {
