@@ -14,7 +14,7 @@ import messages from './messages';
 class ResetPasswordPage extends PureComponent {
   static propTypes = {
     ResetPasswordPage: PropTypes.object.isRequired,
-    routeParams: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     onSubmitForm: PropTypes.func.isRequired,
     errorMessage: PropTypes.object,
@@ -88,10 +88,11 @@ class ResetPasswordPage extends PureComponent {
   renderForm() {
     const {
       onSubmitForm,
+      match,
     } = this.props;
 
     const initialValues = {
-      token: this.props.routeParams.resetPasswordToken,
+      token: match.params.resetPasswordToken,
     };
 
     return (
@@ -105,6 +106,8 @@ class ResetPasswordPage extends PureComponent {
   }
 
   render() {
+    console.log(this.props);
+
     const success = this.props.ResetPasswordPage.success;
 
     if (success) {
