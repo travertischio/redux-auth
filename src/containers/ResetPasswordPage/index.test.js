@@ -12,6 +12,10 @@ import {
   DESTROY_PAGE_ACTION,
 } from './constants';
 
+const routeMatch = {
+  params: { resetPasswordToken: 'XYZ123' },
+};
+
 describe('<ResetPasswordPage />', () => {
   it('should dispatch action RESET_PASSWORD_ACTION when fill and submit the form', () => {
     const store = getStoreWithInitialState({
@@ -21,8 +25,7 @@ describe('<ResetPasswordPage />', () => {
       resetPasswordPage: {},
     });
 
-    const routeParams = { resetPasswordToken: 'XYZ123' };
-    const wrapper = mountWithIntl(<ResetPasswordPage routeParams={routeParams} />, {
+    const wrapper = mountWithIntl(<ResetPasswordPage match={routeMatch} />, {
       store,
     });
 
@@ -117,6 +120,5 @@ function expectComponentWithStateToMatchSnapshot(initialState) {
 }
 
 function renderResetPasswordPageWithState(initialState) {
-  const routeParams = { resetPasswordToken: 'XYZ123' };
-  return createComponentWithRouter(<ResetPasswordPage routeParams={routeParams} />, initialState);
+  return createComponentWithRouter(<ResetPasswordPage match={routeMatch} />, initialState);
 }
