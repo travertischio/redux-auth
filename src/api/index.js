@@ -14,7 +14,6 @@ export function refreshToken(permanentToken) {
   return apiClient.post('/auth/9743a66f914cc249efca164485a19c5c', {}, config);
 }
 
-
 export function requestPasswordReset(payload) {
   return apiClient.post('/auth/reset-password', payload);
 }

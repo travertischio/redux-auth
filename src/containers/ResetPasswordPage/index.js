@@ -106,8 +106,6 @@ class ResetPasswordPage extends PureComponent {
   }
 
   render() {
-    console.log(this.props);
-
     const success = this.props.ResetPasswordPage.success;
 
     if (success) {
