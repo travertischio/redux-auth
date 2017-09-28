@@ -41,6 +41,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {
         loading: false,
         errorMessage: 'serverErrorInvalid',
@@ -57,6 +60,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with the reset password form', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {},
     };
     expectComponentWithStateToMatchSnapshot(initialState);
@@ -88,6 +94,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with invalid token error message', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {
         invalidToken: true,
       },
@@ -97,6 +106,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with invalid token error message', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {
         invalidToken: true,
       },
@@ -106,6 +118,9 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with error message when errorMessage is in the props', () => {
     const initialState = {
+      auth: {
+        isAuthenticated: false,
+      },
       resetPasswordPage: {
         errorMessage: 'serverErrorInvalid',
       },

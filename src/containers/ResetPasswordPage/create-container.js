@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import compose from 'recompose/compose';
-import { AuthenticationContext } from '../AuthenticationProvider/hocs';
+import { selectIsAuthenticated } from '../AuthenticationProvider/selectors';
 import selectResetPasswordPage from './selectors';
 import messages from './messages';
 import {
@@ -16,6 +15,7 @@ import {
 export default function createResetPasswordContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
     ResetPasswordPage: selectResetPasswordPage,
+    isAuthenticated: selectIsAuthenticated,
   });
 
   const mapDispatchToProps = {
@@ -24,7 +24,6 @@ export default function createResetPasswordContainer(PageComponent, options = {}
   };
 
   @connect(mapStateToProps, mapDispatchToProps)
-  @compose(AuthenticationContext)
   @injectIntl
   class ResetPasswordContainer extends PureComponent {
     static propTypes = {
