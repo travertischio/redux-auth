@@ -8,19 +8,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import compose from 'recompose/compose';
-import withContext from 'recompose/withContext';
-import { selectHasTokenRefreshed, selectIsAuthenticated } from './selectors';
+import {
+  selectHasTokenRefreshed,
+  selectIsAuthenticated,
+} from './selectors';
 import { refreshTokenAction } from './actions';
-
-const AuthenticationProviderContext = withContext(
-  {
-    isAuthenticated: PropTypes.bool,
-  },
-  (props) => ({
-    isAuthenticated: props.isAuthenticated,
-  })
-);
 
 const mapStateToProps = createStructuredSelector({
   hasTokenRefreshed: selectHasTokenRefreshed,
@@ -32,12 +24,11 @@ const mapDispatchToProps = {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
-@compose(AuthenticationProviderContext)
 export default class AuthenticationProvider extends PureComponent {
   static propTypes = {
-    refreshToken: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired,
     hasTokenRefreshed: PropTypes.bool.isRequired,
+    refreshToken: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
