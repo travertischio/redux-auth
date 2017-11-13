@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectUser } from '../../';
+import {
+  selectIsAuthenticated,
+  selectUser,
+} from '../../';
 
-export default function withUserData(Component) {
-  const ComponentWithUserData = (props) => <Component {...props} />;
+export default function withUserData(WrappedComponent) {
+  const ComponentWithUserData = (props) => <WrappedComponent {...props} />;
 
   const mapStateToProps = createStructuredSelector({
-    authData: selectUser,
+    isAuthenticated: selectIsAuthenticated,
+    userData: selectUser,
   });
 
   return connect(mapStateToProps)(ComponentWithUserData);
