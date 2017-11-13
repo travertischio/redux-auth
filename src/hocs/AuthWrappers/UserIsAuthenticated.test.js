@@ -13,8 +13,8 @@ describe('UserIsAuthenticated', () => {
   it('should redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
-        isAuthenticated: true,
-        user: {
+        tokenData: {},
+        userData: {
           id: 1,
         },
       },

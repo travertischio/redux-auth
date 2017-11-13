@@ -14,7 +14,8 @@ describe('UserIsAdmin', () => {
   it('should redner PageComponent when user has admin role', () => {
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: config.adminRole,
         },
       },
@@ -27,9 +28,7 @@ describe('UserIsAdmin', () => {
 
   it('should not render PageComponent when user is not authenticated', () => {
     const initialState = {
-      auth: {
-        user: null,
-      },
+      auth: {},
     };
 
     const { wrapper } = createComponentWithRouter(PageOnlyForAdmins, initialState);
@@ -40,7 +39,8 @@ describe('UserIsAdmin', () => {
   it('should not render PageComponent when user has no admin role', () => {
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: '10_user',
         },
       },
@@ -65,7 +65,8 @@ describe('UserIsAdmin', () => {
     const newAdminRole = '100_superadmin';
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: newAdminRole,
         },
       },

@@ -2,41 +2,42 @@ import { fromJS } from 'immutable';
 import * as MockDate from 'mockdate';
 import authenticationReducer from './reducer';
 import {
-  getEmptyStateData,
-  getStateDataFromToken,
+  getInitialStateData,
   setAuthDataInStorage,
 } from './utils';
 import {
-  setTokenAction,
-  setPermanentTokenAndDeviceIdAction,
-  clearTokenAction,
-  markTokenAsRefreshedAction,
-  refreshTokenAction,
+  clearTokenDataAction,
+  clearUserDataAction,
+  markAuthenticationProviderAsReadyAction,
+  extendTokenLifetimeAction,
+  setTokenDataAction,
+  setUserDataAction,
 } from './actions';
+import {
+  tokenData,
+  userData,
+} from '../../test.data';
 
 describe('authenticationReducer', () => {
-  const permanentToken = '1cfbe9a1cf13xeedf1a2fc784xb7caf8a95cd48a';
-  const deviceId = 5342;
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlYW1AYXJhYmVsLmxhIiwib3JpZ19pYXQiOjE0OTIwMTAwNzYsInVzZXIiOnsiZmlyc3RfbmFtZSI6InRlYW0iLCJsYXN0X25hbWUiOiJhcmFiZWxsYSB0ZXN0IiwiYXZhdGFyIjpudWxsLCJlbWFpbCI6InRlYW1AYXJhYmVsLmxhIiwiaWQiOjF9LCJleHAiOjE0OTIwMTAzNzYsInVzZXJfaWQiOjEsImVtYWlsIjoidGVhbUBhcmFiZWwubGEifQ.hRSOsGt-Q6amkh2oJS2ZqHsESQA7fZ_qRgFYME5qTw8';
   let currentState;
 
   it('returns the initial state', () => {
-    const expectedState = fromJS(getEmptyStateData());
+    const expectedState = getInitialStateData();
 
     currentState = authenticationReducer(undefined, {});
 
     expect(currentState).toEqual(expectedState);
   });
 
-  it('should return the same state when refresh token occurs', () => {
-    const action = refreshTokenAction();
+  it('should return the same state when EXTEND_TOKEN_LIFETIME_ACTION occurs', () => {
+    const action = extendTokenLifetimeAction();
 
     expect(currentState).toEqual(authenticationReducer(currentState, action));
   });
 
-  it('should set hasTokenRefreshed to true when set token action occurs', () => {
-    const expectedState = currentState.set('hasTokenRefreshed', true);
-    const action = markTokenAsRefreshedAction();
+  it('should set isReady to true when MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION occurs', () => {
+    const expectedState = currentState.set('isReady', true);
+    const action = markAuthenticationProviderAsReadyAction();
 
     currentState = authenticationReducer(currentState, action);
 
@@ -46,91 +47,96 @@ describe('authenticationReducer', () => {
   describe('when the token is saved in the local storage', () => {
     beforeEach(() => {
       setAuthDataInStorage({
-        permanentToken,
-        deviceId,
-        token,
+        tokenData,
       });
 
       currentState = authenticationReducer(undefined, {});
     });
 
-    it('should a initial state has permanentToken', () => {
+    it('should a initial state has tokenData', () => {
       currentState = authenticationReducer(undefined, {});
+      const receivedTokenData = currentState.get('tokenData');
 
-      expect(currentState.get('permanentToken')).toEqual(permanentToken);
-    });
-
-    it('should a initial state has deviceId', () => {
-      currentState = authenticationReducer(undefined, {});
-
-      expect(currentState.get('deviceId')).toEqual(deviceId);
-    });
-
-    it('should a initial state has token', () => {
-      currentState = authenticationReducer(undefined, {});
-
-      expect(currentState.get('token')).toEqual(token);
+      expect(receivedTokenData.toJS()).toEqual(tokenData);
     });
   });
 
-  describe('when set permanent token and device id action occurs', () => {
+  describe('when SET_TOKEN_DATA_ACTION occurs', () => {
     beforeEach(() => {
-      const action = setPermanentTokenAndDeviceIdAction({
-        permanentToken,
-        deviceId,
-      });
-      const now = 1492090098140;
+      // const now = 1492090098140;
 
-      MockDate.set(now);
+      // MockDate.set(now);
+
+      const action = setTokenDataAction(tokenData);
+
       currentState = authenticationReducer(currentState, action);
     });
 
-    afterEach(() => {
-      MockDate.reset();
+    it('should set tokenData', () => {
+      const receivedTokenData = currentState.get('tokenData').toJS();
+
+      expect(receivedTokenData).toEqual(tokenData);
     });
 
-    it('should set permanent token', () => {
-      expect(currentState.get('permanentToken')).toEqual(permanentToken);
+    it('should set isReady to true', () => {
+      const receivedIsReady = currentState.get('isReady');
+
+      expect(receivedIsReady).toBeTruthy();
     });
 
-    it('should set deviceId', () => {
-      expect(currentState.get('deviceId')).toEqual(deviceId);
-    });
-
-    describe('when set token action occurs', () => {
+    describe('when SET_USER_DATA_ACTION occurs', () => {
       beforeEach(() => {
-        const action = setTokenAction(token);
+        // const now = 1492090098140;
+
+        // MockDate.set(now);
+
+        const action = setUserDataAction(userData);
 
         currentState = authenticationReducer(currentState, action);
       });
 
-      it('should set state data generated from token by getStateDataFromToken', () => {
-        const receivedState = currentState.toJS();
-        const expectedState = getStateDataFromToken(token).toJS();
+      it('should set userData', () => {
+        const receivedUserData = currentState.get('userData').toJS();
 
-        expectedState.permanentToken = permanentToken;
-        expectedState.deviceId = deviceId;
-
-        expect(receivedState).toEqual(expectedState);
+        expect(receivedUserData).toEqual(userData);
       });
 
-      describe('when clear token action occurs', () => {
+      describe('when CLEAR_TOKEN_DATA_ACTION occurs', () => {
         beforeEach(() => {
-          const action = clearTokenAction();
+          const action = clearTokenDataAction();
 
           currentState = authenticationReducer(currentState, action);
         });
 
-        it('should set empty state data generated by getEmptyStateData', () => {
-          let expectedState = fromJS(getEmptyStateData());
+        // it('should set empty state data generated by getEmptyStateData', () => {
+        //   let expectedState = getEmptyStateData();
 
-          expectedState = expectedState
-            .delete('tokenExpiryTime')
-            .set('hasTokenRefreshed', true);
+        //   expectedState = expectedState.set('isReady', true);
 
-          expect(currentState).toEqual(expectedState);
-        });
+        //   expect(currentState).toEqual(expectedState);
+        // });
+
+        // describe('when CLEAR_USER_DATA_ACTION occurs', () => {
+        //   beforeEach(() => {
+        //     const action = clearUserDataAction();
+
+        //     currentState = authenticationReducer(currentState, action);
+        //   });
+
+        //   it('should set empty state data generated by getEmptyStateData', () => {
+        //     const expectedState = getEmptyStateData();
+
+        //     expect(currentState).toEqual(expectedState);
+        //   });
+        // });
       });
+
+      // afterEach(() => {
+      //   MockDate.reset();
+      // });
     });
+    // afterEach(() => {
+    //   MockDate.reset();
+    // });
   });
 });

@@ -11,113 +11,91 @@ import {
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
 import {
-  setTokenAction,
-  clearTokenAction,
-  refreshTokenAction,
-  markTokenAsRefreshedAction,
+  setTokenDataAction,
+  clearTokenDataAction,
+  extendTokenLifetimeAction,
+  markAuthenticationProviderAsReadyAction,
 } from '../AuthenticationProvider/actions';
 import {
-  refreshToken as refreshTokenApiCall,
+  extendTokenLifetime as extendTokenLifetimeApiCall,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from '../../api';
 import sagas, {
-  watchSetTokenAction,
-  watchSetPermanentTokenAndDeviceIdAction,
-  watchClearTokenAction,
-  watchRefreshTokenAction,
-  setTokenSaga,
-  setPermanentTokenAndDeviceIdSaga,
-  putRefreshTokenActionWithDelaySaga,
-  clearTokenSaga, refreshTokenSaga,
-  setTokenIfExistsSaga,
+  clearTokenSaga,
+  handleAuthenticationSaga,
+  putExtendTokenLifetimeActionWithDelaySaga,
+  extendTokenLifetimeSaga,
+  setTokenDataSaga,
+  watchClearTokenDataAction,
+  watchExtendTokenLifetimeAction,
+  watchSetTokenDataAction,
+  watchTwoFactorSendCodeAction,
 } from './sagas';
 import {
-  REFRESH_TOKEN_ACTION,
-  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
-  SET_TOKEN_ACTION,
-  CLEAR_TOKEN_ACTION,
+  EXTEND_TOKEN_LIFETIME_ACTION,
+  SET_TOKEN_DATA_ACTION,
+  CLEAR_TOKEN_DATA_ACTION,
 } from './constants';
 import {
   setAuthDataInStorage,
   removeAuthDataFromStorage,
 } from './utils';
-import { selectTokenExpiryTime } from './selectors';
-
+import { selectTokenExpireInMs } from './selectors';
+import {
+  tokenAndUserData,
+  tokenAndUserDataResponse,
+  tokenData,
+} from '../../test.data';
 
 describe('should export all watchers sagas by default', () => {
   expect(sagas).toEqual([
-    watchSetTokenAction,
-    watchSetPermanentTokenAndDeviceIdAction,
-    watchClearTokenAction,
-    watchRefreshTokenAction,
+    watchSetTokenDataAction,
+    watchClearTokenDataAction,
+    watchTwoFactorSendCodeAction,
+    watchExtendTokenLifetimeAction,
   ]);
 });
 
-it('watchSetTokenAction', () => {
-  testSaga(watchSetTokenAction)
+it('watchSetTokenDataAction', () => {
+  testSaga(watchSetTokenDataAction)
     .next()
-    .takeEveryEffect(SET_TOKEN_ACTION, setTokenSaga)
+    .takeEveryEffect(SET_TOKEN_DATA_ACTION, setTokenDataSaga)
     .next()
-    .takeEveryEffect(SET_TOKEN_ACTION, putRefreshTokenActionWithDelaySaga)
-    .next()
-    .finish()
-    .isDone();
-});
-
-it('watchSetPermanentTokenAndDeviceIdAction', () => {
-  testSaga(watchSetPermanentTokenAndDeviceIdAction)
-    .next()
-    .takeEveryEffect(SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION, setPermanentTokenAndDeviceIdSaga)
+    .takeEveryEffect(SET_TOKEN_DATA_ACTION, putExtendTokenLifetimeActionWithDelaySaga)
     .next()
     .finish()
     .isDone();
 });
 
-it('watchClearTokenAction', () => {
-  testSaga(watchClearTokenAction)
+it('watchClearTokenDataAction', () => {
+  testSaga(watchClearTokenDataAction)
     .next()
-    .takeEveryEffect(CLEAR_TOKEN_ACTION, clearTokenSaga)
-    .next()
-    .finish()
-    .isDone();
-});
-
-it('watchRefreshTokenAction', () => {
-  testSaga(watchRefreshTokenAction)
-    .next()
-    .takeEveryEffect(REFRESH_TOKEN_ACTION, refreshTokenSaga)
+    .takeEveryEffect(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga)
     .next()
     .finish()
     .isDone();
 });
 
-it('setTokenSaga', () => {
+it('watchExtendTokenLifetimeAction', () => {
+  testSaga(watchExtendTokenLifetimeAction)
+    .next()
+    .takeEveryEffect(EXTEND_TOKEN_LIFETIME_ACTION, extendTokenLifetimeSaga)
+    .next()
+    .finish()
+    .isDone();
+});
+
+it('setTokenDataSaga', () => {
   const action = {
-    payload: 'XYZ123',
+    tokenData,
   };
 
-  testSaga(setTokenSaga, action)
+  testSaga(setTokenDataSaga, action)
     .next()
-    .call(setAuthDataInStorage, { token: action.payload })
+    .call(setAuthDataInStorage, { tokenData })
     .next()
-    .call(setAuthorizationTokenInHeaders, action.payload)
-    .finish()
-    .isDone();
-});
-
-it('setPermanentTokenAndDeviceIdSaga', () => {
-  const action = {
-    payload: {
-      permanentToken: '1cfbe9a1cf13xeedf1a2fc784xb7caf8a95cd48a',
-      deviceId: 5342,
-    },
-  };
-
-  testSaga(setPermanentTokenAndDeviceIdSaga, action)
-    .next()
-    .call(setAuthDataInStorage, { ...action.payload })
-    .next()
+    .call(setAuthorizationTokenInHeaders, action.tokenData.key)
     .finish()
     .isDone();
 });
@@ -133,96 +111,70 @@ it('clearTokenSaga', () => {
     .isDone();
 });
 
-it('putRefreshTokenActionWithDelaySaga', () => {
-  const tokenExpiryTime = 50000;
+it('putExtendTokenLifetimeActionWithDelaySaga when token is valid', () => {
+  const action = {
+    ...tokenAndUserData,
+  };
+  const tokenExpireInMs = 50000;
 
-  testSaga(putRefreshTokenActionWithDelaySaga)
+  testSaga(putExtendTokenLifetimeActionWithDelaySaga, action)
     .next()
-    .select(selectTokenExpiryTime)
-    .next(tokenExpiryTime)
-    .call(delay, tokenExpiryTime)
+    .select(selectTokenExpireInMs)
+    .next(tokenExpireInMs)
+    .call(delay, tokenExpireInMs)
     .next()
-    .put(refreshTokenAction())
+    .put(extendTokenLifetimeAction())
     .finish()
     .isDone();
 });
 
-it('refreshTokenSaga succeed', () => {
+it('extendTokenLifetimeSaga succeed', () => {
   const storeState = fromJS({
     auth: {
-      token: 'XYZ123',
-      permanentToken: 'ASD123',
-      hasTokenRefreshed: false,
+      ...tokenAndUserData,
+      isReady: false,
     },
   });
 
-  const response = {
-    data: {
-      token: 'NEW_XYZ123',
-      permanent_token: null,
-    },
-  };
-
-  expectSaga(refreshTokenSaga)
+  expectSaga(extendTokenLifetimeSaga)
     .withState(storeState)
     .provide([
-      [matchers.call.fn(refreshTokenApiCall), response],
+      [matchers.call.fn(extendTokenLifetimeApiCall), tokenAndUserDataResponse],
     ])
-    .put(setTokenAction(response.data.token))
-    .put(markTokenAsRefreshedAction())
+    .put(setTokenDataAction(tokenAndUserDataResponse.data.tokenData))
+    .put(markAuthenticationProviderAsReadyAction())
     .run();
 });
 
-it('refreshTokenSaga failed', () => {
+it('extendTokenLifetimeSaga failed', () => {
   const storeState = fromJS({
     auth: {
-      token: 'XYZ123',
-      permanentToken: 'ASD123',
-      hasTokenRefreshed: false,
+      ...tokenAndUserData,
+      isReady: false,
     },
   });
 
-  expectSaga(refreshTokenSaga)
+  expectSaga(extendTokenLifetimeSaga)
     .withState(storeState)
     .provide([
-      [matchers.call.fn(refreshTokenApiCall), throwError()],
+      [matchers.call.fn(extendTokenLifetimeApiCall), throwError()],
     ])
-    .put(clearTokenAction())
-    .put(markTokenAsRefreshedAction())
+    .put(clearTokenDataAction())
+    .put(markAuthenticationProviderAsReadyAction())
     .run();
 });
 
-it('refreshTokenSaga when there is no permanentToken', () => {
-  const storeState = fromJS({
-    auth: {
-      token: 'XYZ123',
-      permanentToken: null,
-      hasTokenRefreshed: false,
-    },
-  });
 
-  expectSaga(refreshTokenSaga)
-    .withState(storeState)
-    .provide([
-      [matchers.call.fn(refreshTokenApiCall), throwError()],
-    ])
-    .put(markTokenAsRefreshedAction())
-    .run();
-});
-
-it('setTokenIfExistsSaga', () => {
-  const token = 'XYZ123';
+it('handleAuthenticationSaga', () => {
   const action = {
     payload: {
-      data: {
-        token,
-      },
+      ...tokenAndUserDataResponse,
     },
   };
 
-  testSaga(setTokenIfExistsSaga, action)
+  testSaga(handleAuthenticationSaga, action)
     .next()
-    .put(setTokenAction(token))
+    .put(setTokenDataAction(tokenAndUserData.tokenData))
     .finish()
     .isDone();
 });

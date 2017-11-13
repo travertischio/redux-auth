@@ -3,36 +3,36 @@
  * AuthenticationProvider
  *
  */
-
+// TODO: check if we need pure
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
-  selectHasTokenRefreshed,
+  selectIsReady,
   selectIsAuthenticated,
 } from './selectors';
-import { refreshTokenAction } from './actions';
+import { extendTokenLifetimeAction } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  hasTokenRefreshed: selectHasTokenRefreshed,
+  isReady: selectIsReady,
   isAuthenticated: selectIsAuthenticated,
 });
 
 const mapDispatchToProps = {
-  refreshToken: refreshTokenAction,
+  extendTokenLifetime: extendTokenLifetimeAction,
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class AuthenticationProvider extends PureComponent {
   static propTypes = {
     children: PropTypes.element.isRequired,
-    hasTokenRefreshed: PropTypes.bool.isRequired,
-    refreshToken: PropTypes.func.isRequired,
+    isReady: PropTypes.bool.isRequired,
+    extendTokenLifetime: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.refreshToken();
+    this.props.extendTokenLifetime();
   }
 
   renderLoading() {
@@ -52,7 +52,7 @@ export default class AuthenticationProvider extends PureComponent {
   }
 
   render() {
-    if (this.props.hasTokenRefreshed) {
+    if (this.props.isReady) {
       return this.renderChildren();
     }
 

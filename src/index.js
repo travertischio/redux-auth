@@ -5,6 +5,7 @@ import { setConfig } from './config';
 import createRequestPasswordResetContainer from './containers/RequestPasswordResetPage/create-container';
 import createResetPasswordContainer from './containers/ResetPasswordPage/create-container';
 import createSignInContainer from './containers/SignInPage/create-container';
+import createSignInConfirmCodeContainer from './containers/SignInConfirmCodePage/create-container';
 import createSignUpContainer from './containers/SignUpPage/create-container';
 import UserHasRole from './hocs/AuthWrappers/UserHasRole';
 import UserIsAdmin from './hocs/AuthWrappers/UserIsAdmin';
@@ -15,9 +16,9 @@ import {
   selectIsAuthenticated,
 } from './containers/AuthenticationProvider/selectors';
 import {
-  setTokenAction,
-  clearTokenAction,
-  refreshTokenAction,
+  setTokenDataAction,
+  clearTokenDataAction,
+  extendTokenLifetimeAction,
   redirectActionWithSupportParamInQueryString,
 } from './containers/AuthenticationProvider/actions';
 import { removeAuthorizationTokenInHeaders } from './api';
@@ -31,6 +32,7 @@ export {
   createRequestPasswordResetContainer,
   createResetPasswordContainer,
   createSignInContainer,
+  createSignInConfirmCodeContainer,
   createSignUpContainer,
   UserHasRole,
   UserIsAdmin,
@@ -38,9 +40,9 @@ export {
   UserIsNotAuthenticated,
   selectUser,
   selectIsAuthenticated,
-  setTokenAction,
-  clearTokenAction,
-  refreshTokenAction,
+  setTokenDataAction,
+  clearTokenDataAction,
+  extendTokenLifetimeAction,
   redirectActionWithSupportParamInQueryString,
   removeAuthorizationTokenInHeaders,
 };

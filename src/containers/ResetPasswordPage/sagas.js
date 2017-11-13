@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { resetPassword as resetPasswordApiCall } from '../../api';
-import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
+import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
 import {
   resetPasswordSuccessAction,
   resetPasswordFailedAction,
@@ -20,7 +20,7 @@ import {
 
 export function* defaultSaga() {
   const resetPasswordActionWatcher = yield takeLatest(RESET_PASSWORD_ACTION, resetPasswordSaga);
-  const resetPasswordSuccessActionWatcher = yield takeEvery(RESET_PASSWORD_SUCCESS_ACTION, setTokenIfExistsSaga);
+  const resetPasswordSuccessActionWatcher = yield takeEvery(RESET_PASSWORD_SUCCESS_ACTION, handleAuthenticationSaga);
 
   yield take(LOCATION_CHANGE);
   yield cancel(resetPasswordActionWatcher);

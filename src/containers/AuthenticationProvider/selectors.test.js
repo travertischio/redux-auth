@@ -1,58 +1,42 @@
 import { fromJS } from 'immutable';
 import {
   selectAuthenticationDomain,
+  selectTokenData,
   selectToken,
-  selectPermanentToken,
-  selectDeviceId,
   selectTokenExpiryTime,
   selectIsAuthenticated,
   selectUser,
-  selectHasTokenRefreshed,
+  selectIsReady,
 } from './selectors';
+import { stateAuthenticated } from '../../test.data';
 
-const state = fromJS({
-  auth: {
-    token: 'XYZ123',
-    tokenExpiryTime: 25456,
-    isAuthenticated: true,
-    hasTokenRefreshed: true,
-    user: {
-      id: 1,
-      email: 'tester@test.com',
-      first_name: 'John',
-      last_name: 'Smith',
-    },
-  },
-});
+const state = fromJS(stateAuthenticated);
 
 it('should return "auth" object from state when calling selectAuthenticationDomain(state)', () => {
-  expect(selectAuthenticationDomain(state)).toEqual(state.get('auth'));
+  expect(selectAuthenticationDomain(state).toJS()).toEqual(stateAuthenticated.auth);
+});
+
+
+it('should return token from state when calling selectTokenData(state)', () => {
+  expect(selectTokenData(state).toJS()).toEqual(stateAuthenticated.auth.tokenData);
 });
 
 it('should return token from state when calling selectToken(state)', () => {
-  expect(selectToken(state)).toEqual(state.getIn(['auth', 'token']));
-});
-
-it('should return permanent token from state when calling selectPermanentToken(state)', () => {
-  expect(selectPermanentToken(state)).toEqual(state.getIn(['auth', 'permanentToken']));
-});
-
-it('should return device id from state when calling selectDeviceId(state)', () => {
-  expect(selectDeviceId(state)).toEqual(state.getIn(['auth', 'deviceId']));
+  expect(selectToken(state)).toEqual(stateAuthenticated.auth.tokenData.key);
 });
 
 it('should return selectTokenExpiryTime from state when calling selectTokenExpiryTime(state)', () => {
-  expect(selectTokenExpiryTime(state)).toEqual(state.getIn(['auth', 'tokenExpiryTime']));
+  expect(selectTokenExpiryTime(state)).toEqual(stateAuthenticated.auth.tokenData.expireAt);
 });
 
 it('should return isAuthenticated from state when calling selectIsAuthenticated(state)', () => {
-  expect(selectIsAuthenticated(state)).toEqual(state.getIn(['auth', 'isAuthenticated']));
+  expect(selectIsAuthenticated(state)).toBeTruthy();
 });
 
 it('should return user from state when calling selectUser(state)', () => {
-  expect(selectUser(state)).toEqual(state.getIn(['auth', 'user']).toJS());
+  expect(selectUser(state)).toEqual(stateAuthenticated.auth.userData);
 });
 
-it('should return hasTokenRefreshed from state when calling selectHasTokenRefreshed(state)', () => {
-  expect(selectHasTokenRefreshed(state)).toEqual(state.getIn(['auth', 'hasTokenRefreshed']));
+it('should return isReady from state when calling selectIsReady(state)', () => {
+  expect(selectIsReady(state)).toEqual(stateAuthenticated.auth.isReady);
 });

@@ -1,11 +1,14 @@
-import jwtDecode from 'jwt-decode';
-import humps from 'humps';
 import { fromJS } from 'immutable';
 import moment from 'moment';
 import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
-import { AUTH_KEY } from './constants';
+import {
+  AUTH_KEY,
+  TOKEN_STATUS_VALID,
+  TOKEN_STATUS_AWAITING_SECOND_FACTOR,
+} from './constants';
 import config from '../../config';
+
 
 export function setAuthDataInStorage(authData) {
   try {
@@ -45,41 +48,24 @@ export function removeAuthDataFromStorage() {
   }
 }
 
-export function getStateDataFromToken(token) {
-  try {
-    let data = jwtDecode(token);
-    const tokenExpiryTime = calculateExpiryTime(data.exp);
-
-    if (config.camelizeUserDataKeys) {
-      data = humps.camelizeKeys(data);
-    }
-
-    return fromJS({
-      isAuthenticated: true,
-      hasTokenRefreshed: true,
-      user: data.user,
-      tokenExpiryTime,
-      token,
-    });
-  } catch (e) {
-    return getEmptyStateData();
-  }
-}
-
-export function calculateExpiryTime(expireTimestamp) {
-  const expires = moment(expireTimestamp * 1000);
+export function calculateExpiryTime(expireAt) {
   const now = moment();
+  const expires = moment(expireAt);
   const expiresEarlierBy = 30 * 1000;
+
   return expires.diff(now) - expiresEarlierBy;
 }
 
-export function getEmptyStateData() {
+export function getInitialStateData() {
   return fromJS({
-    isAuthenticated: false,
-    hasTokenRefreshed: false,
-    user: null,
-    token: null,
-    permanentToken: null,
-    deviceId: null,
+    isReady: false,
   });
+}
+
+export function tokenIsValid(tokenData) {
+  return tokenData.status === TOKEN_STATUS_VALID;
+}
+
+export function tokenIsAwaitingSecondFactor(tokenData) {
+  return tokenData.status === TOKEN_STATUS_AWAITING_SECOND_FACTOR;
 }

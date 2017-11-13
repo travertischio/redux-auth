@@ -10,9 +10,7 @@ import { SIGN_OUT_ACTION } from './constants';
 describe('<SignOutPage />', () => {
   it('should dispatch action SIGN_IN_ACTION on mount component', () => {
     const store = getStoreWithInitialState({
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {},
     });
 

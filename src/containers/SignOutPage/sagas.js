@@ -2,7 +2,6 @@ import {
   call,
   cancel,
   put,
-  select,
   take,
   takeEvery,
 } from 'redux-saga/effects';
@@ -10,8 +9,10 @@ import {
   LOCATION_CHANGE,
   push,
 } from 'react-router-redux';
-import { clearTokenAction } from '../AuthenticationProvider/actions';
-import { selectDeviceId } from '../AuthenticationProvider/selectors';
+import {
+  clearTokenDataAction,
+  clearUserDataAction,
+} from '../AuthenticationProvider/actions';
 import { signOutFailedAction } from './actions';
 import { SIGN_OUT_ACTION } from './constants';
 import { signOut as signOutApiCall } from '../../api';
@@ -25,15 +26,14 @@ export function* defaultSaga() {
 }
 
 export function* signOutSaga() {
-  const deviceId = yield select(selectDeviceId);
-
   try {
-    yield call(signOutApiCall, deviceId);
+    yield call(signOutApiCall);
   } catch (error) {
     yield put(signOutFailedAction());
   }
 
-  yield put(clearTokenAction());
+  yield put(clearTokenDataAction());
+  yield put(clearUserDataAction());
   yield put(push(config.redirectPathAfterSignOut));
 }
 

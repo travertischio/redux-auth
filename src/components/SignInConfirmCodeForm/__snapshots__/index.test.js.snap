@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SignInConfirmCodeForm /> should render SignInForm 1`] = `
+<form
+  noValidate={true}
+  onSubmit={[Function]}
+>
+  <div
+    className=""
+  >
+    <div
+      className="form-item"
+    >
+      <label
+        htmlFor="code"
+      >
+        Enter code
+      </label>
+      <input
+        className="textfield"
+        id="code"
+        name="code"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="Enter code"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+  <div>
+    <button
+      disabled={true}
+      type="submit"
+    >
+      Sign In
+    </button>
+  </div>
+</form>
+`;

@@ -6,17 +6,16 @@ import {
 import { getStoreWithInitialState } from 'react-unit-testing-utils';
 import _isFunction from 'lodash/isFunction';
 import AuthenticationProvider from './index';
-import { refreshTokenAction } from './actions';
+import { extendTokenLifetimeAction } from './actions';
 
-describe('<AuthenticationProvider /> and hasTokenRefreshed is false', () => {
+describe('<AuthenticationProvider /> and isReady is false', () => {
   let wrapper;
   let store;
 
   beforeEach(() => {
     store = getStoreWithInitialState({
       auth: {
-        hasTokenRefreshed: false,
-        isAuthenticated: false,
+        isReady: false,
       },
     });
 
@@ -25,16 +24,16 @@ describe('<AuthenticationProvider /> and hasTokenRefreshed is false', () => {
     });
   });
 
-  it('should has a hasTokenRefreshed prop with false value', () => {
-    expect(wrapper.props().hasTokenRefreshed).toBeFalsy();
+  it('should has a isReady prop with false value', () => {
+    expect(wrapper.props().isReady).toBeFalsy();
   });
 
   it('should has a isAuthenticated prop with false value', () => {
     expect(wrapper.props().isAuthenticated).toBeFalsy();
   });
 
-  it('should has a refreshToken prop and be a function', () => {
-    expect(_isFunction(wrapper.props().refreshToken)).toBeTruthy();
+  it('should has a extendTokenLifetime prop and be a function', () => {
+    expect(_isFunction(wrapper.props().extendTokenLifetime)).toBeTruthy();
   });
 
   it('should render "loading" component', () => {
@@ -48,21 +47,20 @@ describe('<AuthenticationProvider /> and hasTokenRefreshed is false', () => {
       });
     });
 
-    it('should dispatch action REFRESH_TOKEN_ACTION', () => {
-      expect(store.getActions()[0]).toEqual(refreshTokenAction());
+    it('should dispatch action EXTEND_TOKEN_LIFETIME_ACTION', () => {
+      expect(store.getActions()[0]).toEqual(extendTokenLifetimeAction());
     });
   });
 });
 
-describe('<AuthenticationProvider /> and hasTokenRefreshed is true', () => {
+describe('<AuthenticationProvider /> and isReady is true', () => {
   let wrapper;
   let store;
 
   beforeEach(() => {
     store = getStoreWithInitialState({
       auth: {
-        hasTokenRefreshed: true,
-        isAuthenticated: false,
+        isReady: true,
       },
     });
 

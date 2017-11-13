@@ -6,8 +6,8 @@ import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import {
-  setTokenAction,
-  setPermanentTokenAndDeviceIdAction,
+  setTokenDataAction,
+  setUserDataAction,
 } from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
 import {
@@ -17,11 +17,13 @@ import {
 } from './sagas';
 import {
   signInSuccessAction,
-  signInFailedAction } from './actions';
+  signInFailedAction,
+} from './actions';
 import {
   SIGN_IN_ACTION,
   SIGN_IN_SUCCESS_ACTION,
 } from './constants';
+import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
 
 const signInAction = {
   payload: {
@@ -38,7 +40,7 @@ it('defaultSaga', () => {
     .next()
     .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
     .next(task1)
-    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, onSignInSuccessSaga)
+    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, handleAuthenticationSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()
@@ -61,7 +63,7 @@ it('signInSaga and succeed', () => {
 
 it('signInSaga and failed', () => {
   const errorResponse = {
-    non_field_errors: ['Unable to log in with provided credentials.'],
+    nonFieldErrors: ['Unable to log in with provided credentials.'],
   };
 
   testSaga(signInSaga, signInAction)
@@ -69,33 +71,6 @@ it('signInSaga and failed', () => {
     .call(signInApiCall, signInAction.payload)
     .throw(errorResponse)
     .put(signInFailedAction(errorResponse))
-    .finish()
-    .isDone();
-});
-
-it('setTokenSaga', () => {
-  const action = {
-    payload: {
-      data: {
-        token: 'XYZ',
-        permanentToken: 'OPRS',
-        deviceId: 873,
-      },
-    },
-  };
-  const {
-    permanentToken,
-    deviceId,
-  } = action.payload.data;
-
-  testSaga(onSignInSuccessSaga, action)
-    .next()
-    .put(setTokenAction(action.payload.data.token))
-    .next()
-    .put(setPermanentTokenAndDeviceIdAction({
-      permanentToken,
-      deviceId,
-    }))
     .finish()
     .isDone();
 });

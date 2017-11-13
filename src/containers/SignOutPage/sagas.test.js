@@ -5,8 +5,10 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE, push } from 'react-router-redux';
-import { clearTokenAction } from '../AuthenticationProvider/actions';
-import { selectDeviceId } from '../AuthenticationProvider/selectors';
+import {
+  clearTokenDataAction,
+  clearUserDataAction,
+} from '../AuthenticationProvider/actions';
 import { signOutFailedAction } from './actions';
 import { defaultSaga, signOutSaga } from './sagas';
 import { SIGN_OUT_ACTION } from './constants';
@@ -27,33 +29,14 @@ it('defaultSaga', () => {
     .isDone();
 });
 
-it('signOutSaga when device id is in the store', () => {
-  const deviceId = 233;
-
+it('signOutSaga', () => {
   testSaga(signOutSaga)
     .next()
-    .select(selectDeviceId)
-    .next(deviceId)
-    .call(signOutApiCall, deviceId)
+    .call(signOutApiCall)
     .next()
-    .put(clearTokenAction())
+    .put(clearTokenDataAction())
     .next()
-    .put(push(config.redirectPathAfterSignOut))
-    .next()
-    .finish()
-    .isDone();
-});
-
-it('signOutSaga when device id is not in the store', () => {
-  const deviceId = 1234;
-
-  testSaga(signOutSaga)
-    .next()
-    .select(selectDeviceId)
-    .next(deviceId)
-    .call(signOutApiCall, deviceId)
-    .next()
-    .put(clearTokenAction())
+    .put(clearUserDataAction())
     .next()
     .put(push(config.redirectPathAfterSignOut))
     .next()
@@ -62,18 +45,17 @@ it('signOutSaga when device id is not in the store', () => {
 });
 
 it('signOutSaga failes', () => {
-  const deviceId = 1234;
   const errorResponse = {};
 
   testSaga(signOutSaga)
     .next()
-    .select(selectDeviceId)
-    .next(deviceId)
-    .call(signOutApiCall, deviceId)
+    .call(signOutApiCall)
     .throw(errorResponse)
     .put(signOutFailedAction())
     .next()
-    .put(clearTokenAction())
+    .put(clearTokenDataAction())
+    .next()
+    .put(clearUserDataAction())
     .next()
     .put(push(config.redirectPathAfterSignOut))
     .finish()

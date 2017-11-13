@@ -19,9 +19,7 @@ const routeMatch = {
 describe('<ResetPasswordPage />', () => {
   it('should dispatch action RESET_PASSWORD_ACTION when fill and submit the form', () => {
     const store = getStoreWithInitialState({
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {},
     });
 
@@ -41,9 +39,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         loading: false,
         errorMessage: 'serverErrorInvalid',
@@ -60,9 +56,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with the reset password form', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {},
     };
     expectComponentWithStateToMatchSnapshot(initialState);
@@ -70,9 +64,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with loading indicator when loading is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         loading: true,
       },
@@ -82,9 +74,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with success message', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         success: true,
       },
@@ -94,9 +84,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with invalid token error message', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         invalidToken: true,
       },
@@ -106,9 +94,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with invalid token error message', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         invalidToken: true,
       },
@@ -118,9 +104,7 @@ describe('<ResetPasswordPage />', () => {
 
   it('should render ResetPasswordPage with error message when errorMessage is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       resetPasswordPage: {
         errorMessage: 'serverErrorInvalid',
       },

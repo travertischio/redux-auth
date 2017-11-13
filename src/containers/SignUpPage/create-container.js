@@ -24,9 +24,9 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     }),
   });
 
-  @compose(config.signUpAuthWrapper) // eslint-disable-line react/prefer-stateless-function
-  @injectIntl
+  @compose(config.signUpAuthWrapper)
   @connect(mapStateToProps, mapDispatchToProps)
+  @injectIntl
   class SignUpContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,
