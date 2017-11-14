@@ -20,7 +20,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     onSubmitForm: (values) => new Promise((resolve, reject) => {
       dispatch(signUpAction(values, resolve, reject));
     }).catch((error) => {
-      throw new SubmissionError(error.response.data);
+      throw new SubmissionError(error.response && error.response.data);
     }),
   });
 

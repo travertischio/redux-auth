@@ -8,9 +8,9 @@ import {
   removeAuthDataFromStorage,
   getInitialStateData,
   calculateExpiryTime,
+  ENCRYPT_SECRET_KEY,
 } from './utils';
 import { AUTH_KEY } from './constants';
-import config, { setConfig } from '../../config';
 import { tokenData } from '../../test.data';
 
 describe('authentication utils', () => {
@@ -23,7 +23,7 @@ describe('authentication utils', () => {
 
     it('should set encrtyped an object with a token in a localStorage', () => {
       const localStorageItem = localStorage.getItem(AUTH_KEY);
-      const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, config.encryptSecretKey);
+      const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
       const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
       const decryptedLocalStorageObject = JSON.parse(decryptedLocalStorageItem);
 
@@ -49,28 +49,6 @@ describe('authentication utils', () => {
 
       it('should returns true', () => {
         expect(result).toBe(true);
-      });
-    });
-
-    describe('when change encrypt secret key', () => {
-      const newEncryptSecretKey = 'NNV![vhXjSs7VUHPj?{@uPs0]/atO`';
-
-      beforeEach(() => {
-        setConfig({ encryptSecretKey: newEncryptSecretKey });
-      });
-
-      it('should not get auth data from localStorage', () => {
-        expect(getAuthDataFromStorage()).toBeUndefined();
-      });
-
-      describe('when calling setAuthDataInStorage(tokenData) one more time (using new encryptSecretKey)', () => {
-        beforeEach(() => {
-          result = setAuthDataInStorage(tokenData);
-        });
-
-        it('should returns an object with token when calling getAuthDataFromStorage()', () => {
-          expect(getAuthDataFromStorage()).toEqual(tokenData);
-        });
       });
     });
   });

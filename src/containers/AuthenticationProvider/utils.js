@@ -7,8 +7,7 @@ import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_AWAITING_SECOND_FACTOR,
 } from './constants';
-import config from '../../config';
-
+const ENCRYPT_SECRET_KEY = 'bIHB|Cb&+ei9{"C("Aax7<k:P^a;cz';
 
 export function setAuthDataInStorage(authData) {
   try {
@@ -18,7 +17,7 @@ export function setAuthDataInStorage(authData) {
       ...authData,
     };
     const authDataAsString = JSON.stringify(mergedAuthData);
-    const encryptedAuthData = AES.encrypt(authDataAsString, config.encryptSecretKey);
+    const encryptedAuthData = AES.encrypt(authDataAsString, ENCRYPT_SECRET_KEY);
 
     localStorage.setItem(AUTH_KEY, encryptedAuthData);
     return true;
@@ -30,7 +29,7 @@ export function setAuthDataInStorage(authData) {
 export function getAuthDataFromStorage() {
   try {
     const localStorageItem = localStorage.getItem(AUTH_KEY);
-    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, config.encryptSecretKey);
+    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
     const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
 
     return JSON.parse(decryptedLocalStorageItem);

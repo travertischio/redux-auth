@@ -11,7 +11,6 @@ const config = {
   signInConfirmCodePageUrl: '/sign-in-confirm-code',
   adminRole: '20_example_admin',
   camelizeUserDataKeys: true,
-  encryptSecretKey: 'bIHB|Cb&+ei9{"C("Aax7<k:P^a;cz',
 };
 
 config.signInAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn);

@@ -3,40 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'recompose';
-import selectSignInConfirmCodePage from './selectors';
 import messages from './messages';
-import {
-  confirmCodeAction,
-  destroyPageAction,
-} from './actions';
+import { confirmCodeAction } from './actions';
 import TokenIsSet from '../../hocs/AuthWrappers/TokenIsSet';
 import config from '../../config';
 
 export default function createSignInConfirmCodeContainer(PageComponent, options = {}) {
-  const mapStateToProps = createStructuredSelector({
-    SignInConfirmCodePage: selectSignInConfirmCodePage,
+  const mapDispatchToProps = (dispatch) => ({
+    onSubmitForm: (values) => new Promise((resolve, reject) => {
+      dispatch(confirmCodeAction(values, resolve, reject));
+    }),
   });
-
-  const mapDispatchToProps = {
-    onSubmitForm: confirmCodeAction,
-    onUnMount: destroyPageAction,
-  };
 
   @TokenIsSet
   @compose(config.signInAuthWrapper)
   @injectIntl
-  @connect(mapStateToProps, mapDispatchToProps)
+  @connect(null, mapDispatchToProps)
   class SignInContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,
-      onUnMount: PropTypes.func.isRequired,
     };
-
-    componentWillUnmount() {
-      this.props.onUnMount();
-    }
 
     render() {
       const { formatMessage } = this.props.intl;

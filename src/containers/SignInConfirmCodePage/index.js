@@ -5,30 +5,25 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { SubmissionError } from 'redux-form/immutable';
 import createSignInConfirmCodeContainer from './create-container';
 import SignInConfirmCodeForm from '../../components/SignInConfirmCodeForm';
 
 function SignInConfirmCodePage(props) {
-  const {
-    onSubmitForm,
-    SignInConfirmCodePage: {
-      loading,
-      errorMessage,
-    },
-  } = props;
+  const handleSubmit = (values) => props
+    .onSubmitForm(values)
+    .catch((error) => {
+      throw new SubmissionError(error.response && error.response.data);
+    });
 
   return (
     <div>
-      { loading && <div>Processing... Please wait.</div> }
-      { errorMessage && <div>{errorMessage}</div> }
-
-      <SignInConfirmCodeForm onSubmit={onSubmitForm} />
+      <SignInConfirmCodeForm onSubmit={handleSubmit} />
     </div>
   );
 }
 
 SignInConfirmCodePage.propTypes = {
-  SignInConfirmCodePage: PropTypes.object.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
 };
 

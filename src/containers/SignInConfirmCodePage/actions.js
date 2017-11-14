@@ -8,13 +8,14 @@ import {
   CONFIRM_CODE_ACTION,
   CONFIRM_CODE_SUCCESS_ACTION,
   CONFIRM_CODE_FAILED_ACTION,
-  DESTROY_PAGE_ACTION,
 } from './constants';
 
-export function confirmCodeAction(payload) {
+export function confirmCodeAction(payload, resolve, reject) {
   return {
     type: CONFIRM_CODE_ACTION,
     payload,
+    resolve,
+    reject,
   };
 }
 
@@ -29,11 +30,5 @@ export function confirmCodeFailedAction(rejection) {
   return {
     type: CONFIRM_CODE_FAILED_ACTION,
     payload: rejection,
-  };
-}
-
-export function destroyPageAction() {
-  return {
-    type: DESTROY_PAGE_ACTION,
   };
 }

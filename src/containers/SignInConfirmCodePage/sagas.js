@@ -42,8 +42,10 @@ export function* confirmCodeSaga(action) {
     const response = yield call(twoFactorConfirmCodeApiCall, token, code);
 
     yield put(confirmCodeSuccessAction(response));
+    yield call(action.resolve, response);
   } catch (error) {
     yield put(confirmCodeFailedAction(error));
+    yield call(action.reject, error);
   }
 }
 
