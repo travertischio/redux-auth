@@ -4,6 +4,7 @@ import createResetPasswordContainer from './containers/ResetPasswordPage/create-
 import createSignInConfirmCodeContainer from './containers/SignInConfirmCodePage/create-container';
 import createSignInContainer from './containers/SignInPage/create-container';
 import createSignUpContainer from './containers/SignUpPage/create-container';
+import creactUserIsNotAuthenticatedAuthWrapper from './hocs/AuthWrappers/creactUserIsNotAuthenticatedAuthWrapper';
 import reducer from './containers/AuthenticationProvider/reducer';
 import sagas from './containers/AuthenticationProvider/sagas';
 import UserHasRole from './hocs/AuthWrappers/UserHasRole';
@@ -12,7 +13,14 @@ import UserIsAuthenticated from './hocs/AuthWrappers/UserIsAuthenticated';
 import UserIsNotAuthenticated from './hocs/AuthWrappers/UserIsNotAuthenticated';
 import withUserData from './hocs/withUserData';
 import { removeAuthorizationTokenInHeaders } from './api';
-import { setConfig } from './config';
+import config, {
+  setConfig,
+} from './config';
+
+setConfig({
+  signInAuthWrapper: creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn),
+  signUpAuthWrapper: creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignUp),
+});
 
 export * from './containers/AuthenticationProvider/actions';
 export * from './containers/AuthenticationProvider/constants';

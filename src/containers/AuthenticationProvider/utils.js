@@ -7,7 +7,7 @@ import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_AWAITING_SECOND_FACTOR,
 } from './constants';
-const ENCRYPT_SECRET_KEY = 'bIHB|Cb&+ei9{"C("Aax7<k:P^a;cz';
+const ENCRYPT_SECRET_KEY = navigator.userAgent;
 
 export function setAuthDataInStorage(authData) {
   try {

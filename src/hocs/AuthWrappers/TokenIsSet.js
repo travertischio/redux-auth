@@ -1,4 +1,4 @@
-import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
+import connectedReduxRedirect from './connectedReduxRedirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 import { selectTokenDataExists } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';

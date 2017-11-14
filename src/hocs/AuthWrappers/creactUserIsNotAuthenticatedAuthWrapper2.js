@@ -1,4 +1,4 @@
-import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
+import connectedReduxRedirect from './connectedReduxRedirect';
 import { selectIsAuthenticated } from '../../containers/AuthenticationProvider/selectors';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 
