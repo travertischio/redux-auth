@@ -33,13 +33,8 @@
     "query-string": "^5.0.0",
     "react-form-fields": "https://bitbucket.org/arabellatech/react-form-fields#^1.2.0",
     "react-helmet": "^5.0.3",
-    "react-redux": "^5.0.4",
-    "react-router": "^4.2.0",
-    "react-router-redux": "5.0.0-alpha.6",
     "recompose": "^0.25.1",
     "redux-auth-wrapper": "^2.0.1",
-    "redux-form": "^7.0.4",
-    "redux-saga": "^0.15.4",
     "reselect": "^3.0.0",
     "validators": "https://bitbucket.org/arabellatech/validators#^2.0.0"
   },
@@ -48,7 +43,11 @@
     "react-intl": "^2.2.3",
     "redux-saga": "^0.14.8",
     "reselect": "^3.0.0",
-    "validators": "https://bitbucket.org/arabellatech/validators#^2.0.0"
+    "react-redux": "^5.0.4",
+    "react-router": "^4.2.0",
+    "react-router-redux": "5.0.0-alpha.6",
+    "redux-saga": "^0.15.4",
+    "redux-form": "^7.0.4"
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
