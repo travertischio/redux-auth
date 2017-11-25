@@ -6,6 +6,9 @@ import {
   setUserDataAction,
   clearUserDataAction,
   redirectActionWithSupportParamInQueryString,
+  signOutAction,
+  signOutSuccessAction,
+  signOutFailedAction,
 } from './actions';
 import {
   SET_TOKEN_DATA_ACTION,
@@ -14,6 +17,9 @@ import {
   MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
   SET_USER_DATA_ACTION,
   CLEAR_USER_DATA_ACTION,
+  SIGN_OUT_ACTION,
+  SIGN_OUT_SUCCESS_ACTION,
+  SIGN_OUT_FAILED_ACTION,
 } from './constants';
 
 describe('Authentication actions', () => {
@@ -43,7 +49,7 @@ describe('Authentication actions', () => {
     expect(extendTokenLifetimeAction()).toEqual(expected);
   });
 
-  it('markAuthenticationProviderAsReadyAction should return SET_TOKEN_DATA_ACTION type', () => {
+  it('markAuthenticationProviderAsReadyAction should return MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION type', () => {
     const expected = {
       type: MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
     };
@@ -80,5 +86,29 @@ describe('Authentication actions', () => {
     };
 
     expect(redirectActionWithSupportParamInQueryString(args)).toEqual(action);
+  });
+
+  it('signOutAction should return SIGN_OUT_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_ACTION,
+    };
+
+    expect(signOutAction()).toEqual(expected);
+  });
+
+  it('signOutFailedAction should return SIGN_OUT_SUCCESS_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_SUCCESS_ACTION,
+    };
+
+    expect(signOutSuccessAction()).toEqual(expected);
+  });
+
+  it('signOutFailedAction should return SIGN_OUT_FAILED_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_FAILED_ACTION,
+    };
+
+    expect(signOutFailedAction()).toEqual(expected);
   });
 });

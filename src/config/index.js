@@ -10,6 +10,7 @@ const config = {
   adminRole: '20_example_admin',
   camelizeUserDataKeys: true,
   reactRouterVersion: 3,
+  autoSignOutWithin: false,
 };
 
 export const setConfig = (newConfig) => {

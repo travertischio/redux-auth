@@ -26,12 +26,8 @@ export function signUp(payload) {
   return apiClient.post('/user/register', payload);
 }
 
-export function signOut(deviceId) {
-  const config = {
-    headers: { 'Device-Id': deviceId },
-  };
-
-  return apiClient.delete('/auth/logout', config);
+export function signOut() {
+  return apiClient.post('/auth/logout');
 }
 
 export function twoFactorSendCode(token) {

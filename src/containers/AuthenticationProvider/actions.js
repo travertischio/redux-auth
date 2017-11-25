@@ -15,6 +15,9 @@ import {
   TWO_FACTOR_SEND_CODE_ACTION,
   TWO_FACTOR_SEND_CODE_SUCCESS_ACTION,
   TWO_FACTOR_SEND_CODE_FAILED_ACTION,
+  SIGN_OUT_ACTION,
+  SIGN_OUT_SUCCESS_ACTION,
+  SIGN_OUT_FAILED_ACTION,
 } from './constants';
 
 export function setTokenDataAction(tokenData) {
@@ -85,4 +88,22 @@ export function redirectActionWithSupportParamInQueryString(action) {
   }
 
   return routerActions.replace(action);
+}
+
+export function signOutAction() {
+  return {
+    type: SIGN_OUT_ACTION,
+  };
+}
+
+export function signOutSuccessAction() {
+  return {
+    type: SIGN_OUT_SUCCESS_ACTION,
+  };
+}
+
+export function signOutFailedAction() {
+  return {
+    type: SIGN_OUT_FAILED_ACTION,
+  };
 }

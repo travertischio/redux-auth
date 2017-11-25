@@ -17,9 +17,7 @@ function SignInConfirmCodePage(props) {
     });
 
   return (
-    <div>
-      <SignInConfirmCodeForm onSubmit={handleSubmit} />
-    </div>
+    <SignInConfirmCodeForm onSubmit={handleSubmit} />
   );
 }
 

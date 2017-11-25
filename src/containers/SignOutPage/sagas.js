@@ -1,5 +1,4 @@
 import {
-  call,
   cancel,
   put,
   take,
@@ -10,30 +9,21 @@ import {
   push,
 } from 'react-router-redux';
 import {
-  clearTokenDataAction,
-  clearUserDataAction,
-} from '../AuthenticationProvider/actions';
-import { signOutFailedAction } from './actions';
-import { SIGN_OUT_ACTION } from './constants';
-import { signOut as signOutApiCall } from '../../api';
+  SIGN_OUT_SUCCESS_ACTION,
+  SIGN_OUT_FAILED_ACTION,
+} from '../AuthenticationProvider/constants';
 import config from '../../config';
 
 export function* defaultSaga() {
-  const signOutActionWatcher = yield takeEvery(SIGN_OUT_ACTION, signOutSaga);
+  const signOutSuccessActionWatcher = yield takeEvery(SIGN_OUT_SUCCESS_ACTION, signOutSaga);
+  const signOutFailedActionWatcher = yield takeEvery(SIGN_OUT_FAILED_ACTION, signOutSaga);
 
   yield take(LOCATION_CHANGE);
-  yield cancel(signOutActionWatcher);
+  yield cancel(signOutSuccessActionWatcher);
+  yield cancel(signOutFailedActionWatcher);
 }
 
 export function* signOutSaga() {
-  try {
-    yield call(signOutApiCall);
-  } catch (error) {
-    yield put(signOutFailedAction());
-  }
-
-  yield put(clearTokenDataAction());
-  yield put(clearUserDataAction());
   yield put(push(config.redirectPathAfterSignOut));
 }
 

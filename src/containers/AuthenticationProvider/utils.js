@@ -6,8 +6,8 @@ import {
   AUTH_KEY,
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_AWAITING_SECOND_FACTOR,
+  ENCRYPT_SECRET_KEY,
 } from './constants';
-const ENCRYPT_SECRET_KEY = navigator.userAgent;
 
 export function setAuthDataInStorage(authData) {
   try {

@@ -21,6 +21,9 @@ import {
   twoFactorSendCodeAction,
   twoFactorSendCodeSuccessAction,
   twoFactorSendCodeFailedAction,
+  signOutFailedAction,
+  signOutSuccessAction,
+  clearUserDataAction,
 } from './actions';
 import {
   selectToken,
@@ -33,6 +36,7 @@ import {
 import {
   extendTokenLifetime as extendTokenLifetimeApiCall,
   twoFactorSendCode as twoFactorSendCodeApiCall,
+  signOut as signOutApiCall,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from '../../api';
@@ -41,6 +45,7 @@ import {
   SET_TOKEN_DATA_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
   TWO_FACTOR_SEND_CODE_ACTION,
+  SIGN_OUT_ACTION,
 } from './constants';
 import config from '../../config';
 
@@ -172,9 +177,26 @@ export function* twoFactorSendCodeSaga(action) {
   }
 }
 
+export function* watchSignOutAction() {
+  yield takeEvery(SIGN_OUT_ACTION, signOutSaga);
+}
+
+export function* signOutSaga() {
+  try {
+    yield call(signOutApiCall);
+    yield put(signOutSuccessAction());
+  } catch (error) {
+    yield put(signOutFailedAction());
+  }
+
+  yield put(clearTokenDataAction());
+  yield put(clearUserDataAction());
+}
+
 export default [
-  watchSetTokenDataAction,
   watchClearTokenDataAction,
-  watchTwoFactorSendCodeAction,
   watchExtendTokenLifetimeAction,
+  watchSetTokenDataAction,
+  watchSignOutAction,
+  watchTwoFactorSendCodeAction,
 ];

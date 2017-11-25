@@ -110,20 +110,6 @@ describe('redux-auth API', () => {
     });
   });
 
-  describe('when calling signOut(1234)', () => {
-    it('should return promise and resolve it with tokenAndUserDatatokenAndUserData and send Device-Id in headers', (done) => {
-      const deviceId = 1234;
-      mock.onDelete('/auth/logout').reply(204, tokenAndUserData);
-
-      signOut(deviceId)
-        .then((response) => {
-          expect(response.data).toEqual(tokenAndUserData);
-          expect(response.config.headers['Device-Id']).toEqual(deviceId);
-          done();
-        });
-    });
-  });
-
   describe('when calling setAuthorizationTokenInHeaders(authHeader)', () => {
     const token = 'XYZ123';
 

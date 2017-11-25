@@ -15,9 +15,12 @@ import {
   clearTokenDataAction,
   extendTokenLifetimeAction,
   markAuthenticationProviderAsReadyAction,
-} from '../AuthenticationProvider/actions';
+  signOutFailedAction,
+  clearUserDataAction,
+} from './actions';
 import {
   extendTokenLifetime as extendTokenLifetimeApiCall,
+  signOut as signOutApiCall,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from '../../api';
@@ -31,11 +34,14 @@ import sagas, {
   watchExtendTokenLifetimeAction,
   watchSetTokenDataAction,
   watchTwoFactorSendCodeAction,
+  watchSignOutAction,
+  signOutSaga,
 } from './sagas';
 import {
   EXTEND_TOKEN_LIFETIME_ACTION,
   SET_TOKEN_DATA_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
+  SIGN_OUT_ACTION,
 } from './constants';
 import {
   setAuthDataInStorage,
@@ -50,10 +56,11 @@ import {
 
 describe('should export all watchers sagas by default', () => {
   expect(sagas).toEqual([
-    watchSetTokenDataAction,
     watchClearTokenDataAction,
-    watchTwoFactorSendCodeAction,
     watchExtendTokenLifetimeAction,
+    watchSetTokenDataAction,
+    watchSignOutAction,
+    watchTwoFactorSendCodeAction,
   ]);
 });
 
@@ -164,7 +171,6 @@ it('extendTokenLifetimeSaga failed', () => {
     .run();
 });
 
-
 it('handleAuthenticationSaga', () => {
   const action = {
     payload: {
@@ -179,3 +185,44 @@ it('handleAuthenticationSaga', () => {
     .isDone();
 });
 
+it('watchSignOutAction', () => {
+  testSaga(watchSignOutAction)
+    .next()
+    .takeEveryEffect(SIGN_OUT_ACTION, signOutSaga)
+    .next()
+    .finish()
+    .isDone();
+});
+
+it('signOutSaga', () => {
+  testSaga(signOutSaga)
+    .next()
+    .call(signOutApiCall)
+    .next()
+    .put(clearTokenDataAction())
+    .next()
+    .put(clearUserDataAction())
+    // .next()
+    // .put(push(config.redirectPathAfterSignOut))
+    .next()
+    .finish()
+    .isDone();
+});
+
+it('signOutSaga failes', () => {
+  const errorResponse = {};
+
+  testSaga(signOutSaga)
+    .next()
+    .call(signOutApiCall)
+    .throw(errorResponse)
+    .put(signOutFailedAction())
+    .next()
+    .put(clearTokenDataAction())
+    .next()
+    .put(clearUserDataAction())
+    // .next()
+    // .put(push(config.redirectPathAfterSignOut))
+    .finish()
+    .isDone();
+});
