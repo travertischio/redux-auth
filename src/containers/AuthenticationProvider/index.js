@@ -56,6 +56,7 @@ export default class AuthenticationProvider extends PureComponent {
   }
 
   runAutoSignOutTimer() {
+    console.log('runAutoSignOutTimer');
     this.autoSignOutTimer = setTimeout(
       () => {
         this.cancelAutoSignOutTimer();
@@ -67,12 +68,14 @@ export default class AuthenticationProvider extends PureComponent {
 
   resetAutoSignOutTimer() {
     if (this.autoSignOutTimer) {
+      console.log('resetAutoSignOutTimer');
       this.cancelAutoSignOutTimer();
       this.runAutoSignOutTimer();
     }
   }
 
   cancelAutoSignOutTimer() {
+    console.log('cancelAutoSignOutTimer');
     clearTimeout(this.autoSignOutTimer);
     this.autoSignOutTimer = null;
   }
