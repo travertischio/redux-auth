@@ -1,62 +1,78 @@
 import {
-  setTokenAction,
-  setPermanentTokenAndDeviceIdAction,
-  clearTokenAction,
-  refreshTokenAction,
-  markTokenAsRefreshedAction,
+  setTokenDataAction,
+  clearTokenDataAction,
+  extendTokenLifetimeAction,
+  markAuthenticationProviderAsReadyAction,
+  setUserDataAction,
+  clearUserDataAction,
   redirectActionWithSupportParamInQueryString,
+  signOutAction,
+  signOutSuccessAction,
+  signOutFailedAction,
 } from './actions';
 import {
-  SET_TOKEN_ACTION,
-  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
-  CLEAR_TOKEN_ACTION,
-  REFRESH_TOKEN_ACTION,
-  MARK_TOKEN_AS_REFRESHED_ACTION,
+  SET_TOKEN_DATA_ACTION,
+  CLEAR_TOKEN_DATA_ACTION,
+  EXTEND_TOKEN_LIFETIME_ACTION,
+  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
+  SET_USER_DATA_ACTION,
+  CLEAR_USER_DATA_ACTION,
+  SIGN_OUT_ACTION,
+  SIGN_OUT_SUCCESS_ACTION,
+  SIGN_OUT_FAILED_ACTION,
 } from './constants';
 
 describe('Authentication actions', () => {
-  it('setTokenAction should return SET_TOKEN_ACTION type and payload', () => {
-    const payload = {};
+  it('setTokenDataAction should return SET_TOKEN_DATA_ACTION type and tokenData', () => {
+    const tokenData = {};
     const expected = {
-      type: SET_TOKEN_ACTION,
-      payload,
+      type: SET_TOKEN_DATA_ACTION,
+      tokenData,
     };
 
-    expect(setTokenAction(payload)).toEqual(expected);
+    expect(setTokenDataAction(tokenData)).toEqual(expected);
   });
 
-  it('setPermanentTokenAndDeviceIdAction should return SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION type and payload', () => {
-    const payload = {};
+  it('clearTokenDataAction should return CLEAR_TOKEN_DATA_ACTION type', () => {
     const expected = {
-      type: SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
-      payload,
+      type: CLEAR_TOKEN_DATA_ACTION,
     };
 
-    expect(setPermanentTokenAndDeviceIdAction(payload)).toEqual(expected);
+    expect(clearTokenDataAction()).toEqual(expected);
   });
 
-  it('clearTokenAction should return CLEAR_TOKEN_ACTION type', () => {
+  it('extendTokenLifetimeAction should return EXTEND_TOKEN_LIFETIME_ACTION type', () => {
     const expected = {
-      type: CLEAR_TOKEN_ACTION,
+      type: EXTEND_TOKEN_LIFETIME_ACTION,
     };
 
-    expect(clearTokenAction()).toEqual(expected);
+    expect(extendTokenLifetimeAction()).toEqual(expected);
   });
 
-  it('refreshTokenAction should return REFRESH_TOKEN_ACTION type', () => {
+  it('markAuthenticationProviderAsReadyAction should return MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION type', () => {
     const expected = {
-      type: REFRESH_TOKEN_ACTION,
+      type: MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
     };
 
-    expect(refreshTokenAction()).toEqual(expected);
+    expect(markAuthenticationProviderAsReadyAction()).toEqual(expected);
   });
 
-  it('markTokenAsRefreshedAction should return SET_TOKEN_ACTION type', () => {
+  it('setUserDataAction should return SET_USER_DATA_ACTION type and payload', () => {
+    const userData = {};
     const expected = {
-      type: MARK_TOKEN_AS_REFRESHED_ACTION,
+      type: SET_USER_DATA_ACTION,
+      userData,
     };
 
-    expect(markTokenAsRefreshedAction()).toEqual(expected);
+    expect(setUserDataAction(userData)).toEqual(expected);
+  });
+
+  it('clearUserDataAction should return CLEAR_USER_DATA_ACTION type', () => {
+    const expected = {
+      type: CLEAR_USER_DATA_ACTION,
+    };
+
+    expect(clearUserDataAction()).toEqual(expected);
   });
 
   it('redirectActionWithSupportParamInQueryString should return redirect action without changing argumnets if in location query string there is not redirect param', () => {
@@ -70,5 +86,29 @@ describe('Authentication actions', () => {
     };
 
     expect(redirectActionWithSupportParamInQueryString(args)).toEqual(action);
+  });
+
+  it('signOutAction should return SIGN_OUT_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_ACTION,
+    };
+
+    expect(signOutAction()).toEqual(expected);
+  });
+
+  it('signOutFailedAction should return SIGN_OUT_SUCCESS_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_SUCCESS_ACTION,
+    };
+
+    expect(signOutSuccessAction()).toEqual(expected);
+  });
+
+  it('signOutFailedAction should return SIGN_OUT_FAILED_ACTION type', () => {
+    const expected = {
+      type: SIGN_OUT_FAILED_ACTION,
+    };
+
+    expect(signOutFailedAction()).toEqual(expected);
   });
 });

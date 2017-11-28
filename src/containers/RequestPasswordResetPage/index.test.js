@@ -15,9 +15,7 @@ import {
 describe('<RequestPasswordResetPage />', () => {
   it('should dispatch action REQUEST_PASSWORD_RESET_ACTION when fill and submit the form', () => {
     const store = getStoreWithInitialState({
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       requestPasswordResetPage: {},
     });
 
@@ -37,9 +35,7 @@ describe('<RequestPasswordResetPage />', () => {
 
   it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       requestPasswordResetPage: {},
     };
     const { wrapper, store } = createComponentWithRouter(<RequestPasswordResetPage />, initialState);
@@ -51,7 +47,8 @@ describe('<RequestPasswordResetPage />', () => {
   it('should render RequestPasswordResetPage when user IS authenticated', () => {
     const initialState = {
       auth: {
-        isAuthenticated: true,
+        tokenData: {},
+        userData: {},
       },
       requestPasswordResetPage: {},
     };

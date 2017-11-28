@@ -15,9 +15,7 @@ import {
 describe('<SignInPage />', () => {
   it('should dispatch action SIGN_IN_ACTION when fill and submit the form', () => {
     const store = getStoreWithInitialState({
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {},
     });
 
@@ -39,9 +37,7 @@ describe('<SignInPage />', () => {
 
   it('should dispatch action DESTROY_PAGE_ACTION when the component unmount', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {},
     };
     const { wrapper, store } = createComponentWithRouter(<SignInPage />, initialState);
@@ -53,9 +49,10 @@ describe('<SignInPage />', () => {
   it('should NOT render SignInPage when user IS authenticated', () => {
     const initialState = {
       auth: {
-        isAuthenticated: true,
-        user: {},
+        tokenData: {},
+        userData: {},
       },
+      signInPage: {},
     };
     const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
     expect(wrapper.toJSON()).toMatchSnapshot();
@@ -63,9 +60,7 @@ describe('<SignInPage />', () => {
 
   it('should render SignInPage when user IS NOT authenticated', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {},
     };
     const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
@@ -74,9 +69,7 @@ describe('<SignInPage />', () => {
 
   it('should render SignInPage with loading indicator when loading is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {
         loading: true,
       },
@@ -87,9 +80,7 @@ describe('<SignInPage />', () => {
 
   it('should render SignInPage with error message when errorMessage is in the props', () => {
     const initialState = {
-      auth: {
-        isAuthenticated: false,
-      },
+      auth: {},
       signInPage: {
         errorMessage: 'Unable to sign in. Please try again.',
       },

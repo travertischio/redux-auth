@@ -5,7 +5,7 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { setTokenIfExistsSaga } from '../AuthenticationProvider/sagas';
+import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
 import { signUp as signUpApiCall } from '../../api';
 import {
   defaultSaga,
@@ -40,7 +40,7 @@ it('defaultSaga', () => {
     .next()
     .takeLatestFork(SIGN_UP_ACTION, signUpSaga)
     .next(task1)
-    .takeEveryFork(SIGN_UP_SUCCESS_ACTION, setTokenIfExistsSaga)
+    .takeEveryFork(SIGN_UP_SUCCESS_ACTION, handleAuthenticationSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()

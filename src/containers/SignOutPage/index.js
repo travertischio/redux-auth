@@ -7,7 +7,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { signOutAction } from './actions';
+import { signOutAction } from '../AuthenticationProvider/actions';
 
 const mapDispatchToProps = {
   signOut: signOutAction,

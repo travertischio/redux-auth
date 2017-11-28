@@ -14,7 +14,8 @@ describe('UserHasRole', () => {
   it('should redner PageComponent when user has "20_editor" role', () => {
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: '20_editor',
         },
       },
@@ -28,7 +29,8 @@ describe('UserHasRole', () => {
   it('should redner PageComponent when user has "30_manager" role', () => {
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: '30_manager',
         },
       },
@@ -42,7 +44,8 @@ describe('UserHasRole', () => {
   it('should not render PageComponent when user has different role that specified', () => {
     const initialState = {
       auth: {
-        user: {
+        tokenData: {},
+        userData: {
           role: '10_user',
         },
       },

@@ -2,7 +2,7 @@ import apiClient from 'api-client';
 import MockAdapter from 'axios-mock-adapter';
 import {
   signIn,
-  refreshToken,
+  extendTokenLifetime,
   requestPasswordReset,
   resetPassword,
   signUp,
@@ -10,15 +10,10 @@ import {
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from './';
+import { tokenAndUserData } from '../test.data';
 
 describe('redux-auth API', () => {
   let mock;
-
-  const successAuthResponse = {
-    token: 'xyz123',
-    permanentToken: 'zxv',
-    deviceId: 123,
-  };
 
   beforeEach(() => {
     mock = new MockAdapter(apiClient);
@@ -31,13 +26,13 @@ describe('redux-auth API', () => {
     };
 
     beforeEach(() => {
-      mock.onPost('/auth/login', credentials).reply(200, successAuthResponse);
+      mock.onPost('/auth/login', credentials).reply(200, tokenAndUserData);
     });
 
-    it('should return promise and resolve it with successAuthResponse', (done) => {
+    it('should return promise and resolve it with tokenAndUserData', (done) => {
       signIn(credentials)
         .then((response) => {
-          expect(response.data).toEqual(successAuthResponse);
+          expect(response.data).toEqual(tokenAndUserData);
           done();
         });
     });
@@ -51,15 +46,15 @@ describe('redux-auth API', () => {
     });
   });
 
-  describe('when calling refreshToken(permanentToken)', () => {
-    it('should return promise and resolve it with successAuthResponse and send Permanent-Token in headers', (done) => {
-      const permanentToken = 'XYZ';
-      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', {}).reply(200, successAuthResponse);
+  describe('when calling extendTokenLifetime(token)', () => {
+    it('should return promise and resolve it with tokenAndUserData and send token in headers', (done) => {
+      const token = 'XYZ';
+      mock.onPost('/auth/token/extend-lifetime', {}).reply(200, tokenAndUserData);
 
-      refreshToken(permanentToken)
+      extendTokenLifetime(token)
         .then((response) => {
-          expect(response.data).toEqual(successAuthResponse);
-          expect(response.config.headers['Permanent-Token']).toEqual(permanentToken);
+          expect(response.data).toEqual(tokenAndUserData);
+          expect(response.config.headers.Authorization).toEqual(`Token ${token}`);
           done();
         });
     });
@@ -81,56 +76,41 @@ describe('redux-auth API', () => {
   });
 
   describe('when calling resetPassword(payload)', () => {
-    it('should return promise and resolve it with successAuthResponse', (done) => {
+    it('should return promise and resolve it with tokenAndUserData', (done) => {
       const payload = {
         token: 'old-xyz123',
         new_password: 'asd123',
         re_new_password: 'asd123',
       };
-      mock.onPost('/auth/reset-password-confirm', payload).reply(200, successAuthResponse);
+      mock.onPost('/auth/reset-password-confirm', payload).reply(200, tokenAndUserData);
 
       resetPassword(payload)
         .then((response) => {
-          expect(response.data).toEqual(successAuthResponse);
+          expect(response.data).toEqual(tokenAndUserData);
           done();
         });
     });
   });
 
   describe('when calling signUp(payload)', () => {
-    it('should return promise and resolve it with successAuthResponse', (done) => {
+    it('should return promise and resolve it with tokenAndUserData', (done) => {
       const payload = {
         first_name: 'Jonhn',
         email: 'tester@test.com',
         password: 'asd123',
         confirm_password: 'asd123',
       };
-      mock.onPost('/user/register', payload).reply(200, successAuthResponse);
+      mock.onPost('/user/register', payload).reply(200, tokenAndUserData);
 
       signUp(payload)
         .then((response) => {
-          expect(response.data).toEqual(successAuthResponse);
-          done();
-        });
-    });
-  });
-
-  describe('when calling signOut(1234)', () => {
-    it('should return promise and resolve it with successAuthResponse and send Device-Id in headers', (done) => {
-      const deviceId = 1234;
-      mock.onDelete('/auth/logout').reply(204, successAuthResponse);
-
-      signOut(deviceId)
-        .then((response) => {
-          expect(response.data).toEqual(successAuthResponse);
-          expect(response.config.headers['Device-Id']).toEqual(deviceId);
+          expect(response.data).toEqual(tokenAndUserData);
           done();
         });
     });
   });
 
   describe('when calling setAuthorizationTokenInHeaders(authHeader)', () => {
-    const permanentToken = 'CYZ';
     const token = 'XYZ123';
 
     beforeEach(() => {
@@ -138,11 +118,11 @@ describe('redux-auth API', () => {
     });
 
     it('should request headers have "Authorization" header', (done) => {
-      mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', {}).reply(200, successAuthResponse);
+      mock.onPost('/users/', {}).reply(200, tokenAndUserData);
 
-      refreshToken(permanentToken)
+      apiClient.post('/users/', {})
         .then((response) => {
-          expect(response.config.headers.Authorization).toEqual(`JWT ${token}`);
+          expect(response.config.headers.Authorization).toEqual(`Token ${token}`);
           done();
         });
     });
@@ -153,9 +133,9 @@ describe('redux-auth API', () => {
       });
 
       it('should request headers have not "Authorization" header', (done) => {
-        mock.onPost('/auth/9743a66f914cc249efca164485a19c5c', {}).reply(200, successAuthResponse);
+        mock.onPost('/users/', {}).reply(200, tokenAndUserData);
 
-        refreshToken(token)
+        apiClient.post('/users/', {})
           .then((response) => {
             expect(response.config.headers.Authorization).toEqual(undefined);
             done();

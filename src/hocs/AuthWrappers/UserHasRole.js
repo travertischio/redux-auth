@@ -1,5 +1,4 @@
-import _includes from 'lodash/includes';
-import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
+import connectedReduxRedirect from './connectedReduxRedirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 import { selectUser } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
@@ -16,7 +15,7 @@ function makeUserHasOfEpectedRoleSelector(expectedRoles) {
   return (state) => {
     const user = selectUser(state);
 
-    return user && _includes(expectedRoles, user.role);
+    return user && expectedRoles.includes(user.role);
   };
 }
 

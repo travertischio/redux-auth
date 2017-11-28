@@ -1,62 +1,81 @@
 import _get from 'lodash/get';
+import moment from 'moment';
 import { createSelector } from 'reselect';
+import { calculateExpiryTime } from './utils';
 
 const selectAuthenticationDomain = (state) => state.get('auth');
 
+const selectTokenData = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.get('tokenData')
+);
+
 const selectToken = createSelector(
-  selectAuthenticationDomain,
-  (authState) => authState.get('token')
-);
-
-const selectPermanentToken = createSelector(
-  selectAuthenticationDomain,
-  (authState) => authState.get('permanentToken')
-);
-
-const selectDeviceId = createSelector(
-  selectAuthenticationDomain,
-  (authState) => authState.get('deviceId')
+  selectTokenData,
+  (tokenData) => tokenData && tokenData.get('key')
 );
 
 const selectTokenExpiryTime = createSelector(
-  selectAuthenticationDomain,
-  (authState) => authState.get('tokenExpiryTime')
+  selectTokenData,
+  (tokenData) => tokenData && tokenData.get('expireAt')
 );
 
-const selectIsAuthenticated = createSelector(
-  selectAuthenticationDomain,
-  (authState) => authState.get('isAuthenticated')
+const selectTokenExpireInMs = createSelector(
+  selectTokenExpiryTime,
+  (expireAt) => calculateExpiryTime(expireAt)
+);
+
+const selectTokenIsExpired = createSelector(
+  selectTokenExpiryTime,
+  (expireAt) => moment().diff(expireAt) >= 0
 );
 
 const selectUser = createSelector(
   selectAuthenticationDomain,
   (authState) => {
-    const user = authState.get('user');
-    return user ? user.toJS() : null;
+    const userData = authState.get('userData');
+
+    return userData ? userData.toJS() : null;
   }
 );
 
-const selectHasTokenRefreshed = createSelector(
+const selectTokenDataExists = createSelector(
   selectAuthenticationDomain,
-  (authState) => authState.get('hasTokenRefreshed')
+  (authState) => authState.has('tokenData')
 );
 
-const selectTokenFromActionPayload = (action) => _get(action, ['payload', 'data', 'token']);
+const selectUserDataExists = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.has('userData')
+);
 
-const selectPermanentTokenAndDeviceIdFromActionPayload = (action) => ({
-  permanentToken: _get(action, ['payload', 'data', 'permanentToken']),
-  deviceId: _get(action, ['payload', 'data', 'deviceId']),
-});
+const selectIsAuthenticated = createSelector(
+  selectTokenDataExists,
+  selectUserDataExists,
+  (tokenDataExists, userDataExists) => tokenDataExists && userDataExists
+);
+
+const selectIsReady = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.get('isReady')
+);
+
+const selectTokenDataFromActionPayload = (action) => _get(action, ['payload', 'data', 'tokenData']);
+
+const selectUserDataFromActionPayload = (action) => _get(action, ['payload', 'data', 'userData']);
 
 export {
   selectAuthenticationDomain,
-  selectToken,
-  selectPermanentToken,
-  selectDeviceId,
-  selectTokenExpiryTime,
+  selectIsReady,
   selectIsAuthenticated,
+  selectToken,
+  selectTokenData,
+  selectTokenDataExists,
+  selectTokenDataFromActionPayload,
+  selectTokenExpireInMs,
+  selectTokenExpiryTime,
+  selectTokenIsExpired,
   selectUser,
-  selectHasTokenRefreshed,
-  selectTokenFromActionPayload,
-  selectPermanentTokenAndDeviceIdFromActionPayload,
+  selectUserDataExists,
+  selectUserDataFromActionPayload,
 };

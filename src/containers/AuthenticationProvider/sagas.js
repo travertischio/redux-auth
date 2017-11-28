@@ -5,75 +5,84 @@ import {
   select,
   takeEvery,
 } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import {
   setAuthDataInStorage,
   removeAuthDataFromStorage,
+  tokenIsAwaitingSecondFactor,
+  tokenIsValid,
 } from './utils';
 import {
-  setTokenAction,
-  clearTokenAction,
-  refreshTokenAction,
-  markTokenAsRefreshedAction,
+  clearTokenDataAction,
+  markAuthenticationProviderAsReadyAction,
+  extendTokenLifetimeAction,
+  setTokenDataAction,
+  setUserDataAction,
+  twoFactorSendCodeAction,
+  twoFactorSendCodeSuccessAction,
+  twoFactorSendCodeFailedAction,
+  signOutFailedAction,
+  signOutSuccessAction,
+  clearUserDataAction,
 } from './actions';
 import {
-  selectPermanentToken,
-  selectTokenExpiryTime,
-  selectHasTokenRefreshed,
-  selectTokenFromActionPayload,
+  selectToken,
+  selectTokenExpireInMs,
+  selectTokenIsExpired,
+  selectIsReady,
+  selectTokenDataFromActionPayload,
+  selectUserDataFromActionPayload,
 } from './selectors';
 import {
-  refreshToken as refreshTokenApiCall,
+  extendTokenLifetime as extendTokenLifetimeApiCall,
+  twoFactorSendCode as twoFactorSendCodeApiCall,
+  signOut as signOutApiCall,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from '../../api';
 import {
-  REFRESH_TOKEN_ACTION,
-  SET_TOKEN_ACTION,
-  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
-  CLEAR_TOKEN_ACTION,
+  EXTEND_TOKEN_LIFETIME_ACTION,
+  SET_TOKEN_DATA_ACTION,
+  CLEAR_TOKEN_DATA_ACTION,
+  TWO_FACTOR_SEND_CODE_ACTION,
+  SIGN_OUT_ACTION,
 } from './constants';
+import config from '../../config';
 
-export function* watchSetTokenAction() {
-  yield takeEvery(SET_TOKEN_ACTION, setTokenSaga);
-  yield takeEvery(SET_TOKEN_ACTION, putRefreshTokenActionWithDelaySaga);
+export function* watchSetTokenDataAction() {
+  yield takeEvery(SET_TOKEN_DATA_ACTION, setTokenDataSaga);
+  yield takeEvery(SET_TOKEN_DATA_ACTION, putExtendTokenLifetimeActionWithDelaySaga);
 }
 
-export function* watchSetPermanentTokenAndDeviceIdAction() {
-  yield takeEvery(SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION, setPermanentTokenAndDeviceIdSaga);
+export function* watchTwoFactorSendCodeAction() {
+  yield takeEvery(TWO_FACTOR_SEND_CODE_ACTION, twoFactorSendCodeSaga);
 }
 
-export function* watchClearTokenAction() {
-  yield takeEvery(CLEAR_TOKEN_ACTION, clearTokenSaga);
+export function* watchClearTokenDataAction() {
+  yield takeEvery(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga);
 }
 
-export function* watchRefreshTokenAction() {
-  yield takeEvery(REFRESH_TOKEN_ACTION, refreshTokenSaga);
+export function* watchExtendTokenLifetimeAction() {
+  yield takeEvery(EXTEND_TOKEN_LIFETIME_ACTION, extendTokenLifetimeSaga);
 }
 
-export function* setTokenSaga(action) {
-  const token = action.payload;
+export function* setTokenDataSaga(action) {
+  const tokenData = action.tokenData;
 
-  yield call(setAuthDataInStorage, { token });
-  yield call(setAuthorizationTokenInHeaders, token);
+  yield call(setAuthDataInStorage, { tokenData });
+
+  if (tokenIsValid(tokenData)) {
+    yield call(setAuthorizationTokenInHeaders, tokenData.key);
+  }
 }
 
-export function* setPermanentTokenAndDeviceIdSaga(action) {
-  const {
-    permanentToken,
-    deviceId,
-  } = action.payload;
+export function* putExtendTokenLifetimeActionWithDelaySaga(action) {
+  if (tokenIsValid(action.tokenData)) {
+    const tokenExpireInMs = yield select(selectTokenExpireInMs);
 
-  yield call(setAuthDataInStorage, {
-    permanentToken,
-    deviceId,
-  });
-}
-
-export function* putRefreshTokenActionWithDelaySaga() {
-  const tokenExpiryTime = yield select(selectTokenExpiryTime);
-
-  yield call(delay, tokenExpiryTime);
-  yield put(refreshTokenAction());
+    yield call(delay, tokenExpireInMs);
+    yield put(extendTokenLifetimeAction());
+  }
 }
 
 export function* clearTokenSaga() {
@@ -81,36 +90,113 @@ export function* clearTokenSaga() {
   yield call(removeAuthorizationTokenInHeaders);
 }
 
-export function* refreshTokenSaga() {
-  const permanentToken = yield select(selectPermanentToken);
+export function* extendTokenLifetimeSaga() {
+  const token = yield select(selectToken);
 
-  if (permanentToken) {
+  if (token) {
     try {
-      const response = yield call(refreshTokenApiCall, permanentToken);
-      yield put(setTokenAction(response.data.token));
+      const response = yield call(extendTokenLifetime, token);
+      const action = {
+        payload: response,
+      };
+
+      yield call(handleAuthenticationSaga, action);
     } catch (error) {
-      yield put(clearTokenAction());
+      yield put(clearTokenDataAction());
+    }
+
+    yield call(markAuthenticationProviderAsReady);
+  } else {
+    yield call(markAuthenticationProviderAsReady);
+  }
+}
+
+function* markAuthenticationProviderAsReady() {
+  const authenticationProviderIsReady = yield select(selectIsReady);
+
+  if (!authenticationProviderIsReady) {
+    yield put(markAuthenticationProviderAsReadyAction());
+  }
+}
+
+function* extendTokenLifetime(token) {
+  let tokenIsExpired;
+
+  do {
+    try {
+      const response = yield call(extendTokenLifetimeApiCall, token);
+
+      return response;
+    } catch (error) {
+      if (!isNoInternetConnectionError(error) && !isServerError(error)) {
+        break;
+      }
+    }
+
+    yield call(delay, 5000);
+    tokenIsExpired = yield select(selectTokenIsExpired);
+  } while (!tokenIsExpired);
+
+  throw new Error('Token expired');
+}
+
+function isNoInternetConnectionError(error) {
+  return !error.response;
+}
+
+function isServerError(error) {
+  const status = error.response && error.response.status;
+
+  return status >= 500;
+}
+
+export function* handleAuthenticationSaga(action) {
+  const tokenData = selectTokenDataFromActionPayload(action);
+  const userData = selectUserDataFromActionPayload(action);
+
+  if (tokenData) {
+    yield put(setTokenDataAction(tokenData));
+
+    if (tokenIsAwaitingSecondFactor(tokenData)) {
+      yield put(twoFactorSendCodeAction(tokenData.key));
+      yield put(push(config.signInConfirmCodePageUrl));
     }
   }
 
-  const hasTokenRefreshed = yield select(selectHasTokenRefreshed);
-
-  if (!hasTokenRefreshed) {
-    yield put(markTokenAsRefreshedAction());
+  if (userData) {
+    yield put(setUserDataAction(userData));
   }
 }
 
-export function* setTokenIfExistsSaga(action) {
-  const token = selectTokenFromActionPayload(action);
-
-  if (token) {
-    yield put(setTokenAction(token));
+export function* twoFactorSendCodeSaga(action) {
+  try {
+    yield call(twoFactorSendCodeApiCall, action.token);
+    yield put(twoFactorSendCodeSuccessAction());
+  } catch (error) {
+    yield put(twoFactorSendCodeFailedAction(error));
   }
+}
+
+export function* watchSignOutAction() {
+  yield takeEvery(SIGN_OUT_ACTION, signOutSaga);
+}
+
+export function* signOutSaga() {
+  try {
+    yield call(signOutApiCall);
+    yield put(signOutSuccessAction());
+  } catch (error) {
+    yield put(signOutFailedAction());
+  }
+
+  yield put(clearTokenDataAction());
+  yield put(clearUserDataAction());
 }
 
 export default [
-  watchSetTokenAction,
-  watchSetPermanentTokenAndDeviceIdAction,
-  watchClearTokenAction,
-  watchRefreshTokenAction,
+  watchClearTokenDataAction,
+  watchExtendTokenLifetimeAction,
+  watchSetTokenDataAction,
+  watchSignOutAction,
+  watchTwoFactorSendCodeAction,
 ];

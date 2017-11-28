@@ -5,27 +5,29 @@
  */
 
 import {
-  SET_TOKEN_ACTION,
-  SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION,
-  CLEAR_TOKEN_ACTION,
-  MARK_TOKEN_AS_REFRESHED_ACTION,
+  SET_TOKEN_DATA_ACTION,
+  CLEAR_TOKEN_DATA_ACTION,
+  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
+  SET_USER_DATA_ACTION,
+  CLEAR_USER_DATA_ACTION,
 } from './constants';
 import {
   getAuthDataFromStorage,
-  getStateDataFromToken,
-  getEmptyStateData,
+  getInitialStateData,
 } from './utils';
 
 function authenticationReducer(state = getInitialState(), action) {
   switch (action.type) {
-    case SET_TOKEN_ACTION:
-      return onSetTokenAction(state, action.payload);
-    case SET_PERMANENT_TOKEN_AND_DEVICE_ID_ACTION:
-      return onSetPermanentTokenAndDeviceIdAction(state, action.payload);
-    case CLEAR_TOKEN_ACTION:
-      return onClearTokenAction(state);
-    case MARK_TOKEN_AS_REFRESHED_ACTION:
+    case SET_TOKEN_DATA_ACTION:
+      return onSetTokenDataAction(state, action);
+    case CLEAR_TOKEN_DATA_ACTION:
+      return onClearTokenDataAction(state);
+    case MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION:
       return onMarkTokenAsRefreshedAction(state);
+    case SET_USER_DATA_ACTION:
+      return onSetUserDataAction(state, action);
+    case CLEAR_USER_DATA_ACTION:
+      return onClearUserDataAction(state);
     default:
       return state;
   }
@@ -33,7 +35,7 @@ function authenticationReducer(state = getInitialState(), action) {
 
 function getInitialState() {
   const authData = getAuthDataFromStorage();
-  let stateData = getEmptyStateData();
+  let stateData = getInitialStateData();
 
   if (authData) {
     stateData = stateData.merge(authData);
@@ -42,33 +44,30 @@ function getInitialState() {
   return stateData;
 }
 
-function onSetTokenAction(state, token) {
-  const stateData = getStateDataFromToken(token);
-
+function onSetTokenDataAction(state, action) {
   return state
-    .merge(stateData);
+    .mergeIn(['tokenData'], action.tokenData)
+    .set('isReady', true);
 }
 
-function onSetPermanentTokenAndDeviceIdAction(state, payload) {
+function onClearTokenDataAction(state) {
   return state
-    .merge({
-      permanentToken: payload.permanentToken,
-      deviceId: payload.deviceId,
-    });
-}
-
-function onClearTokenAction(state) {
-  const stateData = getEmptyStateData();
-
-  return state
-    .merge(stateData)
-    .delete('tokenExpiryTime')
-    .set('hasTokenRefreshed', true);
+    .delete('tokenData');
 }
 
 function onMarkTokenAsRefreshedAction(state) {
   return state
-    .set('hasTokenRefreshed', true);
+    .set('isReady', true);
+}
+
+function onSetUserDataAction(state, action) {
+  return state
+    .mergeIn(['userData'], action.userData);
+}
+
+function onClearUserDataAction(state) {
+  return state
+    .delete('userData');
 }
 
 export default authenticationReducer;

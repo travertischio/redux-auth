@@ -7,11 +7,11 @@ export function signIn(credentials) {
   return apiClient.post('/auth/login', credentials, config);
 }
 
-export function refreshToken(permanentToken) {
+export function extendTokenLifetime(token) {
   const config = {
-    headers: { 'Permanent-Token': permanentToken },
+    headers: { Authorization: `Token ${token}` },
   };
-  return apiClient.post('/auth/9743a66f914cc249efca164485a19c5c', {}, config);
+  return apiClient.post('/auth/token/extend-lifetime', {}, config);
 }
 
 export function requestPasswordReset(payload) {
@@ -26,17 +26,26 @@ export function signUp(payload) {
   return apiClient.post('/user/register', payload);
 }
 
-export function signOut(deviceId) {
-  const config = {
-    headers: { 'Device-Id': deviceId },
+export function signOut() {
+  return apiClient.post('/auth/logout');
+}
+
+export function twoFactorSendCode(token) {
+  return apiClient.post('/auth/login/two-factor/send-code', { token });
+}
+
+export function twoFactorConfirmCode(token, code) {
+  const payload = {
+    token,
+    code,
   };
 
-  return apiClient.delete('/auth/logout', config);
+  return apiClient.post('/auth/login/two-factor/confirm-code', payload);
 }
 
 export function setAuthorizationTokenInHeaders(token) {
   setHeaders({
-    Authorization: `JWT ${token}`,
+    Authorization: `Token ${token}`,
   });
 }
 

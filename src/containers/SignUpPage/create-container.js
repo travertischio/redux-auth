@@ -20,13 +20,13 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     onSubmitForm: (values) => new Promise((resolve, reject) => {
       dispatch(signUpAction(values, resolve, reject));
     }).catch((error) => {
-      throw new SubmissionError(error.response.data);
+      throw new SubmissionError(error.response && error.response.data);
     }),
   });
 
-  @compose(config.signUpAuthWrapper) // eslint-disable-line react/prefer-stateless-function
-  @injectIntl
+  @compose(config.signUpAuthWrapper)
   @connect(mapStateToProps, mapDispatchToProps)
+  @injectIntl
   class SignUpContainer extends PureComponent {
     static propTypes = {
       intl: PropTypes.object.isRequired,

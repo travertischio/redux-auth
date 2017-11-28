@@ -15,9 +15,9 @@ import {
   selectIsAuthenticated,
 } from './containers/AuthenticationProvider/selectors';
 import {
-  setTokenAction,
-  clearTokenAction,
-  refreshTokenAction,
+  setTokenDataAction,
+  clearTokenDataAction,
+  extendTokenLifetimeAction,
   redirectActionWithSupportParamInQueryString,
 } from './containers/AuthenticationProvider/actions';
 import { removeAuthorizationTokenInHeaders } from './api';
@@ -36,9 +36,9 @@ import exportedAuthenticationProvider, {
   UserIsNotAuthenticated as exportedUserIsNotAuthenticated,
   selectUser as exportedSelectUser,
   selectIsAuthenticated as exportedSelectIsAuthenticated,
-  setTokenAction as exportedSetTokenAction,
-  clearTokenAction as exportedClearTokenAction,
-  refreshTokenAction as exportedRefreshTokenAction,
+  setTokenDataAction as exportedsetTokenDataAction,
+  clearTokenDataAction as exportedClearTokenAction,
+  extendTokenLifetimeAction as exportedExtendTokenLifetimeAction,
   redirectActionWithSupportParamInQueryString as exportedRedirectActionWithSupportParamInQueryString,
   removeAuthorizationTokenInHeaders as exportedRemoveAuthorizationTokenInHeaders,
 } from './';
@@ -96,20 +96,20 @@ describe('redux-auth exports', () => {
     expect(exportedSelectUser).toBe(selectUser);
   });
 
-  it('should export setTokenAction', () => {
-    expect(exportedSetTokenAction).toBe(setTokenAction);
+  it('should export setTokenDataAction', () => {
+    expect(exportedsetTokenDataAction).toBe(setTokenDataAction);
   });
 
   it('should export selectIsAuthenticated', () => {
     expect(exportedSelectIsAuthenticated).toBe(selectIsAuthenticated);
   });
 
-  it('should export clearTokenAction', () => {
-    expect(exportedClearTokenAction).toBe(clearTokenAction);
+  it('should export clearTokenDataAction', () => {
+    expect(exportedClearTokenAction).toBe(clearTokenDataAction);
   });
 
-  it('should export refreshTokenAction', () => {
-    expect(exportedRefreshTokenAction).toBe(refreshTokenAction);
+  it('should export extendTokenLifetimeAction', () => {
+    expect(exportedExtendTokenLifetimeAction).toBe(extendTokenLifetimeAction);
   });
 
   it('should export redirectActionWithSupportParamInQueryString', () => {

@@ -1,11 +1,13 @@
-import jwtDecode from 'jwt-decode';
-import humps from 'humps';
 import { fromJS } from 'immutable';
 import moment from 'moment';
 import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
-import { AUTH_KEY } from './constants';
-import config from '../../config';
+import {
+  AUTH_KEY,
+  TOKEN_STATUS_VALID,
+  TOKEN_STATUS_AWAITING_SECOND_FACTOR,
+  ENCRYPT_SECRET_KEY,
+} from './constants';
 
 export function setAuthDataInStorage(authData) {
   try {
@@ -15,7 +17,7 @@ export function setAuthDataInStorage(authData) {
       ...authData,
     };
     const authDataAsString = JSON.stringify(mergedAuthData);
-    const encryptedAuthData = AES.encrypt(authDataAsString, config.encryptSecretKey);
+    const encryptedAuthData = AES.encrypt(authDataAsString, ENCRYPT_SECRET_KEY);
 
     localStorage.setItem(AUTH_KEY, encryptedAuthData);
     return true;
@@ -27,7 +29,7 @@ export function setAuthDataInStorage(authData) {
 export function getAuthDataFromStorage() {
   try {
     const localStorageItem = localStorage.getItem(AUTH_KEY);
-    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, config.encryptSecretKey);
+    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
     const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
 
     return JSON.parse(decryptedLocalStorageItem);
@@ -45,41 +47,24 @@ export function removeAuthDataFromStorage() {
   }
 }
 
-export function getStateDataFromToken(token) {
-  try {
-    let data = jwtDecode(token);
-    const tokenExpiryTime = calculateExpiryTime(data.exp);
-
-    if (config.camelizeUserDataKeys) {
-      data = humps.camelizeKeys(data);
-    }
-
-    return fromJS({
-      isAuthenticated: true,
-      hasTokenRefreshed: true,
-      user: data.user,
-      tokenExpiryTime,
-      token,
-    });
-  } catch (e) {
-    return getEmptyStateData();
-  }
-}
-
-export function calculateExpiryTime(expireTimestamp) {
-  const expires = moment(expireTimestamp * 1000);
+export function calculateExpiryTime(expireAt) {
   const now = moment();
+  const expires = moment(expireAt);
   const expiresEarlierBy = 30 * 1000;
+
   return expires.diff(now) - expiresEarlierBy;
 }
 
-export function getEmptyStateData() {
+export function getInitialStateData() {
   return fromJS({
-    isAuthenticated: false,
-    hasTokenRefreshed: false,
-    user: null,
-    token: null,
-    permanentToken: null,
-    deviceId: null,
+    isReady: false,
   });
+}
+
+export function tokenIsValid(tokenData) {
+  return tokenData.status === TOKEN_STATUS_VALID;
+}
+
+export function tokenIsAwaitingSecondFactor(tokenData) {
+  return tokenData.status === TOKEN_STATUS_AWAITING_SECOND_FACTOR;
 }
