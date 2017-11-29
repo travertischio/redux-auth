@@ -92,8 +92,8 @@ export default class AuthenticationProvider extends PureComponent {
 
   /**
   * Function detects if a user is active by last active date saved in localStorage.
-  * Why in localStorage? Because the user might multiple tabs in the browser
-  * and we have to exchange last active date between them.
+  * Why in localStorage? Because the user might use multiple tabs in the browser
+  * and we have to exchange last active date between tabs.
   */
   userIsNotActive() {
     const lastActive = this.getLastActive();
