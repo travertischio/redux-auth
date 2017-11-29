@@ -10,29 +10,46 @@ import {
 } from './constants';
 
 export function setAuthDataInStorage(authData) {
-  try {
-    const currentAuthData = getAuthDataFromStorage();
-    const mergedAuthData = {
-      ...currentAuthData,
-      ...authData,
-    };
-    const authDataAsString = JSON.stringify(mergedAuthData);
-    const encryptedAuthData = AES.encrypt(authDataAsString, ENCRYPT_SECRET_KEY);
+  const currentAuthData = getAuthDataFromStorage();
+  const mergedAuthData = {
+    ...currentAuthData,
+    ...authData,
+  };
+  const authDataAsString = JSON.stringify(mergedAuthData);
+  const encryptedAuthData = AES.encrypt(authDataAsString, ENCRYPT_SECRET_KEY).toString();
 
-    localStorage.setItem(AUTH_KEY, encryptedAuthData);
+  return setItemInStorage(AUTH_KEY, encryptedAuthData);
+}
+
+export function getAuthDataFromStorage() {
+  const localStorageItem = getItemFromStorage(AUTH_KEY);
+
+  if (localStorageItem) {
+    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
+    const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
+
+    return JSON.parse(decryptedLocalStorageItem);
+  }
+
+  return localStorageItem;
+}
+
+export function setItemInStorage(key, value) {
+  try {
+    const serializedValue = JSON.stringify(value);
+    localStorage.setItem(key, serializedValue);
+
     return true;
   } catch (e) {
     return false;
   }
 }
 
-export function getAuthDataFromStorage() {
+export function getItemFromStorage(key) {
   try {
-    const localStorageItem = localStorage.getItem(AUTH_KEY);
-    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
-    const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
+    const serializedValue = localStorage.getItem(key);
 
-    return JSON.parse(decryptedLocalStorageItem);
+    return JSON.parse(serializedValue);
   } catch (e) {
     return undefined;
   }
@@ -67,4 +84,14 @@ export function tokenIsValid(tokenData) {
 
 export function tokenIsAwaitingSecondFactor(tokenData) {
   return tokenData.status === TOKEN_STATUS_AWAITING_SECOND_FACTOR;
+}
+
+export function isServerError(error) {
+  const status = error.response && error.response.status;
+
+  return status >= 500;
+}
+
+export function isNoInternetConnectionError(error) {
+  return !error.response;
 }

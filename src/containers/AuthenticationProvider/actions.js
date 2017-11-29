@@ -8,6 +8,7 @@ import queryString from 'query-string';
 import {
   SET_TOKEN_DATA_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
+  MARK_TOKEN_AS_INVALID_ACTION,
   EXTEND_TOKEN_LIFETIME_ACTION,
   MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
   SET_USER_DATA_ACTION,
@@ -30,6 +31,12 @@ export function setTokenDataAction(tokenData) {
 export function clearTokenDataAction() {
   return {
     type: CLEAR_TOKEN_DATA_ACTION,
+  };
+}
+
+export function markTokenAsInvalidAction() {
+  return {
+    type: MARK_TOKEN_AS_INVALID_ACTION,
   };
 }
 

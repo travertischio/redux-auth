@@ -1,6 +1,7 @@
 import {
   setTokenDataAction,
   clearTokenDataAction,
+  markTokenAsInvalidAction,
   extendTokenLifetimeAction,
   markAuthenticationProviderAsReadyAction,
   setUserDataAction,
@@ -13,6 +14,7 @@ import {
 import {
   SET_TOKEN_DATA_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
+  MARK_TOKEN_AS_INVALID_ACTION,
   EXTEND_TOKEN_LIFETIME_ACTION,
   MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
   SET_USER_DATA_ACTION,
@@ -39,6 +41,14 @@ describe('Authentication actions', () => {
     };
 
     expect(clearTokenDataAction()).toEqual(expected);
+  });
+
+  it('markTokenAsInvalidAction should return MARK_TOKEN_AS_INVALID_ACTION type', () => {
+    const expected = {
+      type: MARK_TOKEN_AS_INVALID_ACTION,
+    };
+
+    expect(markTokenAsInvalidAction()).toEqual(expected);
   });
 
   it('extendTokenLifetimeAction should return EXTEND_TOKEN_LIFETIME_ACTION type', () => {

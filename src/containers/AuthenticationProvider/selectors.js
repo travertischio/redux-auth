@@ -2,6 +2,10 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 import { calculateExpiryTime } from './utils';
+import {
+  TOKEN_STATUS_VALID,
+  TOKEN_STATUS_INVALID,
+} from './constants';
 
 const selectAuthenticationDomain = (state) => state.get('auth');
 
@@ -13,6 +17,13 @@ const selectTokenData = createSelector(
 const selectToken = createSelector(
   selectTokenData,
   (tokenData) => tokenData && tokenData.get('key')
+);
+
+const selectTokenDataAsInvalid = createSelector(
+  selectTokenData,
+  (tokenData) => tokenData && tokenData
+    .set('status', TOKEN_STATUS_INVALID)
+    .toJS()
 );
 
 const selectTokenExpiryTime = createSelector(
@@ -39,9 +50,9 @@ const selectUser = createSelector(
   }
 );
 
-const selectTokenDataExists = createSelector(
+const selectTokeIsValid = createSelector(
   selectAuthenticationDomain,
-  (authState) => authState.has('tokenData')
+  (authState) => authState.getIn(['tokenData', 'status']) === TOKEN_STATUS_VALID
 );
 
 const selectUserDataExists = createSelector(
@@ -50,9 +61,9 @@ const selectUserDataExists = createSelector(
 );
 
 const selectIsAuthenticated = createSelector(
-  selectTokenDataExists,
+  selectTokeIsValid,
   selectUserDataExists,
-  (tokenDataExists, userDataExists) => tokenDataExists && userDataExists
+  (tokeIsValid, userDataExists) => tokeIsValid && userDataExists
 );
 
 const selectIsReady = createSelector(
@@ -66,11 +77,12 @@ const selectUserDataFromActionPayload = (action) => _get(action, ['payload', 'da
 
 export {
   selectAuthenticationDomain,
-  selectIsReady,
   selectIsAuthenticated,
+  selectIsReady,
   selectToken,
   selectTokenData,
-  selectTokenDataExists,
+  selectTokenDataAsInvalid,
+  selectTokeIsValid,
   selectTokenDataFromActionPayload,
   selectTokenExpireInMs,
   selectTokenExpiryTime,
