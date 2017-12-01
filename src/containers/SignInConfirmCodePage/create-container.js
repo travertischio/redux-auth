@@ -6,7 +6,7 @@ import { injectIntl } from 'react-intl';
 import { compose } from 'recompose';
 import messages from './messages';
 import { confirmCodeAction } from './actions';
-import TokeIsValid from '../../hocs/AuthWrappers/TokeIsValid';
+import TokeDataExists from '../../hocs/AuthWrappers/TokeDataExists';
 import config from '../../config';
 
 export default function createSignInConfirmCodeContainer(PageComponent, options = {}) {
@@ -16,7 +16,7 @@ export default function createSignInConfirmCodeContainer(PageComponent, options 
     }),
   });
 
-  @TokeIsValid
+  @TokeDataExists
   @compose(config.signInAuthWrapper)
   @injectIntl
   @connect(null, mapDispatchToProps)

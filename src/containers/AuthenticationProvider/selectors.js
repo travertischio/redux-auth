@@ -55,6 +55,11 @@ const selectTokeIsValid = createSelector(
   (authState) => authState.getIn(['tokenData', 'status']) === TOKEN_STATUS_VALID
 );
 
+const selectTokeDataExists = createSelector(
+  selectAuthenticationDomain,
+  (authState) => authState.has('tokenData')
+);
+
 const selectUserDataExists = createSelector(
   selectAuthenticationDomain,
   (authState) => authState.has('userData')
@@ -79,10 +84,11 @@ export {
   selectAuthenticationDomain,
   selectIsAuthenticated,
   selectIsReady,
+  selectTokeDataExists,
+  selectTokeIsValid,
   selectToken,
   selectTokenData,
   selectTokenDataAsInvalid,
-  selectTokeIsValid,
   selectTokenDataFromActionPayload,
   selectTokenExpireInMs,
   selectTokenExpiryTime,
