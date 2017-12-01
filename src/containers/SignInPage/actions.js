@@ -14,7 +14,7 @@ import {
 export function signInAction(credentials) {
   return {
     type: SIGN_IN_ACTION,
-    payload: credentials,
+    credentials,
   };
 }
 

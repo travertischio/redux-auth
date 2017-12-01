@@ -1,11 +1,11 @@
 import connectedReduxRedirect from './connectedReduxRedirect';
 import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
-import { selectTokenDataExists } from '../../containers/AuthenticationProvider/selectors';
+import { selectTokeDataExists } from '../../containers/AuthenticationProvider/selectors';
 import config from '../../config';
 
 export default connectedReduxRedirect({
-  authenticatedSelector: selectTokenDataExists,
+  authenticatedSelector: selectTokeDataExists,
   redirectAction: redirectActionWithSupportParamInQueryString,
   redirectPath: config.userIsNotAuthenticatedRedirectPath,
-  wrapperDisplayName: 'TokenIsSet',
+  wrapperDisplayName: 'TokeDataExists',
 });
