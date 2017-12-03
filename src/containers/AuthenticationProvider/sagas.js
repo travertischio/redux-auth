@@ -15,7 +15,6 @@ import {
   tokenIsValid,
 } from './utils';
 import {
-  clearTokenDataAction,
   clearUserDataAction,
   extendTokenLifetimeAction,
   markAuthenticationProviderAsReadyAction,
@@ -81,7 +80,8 @@ export function* extendTokenLifetimeSaga() {
 
       yield call(handleAuthenticationSaga, action);
     } catch (error) {
-      yield put(clearTokenDataAction());
+      yield put(markTokenAsInvalidAction());
+      yield put(clearUserDataAction());
     }
 
     yield call(markAuthenticationProviderAsReady);
