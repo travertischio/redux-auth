@@ -25,3 +25,4 @@ export const TWO_FACTOR_SEND_CODE_FAILED_ACTION = 'app/AuthenticationProvider/TW
 export const SIGN_OUT_ACTION = 'app/AuthenticationProvider/SIGN_OUT';
 export const SIGN_OUT_SUCCESS_ACTION = 'app/AuthenticationProvider/SIGN_OUT_SUCCESS';
 export const SIGN_OUT_FAILED_ACTION = 'app/AuthenticationProvider/SIGN_OUT_FAILED';
+export const SET_LAST_USER_TOKEN = 'app/AuthenticationProvider/SET_LAST_USER_TOKEN';

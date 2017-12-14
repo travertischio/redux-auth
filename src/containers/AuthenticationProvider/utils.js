@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import moment from 'moment';
 import AES from 'crypto-js/aes';
+import md5 from 'crypto-js/md5';
 import encUtf8 from 'crypto-js/enc-utf8';
 import {
   AUTH_KEY,
@@ -98,4 +99,17 @@ export function isServerError(error) {
 
 export function isNoInternetConnectionError(error) {
   return !error.response;
+}
+
+export function storeLastUserToken(email, token) {
+  const currentAuthData = getAuthDataFromStorage();
+
+  currentAuthData.lastTokens = currentAuthData.lastTokens || {};
+  currentAuthData.lastTokens[email] = token;
+
+  return setAuthDataInStorage(currentAuthData);
+}
+
+export function generateLastUserTokenKey(rawKey) {
+  return md5(rawKey).toString();
 }

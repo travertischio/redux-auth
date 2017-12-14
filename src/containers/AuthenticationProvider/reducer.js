@@ -10,6 +10,7 @@ import {
   MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
   SET_USER_DATA_ACTION,
   CLEAR_USER_DATA_ACTION,
+  SET_LAST_USER_TOKEN,
 } from './constants';
 import {
   getAuthDataFromStorage,
@@ -28,6 +29,8 @@ function authenticationReducer(state = getInitialState(), action) {
       return onSetUserDataAction(state, action);
     case CLEAR_USER_DATA_ACTION:
       return onClearUserDataAction(state);
+    case SET_LAST_USER_TOKEN:
+      return onSetLastUserToken(state, action);
     default:
       return state;
   }
@@ -68,6 +71,16 @@ function onSetUserDataAction(state, action) {
 function onClearUserDataAction(state) {
   return state
     .delete('userData');
+}
+
+function onSetLastUserToken(state, action) {
+  const {
+    key,
+    token,
+  } = action;
+
+  return state
+    .setIn(['lastTokens', key], token);
 }
 
 export default authenticationReducer;
