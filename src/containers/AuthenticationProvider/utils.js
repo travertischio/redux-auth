@@ -25,10 +25,14 @@ export function getAuthDataFromStorage() {
   const localStorageItem = getItemFromStorage(AUTH_KEY);
 
   if (localStorageItem) {
-    const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
-    const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
+    try {
+      const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
+      const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
 
-    return JSON.parse(decryptedLocalStorageItem);
+      return JSON.parse(decryptedLocalStorageItem);
+    } catch (e) {
+      return null;
+    }
   }
 
   return localStorageItem;
