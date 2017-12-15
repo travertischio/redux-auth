@@ -47,7 +47,7 @@ import {
   setAuthDataInStorage,
   removeAuthDataFromStorage,
 } from './utils';
-import { selectTokenExpireInMs } from './selectors';
+import { selectExtendTokenWithinMs } from './selectors';
 import {
   tokenAndUserData,
   tokenAndUserDataResponse,
@@ -126,7 +126,7 @@ it('putExtendTokenLifetimeActionWithDelaySaga when token is valid', () => {
 
   testSaga(putExtendTokenLifetimeActionWithDelaySaga, action)
     .next()
-    .select(selectTokenExpireInMs)
+    .select(selectExtendTokenWithinMs)
     .next(tokenExpireInMs)
     .call(delay, tokenExpireInMs)
     .next()

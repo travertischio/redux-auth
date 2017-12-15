@@ -69,10 +69,20 @@ export function removeAuthDataFromStorage() {
   }
 }
 
+export function calculateExtendTokenWithinMs(expireAt, autoSignOutWithin) {
+  const tokenExpireInMs = calculateExpiryTime(expireAt);
+
+  if (autoSignOutWithin) {
+    return Math.min(tokenExpireInMs, 5 * 60 * 1000);
+  }
+
+  return tokenExpireInMs;
+}
+
 export function calculateExpiryTime(expireAt) {
   const now = moment();
   const expires = moment(expireAt);
-  const expiresEarlierBy = 30 * 1000;
+  const expiresEarlierBy = 60 * 1000;
 
   return expires.diff(now) - expiresEarlierBy;
 }

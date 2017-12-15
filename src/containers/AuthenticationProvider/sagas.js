@@ -36,7 +36,7 @@ import {
   selectToken,
   selectTokenDataAsInvalid,
   selectTokenDataFromActionPayload,
-  selectTokenExpireInMs,
+  selectExtendTokenWithinMs,
   selectTokenIsExpired,
   selectUserDataFromActionPayload,
 } from './selectors';
@@ -111,9 +111,9 @@ export function* watchSetTokenDataAction() {
 
 export function* putExtendTokenLifetimeActionWithDelaySaga(action) {
   if (tokenIsValid(action.tokenData)) {
-    const tokenExpireInMs = yield select(selectTokenExpireInMs);
+    const extendTokenWithinMs = yield select(selectExtendTokenWithinMs);
 
-    yield call(delay, tokenExpireInMs);
+    yield call(delay, extendTokenWithinMs);
     yield put(extendTokenLifetimeAction());
   }
 }

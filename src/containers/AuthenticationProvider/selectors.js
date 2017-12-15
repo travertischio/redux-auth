@@ -2,13 +2,14 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 import {
-  calculateExpiryTime,
+  calculateExtendTokenWithinMs,
   generateLastUserTokenKey,
 } from './utils';
 import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_INVALID,
 } from './constants';
+import config from '../../config';
 
 const selectAuthenticationDomain = (state) => state.get('auth');
 
@@ -34,9 +35,9 @@ const selectTokenExpiryTime = createSelector(
   (tokenData) => tokenData && tokenData.get('expireAt')
 );
 
-const selectTokenExpireInMs = createSelector(
+const selectExtendTokenWithinMs = createSelector(
   selectTokenExpiryTime,
-  (expireAt) => calculateExpiryTime(expireAt)
+  (expireAt) => calculateExtendTokenWithinMs(expireAt, config.autoSignOutWithin)
 );
 
 const selectTokenIsExpired = createSelector(
@@ -105,7 +106,7 @@ export {
   selectTokenData,
   selectTokenDataAsInvalid,
   selectTokenDataFromActionPayload,
-  selectTokenExpireInMs,
+  selectExtendTokenWithinMs,
   selectTokenExpiryTime,
   selectTokenIsExpired,
   selectUser,
