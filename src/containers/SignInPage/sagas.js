@@ -10,7 +10,7 @@ import {
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signIn as signInApiCall } from '../../api';
 import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
-import { selectToken } from '../AuthenticationProvider/selectors';
+import { makeSelectLastUserToken } from '../AuthenticationProvider/selectors';
 import {
   signInFailedAction,
   signInSuccessAction,
@@ -29,7 +29,8 @@ export function* watchSignInAction() {
 
 export function* signInSaga(action) {
   try {
-    const lastToken = yield select(selectToken);
+    const selectLastUserToken = makeSelectLastUserToken(action.credentials.get('email'));
+    const lastToken = yield select(selectLastUserToken);
     const credentials = {
       token: lastToken,
       ...action.credentials.toJS(),

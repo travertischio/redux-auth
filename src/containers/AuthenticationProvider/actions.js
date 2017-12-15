@@ -19,6 +19,7 @@ import {
   SIGN_OUT_ACTION,
   SIGN_OUT_SUCCESS_ACTION,
   SIGN_OUT_FAILED_ACTION,
+  SET_LAST_USER_TOKEN,
 } from './constants';
 
 export function setTokenDataAction(tokenData) {
@@ -112,5 +113,13 @@ export function signOutSuccessAction() {
 export function signOutFailedAction() {
   return {
     type: SIGN_OUT_FAILED_ACTION,
+  };
+}
+
+export function setLastUserTokenAction(key, token) {
+  return {
+    type: SET_LAST_USER_TOKEN,
+    key,
+    token,
   };
 }

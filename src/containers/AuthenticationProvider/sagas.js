@@ -13,6 +13,8 @@ import {
   setAuthDataInStorage,
   tokenIsAwaitingSecondFactor,
   tokenIsValid,
+  storeLastUserToken,
+  generateLastUserTokenKey,
 } from './utils';
 import {
   clearUserDataAction,
@@ -26,6 +28,7 @@ import {
   twoFactorSendCodeAction,
   twoFactorSendCodeFailedAction,
   twoFactorSendCodeSuccessAction,
+  setLastUserTokenAction,
 } from './actions';
 import {
   selectIsReady,
@@ -51,6 +54,7 @@ import {
   SET_TOKEN_DATA_ACTION,
   SIGN_OUT_ACTION,
   TWO_FACTOR_SEND_CODE_ACTION,
+  SET_LAST_USER_TOKEN,
 } from './constants';
 import config from '../../config';
 
@@ -200,6 +204,25 @@ export function* handleAuthenticationSaga(action) {
   if (userData) {
     yield put(setUserDataAction(userData));
   }
+
+  if (tokenData && userData) {
+    const lastUserTokenKey = generateLastUserTokenKey(userData.email);
+
+    yield put(setLastUserTokenAction(lastUserTokenKey, tokenData.key));
+  }
+}
+
+export function* watchLastUserTokenAction() {
+  yield takeEvery(SET_LAST_USER_TOKEN, lastUserTokenSaga);
+}
+
+export function* lastUserTokenSaga(action) {
+  const {
+    key,
+    email,
+  } = action;
+
+  yield call(storeLastUserToken, key, email);
 }
 
 export default [
@@ -209,4 +232,5 @@ export default [
   watchSetTokenDataAction,
   watchSignOutAction,
   watchTwoFactorSendCodeAction,
+  watchLastUserTokenAction,
 ];

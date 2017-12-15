@@ -1,7 +1,10 @@
 import _get from 'lodash/get';
 import moment from 'moment';
 import { createSelector } from 'reselect';
-import { calculateExpiryTime } from './utils';
+import {
+  calculateExpiryTime,
+  generateLastUserTokenKey,
+} from './utils';
 import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_INVALID,
@@ -39,6 +42,16 @@ const selectTokenExpireInMs = createSelector(
 const selectTokenIsExpired = createSelector(
   selectTokenExpiryTime,
   (expireAt) => moment().diff(expireAt) >= 0
+);
+
+const selectLastTokens = createSelector(
+  selectAuthenticationDomain,
+  (tokenData) => tokenData && tokenData.get('lastTokens')
+);
+
+const makeSelectLastUserToken = (email) => createSelector(
+  selectLastTokens,
+  (lastTokens) => lastTokens && lastTokens.get(generateLastUserTokenKey(email))
 );
 
 const selectUser = createSelector(
@@ -81,9 +94,11 @@ const selectTokenDataFromActionPayload = (action) => _get(action, ['payload', 'd
 const selectUserDataFromActionPayload = (action) => _get(action, ['payload', 'data', 'userData']);
 
 export {
+  makeSelectLastUserToken,
   selectAuthenticationDomain,
   selectIsAuthenticated,
   selectIsReady,
+  selectLastTokens,
   selectTokeDataExists,
   selectTokeIsValid,
   selectToken,
