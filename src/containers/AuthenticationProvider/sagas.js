@@ -219,10 +219,10 @@ export function* watchLastUserTokenAction() {
 export function* lastUserTokenSaga(action) {
   const {
     key,
-    email,
+    token,
   } = action;
 
-  yield call(storeLastUserToken, key, email);
+  yield call(storeLastUserToken, key, token);
 }
 
 export default [

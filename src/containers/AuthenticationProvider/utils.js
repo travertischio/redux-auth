@@ -111,15 +111,15 @@ export function isNoInternetConnectionError(error) {
   return !error.response;
 }
 
-export function storeLastUserToken(email, token) {
+export function storeLastUserToken(key, token) {
   const currentAuthData = getAuthDataFromStorage();
 
   currentAuthData.lastTokens = currentAuthData.lastTokens || {};
-  currentAuthData.lastTokens[email] = token;
+  currentAuthData.lastTokens[key] = token;
 
   return setAuthDataInStorage(currentAuthData);
 }
 
 export function generateLastUserTokenKey(rawKey) {
-  return md5(rawKey).toString();
+  return md5(rawKey.toLowerCase().trim()).toString();
 }
