@@ -32,7 +32,7 @@
     "react-helmet": "^5.0.3",
     "recompose": "^0.25.1",
     "redux-auth-wrapper": "^2.0.1",
-    "redux-form": "^7.0.4",
+    "redux-form": "https://github.com/adybionka/redux-form.git#build",
     "reselect": "^3.0.0",
     "validators": "https://bitbucket.org/arabellatech/validators#~2.0.0"
   },
