@@ -34,7 +34,7 @@
     "redux-auth-wrapper": "^2.0.1",
     "redux-form": "^7.2.1",
     "reselect": "^3.0.0",
-    "validators": "https://bitbucket.org/arabellatech/validators#~2.0.0"
+    "validators": "https://bitbucket.org/arabellatech/validators#~2.2.2"
   },
   "peerDependencies": {
     "api-client": "https://bitbucket.org/arabellatech/api-client#~1.3.0",
