@@ -6,7 +6,7 @@ import config from '../../config';
 const UserHasRole = (expectedRoles) => connectedReduxRedirect({
   authenticatedSelector: makeUserHasOfEpectedRoleSelector(expectedRoles),
   redirectAction: redirectActionWithSupportParamInQueryString,
-  redirectPath: config.userHasNoRoleRedirectPath,
+  redirectPath: () => config.userHasNoRoleRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserHasRole',
 });
@@ -20,4 +20,3 @@ function makeUserHasOfEpectedRoleSelector(expectedRoles) {
 }
 
 export default UserHasRole;
-
