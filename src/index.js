@@ -17,10 +17,6 @@ import config, {
   setConfig,
 } from './config';
 
-
-console.log('index');
-console.log(config.userIsNotAuthenticatedRedirectPath);
-
 setConfig({
   signInAuthWrapper: creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignIn),
   signUpAuthWrapper: creactUserIsNotAuthenticatedAuthWrapper(config.redirectPathAfterSignUp),
