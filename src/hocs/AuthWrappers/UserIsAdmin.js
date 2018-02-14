@@ -6,7 +6,7 @@ import config from '../../config';
 const UserIsAdmin = connectedReduxRedirect({
   authenticatedSelector: isAdminSelector,
   redirectAction: redirectActionWithSupportParamInQueryString,
-  redirectPath: config.userIsNotAdminRedirectPath,
+  redirectPath: () => config.userIsNotAdminRedirectPath,
   allowRedirectBack: false,
   wrapperDisplayName: 'UserIsAdmin',
 });

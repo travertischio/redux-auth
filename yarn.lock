@@ -7036,9 +7036,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
-"validators@https://bitbucket.org/arabellatech/validators#~2.0.0":
-  version "2.0.0"
-  resolved "https://bitbucket.org/arabellatech/validators#364597eacafdceceb3f2a23e37b9d3948bac9003"
+"validators@https://bitbucket.org/arabellatech/validators#~2.2.2":
+  version "2.2.2"
+  resolved "https://bitbucket.org/arabellatech/validators#be8f9bd448f2fa2daf3bbef411843df68f6e2475"
 
 value-equal@^0.4.0:
   version "0.4.0"

@@ -6,6 +6,6 @@ import config from '../../config';
 export default connectedReduxRedirect({
   authenticatedSelector: selectTokeIsValid,
   redirectAction: redirectActionWithSupportParamInQueryString,
-  redirectPath: config.userIsNotAuthenticatedRedirectPath,
+  redirectPath: () => config.userIsNotAuthenticatedRedirectPath,
   wrapperDisplayName: 'TokeIsValid',
 });
