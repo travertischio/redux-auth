@@ -26,8 +26,10 @@ export const SignUpForm = (props) => {
     pristine,
     submitting,
     valid,
+    intl: {
+      formatMessage,
+    },
   } = props;
-  const formatMessage = props.intl.formatMessage;
   const firstNameLabel = formatMessage(messages.firstName);
   const emailLabel = formatMessage(messages.email);
   const passwordLabel = formatMessage(messages.password);
@@ -82,7 +84,9 @@ export const SignUpForm = (props) => {
         <button
           type="submit"
           disabled={pristine || submitting}
-        >Sign Up</button>
+        >
+          Sign Up
+        </button>
       </div>
     </form>
   );

@@ -143,7 +143,7 @@ export default class AuthenticationProvider extends PureComponent {
 
   renderChildren() {
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+      // eslint-disable-next-line
       <div onClick={this.handleClick}>
         {React.Children.only(this.props.children)}
       </div>

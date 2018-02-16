@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-  getStoreWithInitialState,
-  findActionByType,
-  mountWithIntl,
+  // getStoreWithInitialState,
+  // findActionByType,
+  // mountWithIntl,
   createComponentWithRouter,
 } from 'react-unit-testing-utils';
-import { SubmissionError } from 'redux-form/immutable';
+// import { SubmissionError } from 'redux-form/immutable';
 import SignUpPage from './index';
 // import { destroyPageAction } from './actions';
-import {
-  SIGN_UP_ACTION,
-  // DESTROY_PAGE_ACTION,
-} from './constants';
+// import {
+//   // SIGN_UP_ACTION,
+//   // DESTROY_PAGE_ACTION,
+// } from './constants';
 
 describe('<SignUpPage />', () => {
   // describe('when submitting form', () => {

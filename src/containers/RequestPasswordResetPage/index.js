@@ -37,9 +37,8 @@ class RequestPasswordResetPage extends PureComponent {
       RequestPasswordResetPage: {
         loading,
       },
+      errorMessage,
     } = this.props;
-
-    const errorMessage = this.props.errorMessage;
 
     return (
       <div>
@@ -54,9 +53,7 @@ class RequestPasswordResetPage extends PureComponent {
   }
 
   render() {
-    const sent = this.props.RequestPasswordResetPage.sent;
-
-    if (sent) {
+    if (this.props.RequestPasswordResetPage.sent) {
       return this.renderSuccessMessage();
     }
 

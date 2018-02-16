@@ -11,6 +11,11 @@
     "react",
     "jsx-a11y"
   ],
+  "settings": {
+    "import/resolver": {
+      "babel-plugin-root-import": {}
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -38,7 +43,6 @@
     "import/no-named-as-default": 0,
     "import/no-unresolved": 2,
     "import/prefer-default-export": 0,
-    "import/extensions": 0,
     "indent": [
       2,
       2,
@@ -46,9 +50,13 @@
         "SwitchCase": 1
       }
     ],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to", "hrefLeft", "hrefRight" ],
+      "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
     "jsx-a11y/aria-props": 2,
     "jsx-a11y/heading-has-content": 0,
-    "jsx-a11y/href-no-hash": 2,
     "jsx-a11y/label-has-for": 2,
     "jsx-a11y/mouse-events-have-key-events": 2,
     "jsx-a11y/role-has-required-aria-props": 2,

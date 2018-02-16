@@ -87,7 +87,7 @@ export function twoFactorSendCodeFailedAction(error) {
 }
 
 export function redirectActionWithSupportParamInQueryString(action) {
-  const { redirect } = queryString.parse(location.search);
+  const { redirect } = queryString.parse(window.location.search);
 
   if (redirect) {
     return routerActions.replace({

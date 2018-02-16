@@ -119,7 +119,7 @@ export function* putExtendTokenLifetimeActionWithDelaySaga(action) {
 }
 
 export function* setTokenDataSaga(action) {
-  const tokenData = action.tokenData;
+  const { tokenData } = action;
 
   yield call(setAuthDataInStorage, { tokenData });
 

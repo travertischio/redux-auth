@@ -62,7 +62,9 @@ function ResetPasswordForm(props) {
         <button
           type="submit"
           disabled={pristine || submitting}
-        >Save</button>
+        >
+          Save
+        </button>
       </div>
     </form>
   );

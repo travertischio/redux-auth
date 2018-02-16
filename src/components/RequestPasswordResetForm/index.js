@@ -50,7 +50,9 @@ function RequestPasswordResetForm(props) {
         <button
           type="submit"
           disabled={pristine || submitting}
-        >Submit</button>
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

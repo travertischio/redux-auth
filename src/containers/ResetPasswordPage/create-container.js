@@ -37,9 +37,9 @@ export default function createResetPasswordContainer(PageComponent, options = {}
     }
 
     getErrorMessage() {
-      let errorMessage = this.props.ResetPasswordPage.errorMessage;
+      let { errorMessage } = this.props.ResetPasswordPage;
 
-      if (errorMessage) {
+      if (this.props.ResetPasswordPage.errorMessage) {
         errorMessage = messages[errorMessage];
       }
 

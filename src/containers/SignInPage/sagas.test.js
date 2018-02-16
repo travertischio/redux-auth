@@ -5,15 +5,15 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import {
-  setTokenDataAction,
-  setUserDataAction,
-} from '../AuthenticationProvider/actions';
+// import {
+//   setTokenDataAction,
+//   setUserDataAction,
+// } from '../AuthenticationProvider/actions';
 import { signIn as signInApiCall } from '../../api';
 import {
   defaultSaga,
   signInSaga,
-  onSignInSuccessSaga,
+  // onSignInSuccessSaga,
 } from './sagas';
 import {
   signInSuccessAction,

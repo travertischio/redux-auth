@@ -60,7 +60,9 @@ const SignInForm = (props) => {
         <button
           type="submit"
           disabled={pristine || submitting}
-        >Sign In</button>
+        >
+          Sign In
+        </button>
       </div>
     </form>
   );

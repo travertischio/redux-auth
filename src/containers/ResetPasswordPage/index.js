@@ -52,8 +52,12 @@ class ResetPasswordPage extends PureComponent {
   }
 
   renderFormOrError() {
-    const loading = this.props.ResetPasswordPage.loading;
-    const errorMessage = this.props.errorMessage;
+    const {
+      ResetPasswordPage: {
+        loading,
+      },
+      errorMessage,
+    } = this.props;
 
     return (
       <div>
@@ -68,9 +72,7 @@ class ResetPasswordPage extends PureComponent {
   }
 
   renderFormOrErrorInner() {
-    const invalidToken = this.props.ResetPasswordPage.invalidToken;
-
-    if (invalidToken) {
+    if (this.props.ResetPasswordPage.invalidToken) {
       return this.renderGoToRequestPasswordPageLink();
     }
 
@@ -106,9 +108,7 @@ class ResetPasswordPage extends PureComponent {
   }
 
   render() {
-    const success = this.props.ResetPasswordPage.success;
-
-    if (success) {
+    if (this.props.ResetPasswordPage.success) {
       return this.renderSuccessMessage();
     }
 

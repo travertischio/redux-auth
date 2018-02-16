@@ -1,5 +1,5 @@
-import { fromJS } from 'immutable';
-import * as MockDate from 'mockdate';
+// import { fromJS } from 'immutable';
+// import * as MockDate from 'mockdate';
 import authenticationReducer from './reducer';
 import {
   getInitialStateData,
@@ -7,7 +7,7 @@ import {
 } from './utils';
 import {
   clearTokenDataAction,
-  clearUserDataAction,
+  // clearUserDataAction,
   markAuthenticationProviderAsReadyAction,
   extendTokenLifetimeAction,
   setTokenDataAction,

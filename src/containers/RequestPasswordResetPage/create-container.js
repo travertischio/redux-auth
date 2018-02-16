@@ -35,7 +35,7 @@ export default function createRequestPasswordResetContainer(PageComponent, optio
     }
 
     getErrorMessage() {
-      let errorMessage = this.props.RequestPasswordResetPage.errorMessage;
+      let { errorMessage } = this.props.RequestPasswordResetPage;
 
       if (errorMessage) {
         errorMessage = messages[errorMessage];

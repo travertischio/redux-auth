@@ -6,7 +6,7 @@ import {
   requestPasswordReset,
   resetPassword,
   signUp,
-  signOut,
+  // signOut,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from './';
