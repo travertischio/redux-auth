@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bind } from 'decko';
 import { createStructuredSelector } from 'reselect';
 import moment from 'moment';
+import config from '~/config';
 import {
   selectIsReady,
   selectIsAuthenticated,
@@ -23,7 +24,6 @@ import {
   getItemFromStorage,
 } from './utils';
 import { LAST_ACTIVE_KEY } from './constants';
-import config from '../../config';
 
 const mapStateToProps = createStructuredSelector({
   isReady: selectIsReady,

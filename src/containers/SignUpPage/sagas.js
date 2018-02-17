@@ -9,8 +9,8 @@ import {
   put,
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { signUp as signUpApiCall } from '../../api';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
+import { signUp as signUpApiCall } from '~/api';
+import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import {
   signUpSuccessAction,
   signUpFailedAction,

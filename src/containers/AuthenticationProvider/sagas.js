@@ -7,6 +7,14 @@ import {
 } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import {
+  extendTokenLifetime as extendTokenLifetimeApiCall,
+  removeAuthorizationTokenInHeaders,
+  setAuthorizationTokenInHeaders,
+  signOut as signOutApiCall,
+  twoFactorSendCode as twoFactorSendCodeApiCall,
+} from '~/api';
+import config from '~/config';
+import {
   isNoInternetConnectionError,
   isServerError,
   removeAuthDataFromStorage,
@@ -41,13 +49,6 @@ import {
   selectUserDataFromActionPayload,
 } from './selectors';
 import {
-  extendTokenLifetime as extendTokenLifetimeApiCall,
-  removeAuthorizationTokenInHeaders,
-  setAuthorizationTokenInHeaders,
-  signOut as signOutApiCall,
-  twoFactorSendCode as twoFactorSendCodeApiCall,
-} from '../../api';
-import {
   CLEAR_TOKEN_DATA_ACTION,
   EXTEND_TOKEN_LIFETIME_ACTION,
   MARK_TOKEN_AS_INVALID_ACTION,
@@ -56,7 +57,6 @@ import {
   TWO_FACTOR_SEND_CODE_ACTION,
   SET_LAST_USER_TOKEN,
 } from './constants';
-import config from '../../config';
 
 export function* watchClearTokenDataAction() {
   yield takeEvery(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga);
@@ -228,9 +228,9 @@ export function* lastUserTokenSaga(action) {
 export default [
   watchClearTokenDataAction,
   watchExtendTokenLifetimeAction,
+  watchLastUserTokenAction,
   watchMarkTokenAsInvalidAction,
   watchSetTokenDataAction,
   watchSignOutAction,
   watchTwoFactorSendCodeAction,
-  watchLastUserTokenAction,
 ];

@@ -1,5 +1,6 @@
 import apiClient from 'api-client';
 import MockAdapter from 'axios-mock-adapter';
+import { tokenAndUserData } from '~/test.data';
 import {
   signIn,
   extendTokenLifetime,
@@ -10,7 +11,6 @@ import {
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
 } from './';
-import { tokenAndUserData } from '../test.data';
 
 describe('redux-auth API', () => {
   let mock;

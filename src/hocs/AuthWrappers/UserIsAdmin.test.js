@@ -1,7 +1,7 @@
 import React from 'react';
 import { createComponentWithRouter } from 'react-unit-testing-utils';
+import config, { setConfig } from '~/config';
 import UserIsAdmin from './UserIsAdmin';
-import config, { setConfig } from '../../config';
 
 const PageComponent = () => <div>Page only for admins</div>;
 const PageOnlyForAdmins = UserIsAdmin(PageComponent);

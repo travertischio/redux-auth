@@ -5,8 +5,8 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
-import { signUp as signUpApiCall } from '../../api';
+import { signUp as signUpApiCall } from '~/api';
+import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import {
   defaultSaga,
   signUpSaga,

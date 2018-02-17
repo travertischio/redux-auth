@@ -5,8 +5,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import SignInForm from '~/components/SignInForm';
 import createSignInContainer from './create-container';
-import SignInForm from '../../components/SignInForm';
 
 function SignInPage(props) {
   const {

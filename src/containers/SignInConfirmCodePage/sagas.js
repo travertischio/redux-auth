@@ -8,9 +8,9 @@ import {
   select,
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { twoFactorConfirmCode as twoFactorConfirmCodeApiCall } from '../../api';
-import { selectToken } from '../AuthenticationProvider/selectors';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
+import { twoFactorConfirmCode as twoFactorConfirmCodeApiCall } from '~/api';
+import { selectToken } from '~/containers/AuthenticationProvider/selectors';
+import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import {
   confirmCodeSuccessAction,
   confirmCodeFailedAction,

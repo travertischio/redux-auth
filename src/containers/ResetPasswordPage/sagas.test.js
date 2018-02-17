@@ -6,8 +6,8 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
-import { resetPassword as resetPasswordApiCall } from '../../api';
+import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
+import { resetPassword as resetPasswordApiCall } from '~/api';
 import { defaultSaga, resetPasswordSaga } from './sagas';
 import { resetPasswordSuccessAction, resetPasswordFailedAction } from './actions';
 import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCESS_ACTION } from './constants';

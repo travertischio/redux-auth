@@ -1,17 +1,20 @@
 import { Map } from 'immutable';
-import * as MockDate from 'mockdate';
+import MockDate from 'mockdate';
 import AES from 'crypto-js/aes';
 import encUtf8 from 'crypto-js/enc-utf8';
+import { validTokenData as tokenData } from '~/test.data';
 import {
-  setAuthDataInStorage,
-  getAuthDataFromStorage,
-  removeAuthDataFromStorage,
-  getInitialStateData,
   calculateExpiryTime,
-  ENCRYPT_SECRET_KEY,
+  getAuthDataFromStorage,
+  getInitialStateData,
+  removeAuthDataFromStorage,
+  setAuthDataInStorage,
+  getItemFromStorage,
 } from './utils';
-import { AUTH_KEY } from './constants';
-import { tokenData } from '../../test.data';
+import {
+  AUTH_KEY,
+  ENCRYPT_SECRET_KEY,
+} from './constants';
 
 describe('authentication utils', () => {
   describe('when calling setAuthDataInStorage({ token })', () => {
@@ -22,7 +25,7 @@ describe('authentication utils', () => {
     });
 
     it('should set encrtyped an object with a token in a localStorage', () => {
-      const localStorageItem = localStorage.getItem(AUTH_KEY);
+      const localStorageItem = getItemFromStorage(AUTH_KEY);
       const decryptedLocalStorageItemBytes = AES.decrypt(localStorageItem, ENCRYPT_SECRET_KEY);
       const decryptedLocalStorageItem = decryptedLocalStorageItemBytes.toString(encUtf8);
       const decryptedLocalStorageObject = JSON.parse(decryptedLocalStorageItem);

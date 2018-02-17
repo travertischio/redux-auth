@@ -32,36 +32,4 @@ describe('redux-auth config', () => {
       });
     });
   });
-
-  describe('when calling setConfig(newConfig) with new redirectPathAfterSignIn and redirectPathAfterSignUp', () => {
-    let signInAuthWrapperOld = null;
-    let signUpAuthWrapperOld = null;
-    const newConfig = {
-      redirectPathAfterSignIn: '/home',
-      redirectPathAfterSignUp: '/home',
-    };
-
-    beforeEach(() => {
-      signInAuthWrapperOld = config.signInAuthWrapper;
-      signUpAuthWrapperOld = config.signUpAuthWrapper;
-
-      setConfig(newConfig);
-    });
-
-    it('should update signInAuthWrapper', () => {
-      expect(signInAuthWrapperOld).not.toBe(config.signInAuthWrapper);
-    });
-
-    it('should update signUpAuthWrapper', () => {
-      expect(signUpAuthWrapperOld).not.toBe(config.signUpAuthWrapper);
-    });
-
-    it('should signInAuthWrapper be a function', () => {
-      expect(typeof config.signInAuthWrapper === 'function').toBeTruthy();
-    });
-
-    it('should signUpAuthWrapper be a function', () => {
-      expect(typeof config.signUpAuthWrapper === 'function').toBeTruthy();
-    });
-  });
 });

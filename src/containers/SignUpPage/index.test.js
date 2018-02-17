@@ -6,6 +6,7 @@ import {
   createComponentWithRouter,
 } from 'react-unit-testing-utils';
 // import { SubmissionError } from 'redux-form/immutable';
+import { stateAuthenticated } from '~/test.data';
 import SignUpPage from './index';
 // import { destroyPageAction } from './actions';
 // import {
@@ -82,10 +83,7 @@ describe('<SignUpPage />', () => {
 
   it('should NOT render SignUpPage when user IS authenticated', () => {
     const initialState = {
-      auth: {
-        tokenData: {},
-        userData: {},
-      },
+      ...stateAuthenticated,
     };
     const { wrapper } = createComponentWithRouter(<SignUpPage />, initialState);
     expect(wrapper.toJSON()).toMatchSnapshot();

@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import {
   selectIsAuthenticated,
   selectUser,
-} from '../../containers/AuthenticationProvider/selectors';
+} from '~/containers/AuthenticationProvider/selectors';
 
 export default function withUserData(WrappedComponent) {
   const ComponentWithUserData = (props) => <WrappedComponent {...props} />;

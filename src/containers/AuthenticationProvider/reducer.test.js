@@ -1,5 +1,9 @@
 // import { fromJS } from 'immutable';
 // import * as MockDate from 'mockdate';
+import {
+  validTokenData as tokenData,
+  userData,
+} from '~/test.data';
 import authenticationReducer from './reducer';
 import {
   getInitialStateData,
@@ -13,10 +17,6 @@ import {
   setTokenDataAction,
   setUserDataAction,
 } from './actions';
-import {
-  tokenData,
-  userData,
-} from '../../test.data';
 
 describe('authenticationReducer', () => {
   let currentState;
@@ -55,6 +55,7 @@ describe('authenticationReducer', () => {
 
     it('should a initial state has tokenData', () => {
       currentState = authenticationReducer(undefined, {});
+
       const receivedTokenData = currentState.get('tokenData');
 
       expect(receivedTokenData.toJS()).toEqual(tokenData);

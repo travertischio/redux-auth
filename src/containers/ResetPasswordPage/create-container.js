@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { selectIsAuthenticated } from '../AuthenticationProvider/selectors';
+import { selectIsAuthenticated } from '~/containers/AuthenticationProvider/selectors';
 import selectResetPasswordPage from './selectors';
 import messages from './messages';
 import {

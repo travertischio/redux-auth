@@ -11,8 +11,8 @@ import {
 import {
   SIGN_OUT_SUCCESS_ACTION,
   SIGN_OUT_FAILED_ACTION,
-} from '../AuthenticationProvider/constants';
-import config from '../../config';
+} from '~/containers/AuthenticationProvider/constants';
+import config from '~/config';
 
 export function* defaultSaga() {
   const signOutSuccessActionWatcher = yield takeEvery(SIGN_OUT_SUCCESS_ACTION, signOutSaga);

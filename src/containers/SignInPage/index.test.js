@@ -5,6 +5,7 @@ import {
   mountWithIntl,
   createComponentWithRouter,
 } from 'react-unit-testing-utils';
+import { stateAuthenticated } from '~/test.data';
 import SignInPage from './index';
 import { destroyPageAction } from './actions';
 import {
@@ -48,10 +49,7 @@ describe('<SignInPage />', () => {
 
   it('should NOT render SignInPage when user IS authenticated', () => {
     const initialState = {
-      auth: {
-        tokenData: {},
-        userData: {},
-      },
+      ...stateAuthenticated,
       signInPage: {},
     };
     const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);

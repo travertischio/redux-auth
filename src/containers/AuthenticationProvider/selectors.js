@@ -1,6 +1,7 @@
 import _get from 'lodash/get';
 import moment from 'moment';
 import { createSelector } from 'reselect';
+import config from '~/config';
 import {
   calculateExtendTokenWithinMs,
   generateLastUserTokenKey,
@@ -9,7 +10,6 @@ import {
   TOKEN_STATUS_VALID,
   TOKEN_STATUS_INVALID,
 } from './constants';
-import config from '../../config';
 
 const selectAuthenticationDomain = (state) => state.get('auth');
 

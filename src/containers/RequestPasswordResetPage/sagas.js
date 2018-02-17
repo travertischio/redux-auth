@@ -6,7 +6,7 @@ import {
   call,
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { requestPasswordReset as requestPasswordResetApiCall } from '../../api';
+import { requestPasswordReset as requestPasswordResetApiCall } from '~/api';
 import {
   requestPasswordResetSuccessAction,
   requestPasswordResetFailedAction,

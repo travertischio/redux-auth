@@ -5,8 +5,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import SignUpForm from '~/components/SignUpForm';
 import createSignUpContainer from './create-container';
-import SignUpForm from '../../components/SignUpForm';
 
 function SignUpPage(props) {
   const {

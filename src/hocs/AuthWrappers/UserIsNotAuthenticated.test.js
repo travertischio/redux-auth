@@ -1,5 +1,6 @@
 import React from 'react';
 import { createComponentWithRouter } from 'react-unit-testing-utils';
+import { TOKEN_STATUS_VALID } from '~/containers/AuthenticationProvider/constants';
 import UserIsNotAuthenticated from './UserIsNotAuthenticated';
 
 const PageComponent = () => <div>Page only for not authenticated users</div>;
@@ -17,7 +18,9 @@ describe('UserIsNotAuthenticated', () => {
   it('should not redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
-        tokenData: {},
+        tokenData: {
+          status: TOKEN_STATUS_VALID,
+        },
         userData: {
           id: 1,
         },
@@ -54,7 +57,9 @@ describe('UserIsNotAuthenticated with custom failure redirect path', () => {
   it('should not redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
-        tokenData: {},
+        tokenData: {
+          status: TOKEN_STATUS_VALID,
+        },
         userData: {
           id: 1,
         },

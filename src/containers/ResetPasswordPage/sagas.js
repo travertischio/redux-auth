@@ -7,8 +7,8 @@ import {
   call,
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { resetPassword as resetPasswordApiCall } from '../../api';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
+import { resetPassword as resetPasswordApiCall } from '~/api';
+import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import {
   resetPasswordSuccessAction,
   resetPasswordFailedAction,
