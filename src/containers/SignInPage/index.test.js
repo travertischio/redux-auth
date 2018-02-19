@@ -65,6 +65,28 @@ describe('<SignInPage />', () => {
     expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
+  it('should render SignInPage with captcha', () => {
+    const initialState = {
+      auth: {},
+      signInPage: {
+        captchaRequired: true,
+      },
+    };
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
+  });
+
+  it('should render SignInPage when an account is blocked', () => {
+    const initialState = {
+      auth: {},
+      signInPage: {
+        blockedAccount: true,
+      },
+    };
+    const { wrapper } = createComponentWithRouter(<SignInPage />, initialState);
+    expect(wrapper.toJSON()).toMatchSnapshot();
+  });
+
   it('should render SignInPage with loading indicator when loading is in the props', () => {
     const initialState = {
       auth: {},

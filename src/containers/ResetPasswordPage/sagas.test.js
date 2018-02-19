@@ -6,11 +6,15 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import { resetPassword as resetPasswordApiCall } from '~/api';
+import { tokenAndUserData } from '~/test.data';
+import {
+  failedAuthenticationResponseAction,
+  successAuthenticationResponseAction,
+} from '~/containers/AuthenticationProvider/actions';
 import { defaultSaga, resetPasswordSaga } from './sagas';
 import { resetPasswordSuccessAction, resetPasswordFailedAction } from './actions';
-import { RESET_PASSWORD_ACTION, RESET_PASSWORD_SUCCESS_ACTION } from './constants';
+import { RESET_PASSWORD_ACTION } from './constants';
 
 const resetPasswordaAction = {
   payload: {
@@ -19,30 +23,29 @@ const resetPasswordaAction = {
 };
 
 it('defaultSaga', () => {
-  const task1 = createMockTask();
-  const task2 = createMockTask();
+  const task = createMockTask();
 
   testSaga(defaultSaga)
     .next()
     .takeLatestEffect(RESET_PASSWORD_ACTION, resetPasswordSaga)
-    .next(task1)
-    .takeEveryEffect(RESET_PASSWORD_SUCCESS_ACTION, handleAuthenticationSaga)
-    .next(task2)
+    .next(task)
     .take(LOCATION_CHANGE)
     .next()
-    .cancel(task1)
-    .next()
-    .cancel(task2)
+    .cancel(task)
     .finish()
     .isDone();
 });
 
 it('resetPasswordSaga and succeed', () => {
+  const response = { ...tokenAndUserData };
+
   testSaga(resetPasswordSaga, resetPasswordaAction)
     .next()
     .call(resetPasswordApiCall, resetPasswordaAction.payload)
+    .next(response)
+    .put(resetPasswordSuccessAction(response))
     .next()
-    .put(resetPasswordSuccessAction())
+    .put(successAuthenticationResponseAction(response))
     .finish()
     .isDone();
 });
@@ -57,6 +60,8 @@ it('resetPasswordSaga and failed', () => {
     .call(resetPasswordApiCall, resetPasswordaAction.payload)
     .throw(errorResponse)
     .put(resetPasswordFailedAction(errorResponse))
+    .next()
+    .put(failedAuthenticationResponseAction(errorResponse))
     .finish()
     .isDone();
 });

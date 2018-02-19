@@ -1,4 +1,3 @@
-import _get from 'lodash/get';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 import config from '~/config';
@@ -90,10 +89,6 @@ const selectIsReady = createSelector(
   (authState) => authState.get('isReady')
 );
 
-const selectTokenDataFromActionPayload = (action) => _get(action, ['payload', 'data', 'tokenData']);
-
-const selectUserDataFromActionPayload = (action) => _get(action, ['payload', 'data', 'userData']);
-
 export {
   makeSelectLastUserToken,
   selectAuthenticationDomain,
@@ -105,11 +100,9 @@ export {
   selectToken,
   selectTokenData,
   selectTokenDataAsInvalid,
-  selectTokenDataFromActionPayload,
   selectExtendTokenWithinMs,
   selectTokenExpiryTime,
   selectTokenIsExpired,
   selectUser,
   selectUserDataExists,
-  selectUserDataFromActionPayload,
 };

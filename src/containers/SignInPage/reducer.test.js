@@ -1,5 +1,9 @@
 import { fromJS } from 'immutable';
-import resetPasswordPageReducer from './reducer';
+import {
+  blockedAccountAction,
+  requireCaptchaAction,
+} from '~/containers/AuthenticationProvider/actions';
+import signInPageReducer from './reducer';
 import {
   signInAction,
   signInSuccessAction,
@@ -7,18 +11,18 @@ import {
   destroyPageAction,
 } from './actions';
 
-describe('resetPasswordPageReducer', () => {
+describe('signInPageReducer', () => {
   let currentState;
 
   it('returns the initial state', () => {
     const expectedState = fromJS({});
-    currentState = resetPasswordPageReducer(undefined, {});
+    currentState = signInPageReducer(undefined, {});
     expect(currentState).toEqual(expectedState);
   });
 
   describe('when call with the SIGN_IN_ACTION action', () => {
     beforeEach(() => {
-      currentState = resetPasswordPageReducer(currentState, signInAction());
+      currentState = signInPageReducer(currentState, signInAction());
     });
 
     it('should update state', () => {
@@ -31,7 +35,7 @@ describe('resetPasswordPageReducer', () => {
 
     describe('when call with the SIGN_IN_SUCCESS_ACTION action', () => {
       beforeEach(() => {
-        currentState = resetPasswordPageReducer(currentState, signInSuccessAction());
+        currentState = signInPageReducer(currentState, signInSuccessAction());
       });
 
       it('should update state', () => {
@@ -54,7 +58,7 @@ describe('resetPasswordPageReducer', () => {
       };
 
       beforeEach(() => {
-        currentState = resetPasswordPageReducer(currentState, signInFailedAction(rejection));
+        currentState = signInPageReducer(currentState, signInFailedAction(rejection));
       });
 
       it('should update state', () => {
@@ -74,7 +78,7 @@ describe('resetPasswordPageReducer', () => {
       };
 
       beforeEach(() => {
-        currentState = resetPasswordPageReducer(currentState, signInFailedAction(rejection));
+        currentState = signInPageReducer(currentState, signInFailedAction(rejection));
       });
 
       it('should update state', () => {
@@ -87,13 +91,52 @@ describe('resetPasswordPageReducer', () => {
 
       describe('when call with the DESTROY_PAGE_ACTION action', () => {
         beforeEach(() => {
-          currentState = resetPasswordPageReducer(currentState, destroyPageAction());
+          currentState = signInPageReducer(currentState, destroyPageAction());
         });
 
         it('should clear state', () => {
           const expectedState = fromJS({});
           expect(currentState.toJS()).toEqual(expectedState.toJS());
         });
+      });
+    });
+
+    describe('when call with the REQUIRE_CAPTCHA_ACTION action', () => {
+      beforeEach(() => {
+        currentState = signInPageReducer(currentState, requireCaptchaAction());
+      });
+
+      it('should update state', () => {
+        const expectedState = currentState.merge({
+          captchaRequired: true,
+        });
+        expect(currentState.toJS()).toEqual(expectedState.toJS());
+      });
+
+      describe('when call with the SIGN_IN_ACTION action', () => {
+        beforeEach(() => {
+          currentState = signInPageReducer(currentState, signInAction());
+        });
+
+        it('should update state', () => {
+          const expectedState = currentState.merge({
+            captchaRequired: false,
+          });
+          expect(currentState.toJS()).toEqual(expectedState.toJS());
+        });
+      });
+    });
+
+    describe('when call with the BLOCKED_ACCOUNT_ACTION action', () => {
+      beforeEach(() => {
+        currentState = signInPageReducer(currentState, blockedAccountAction());
+      });
+
+      it('should update state', () => {
+        const expectedState = currentState.merge({
+          blockedAccount: true,
+        });
+        expect(currentState.toJS()).toEqual(expectedState.toJS());
       });
     });
   });

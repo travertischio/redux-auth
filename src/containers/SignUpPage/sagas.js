@@ -1,7 +1,4 @@
-import {
-  takeLatest,
-  takeEvery,
-} from 'redux-saga';
+import { takeLatest } from 'redux-saga';
 import {
   take,
   call,
@@ -10,23 +7,21 @@ import {
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signUp as signUpApiCall } from '~/api';
-import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
+import {
+  failedAuthenticationResponseAction,
+  successAuthenticationResponseAction,
+} from '~/containers/AuthenticationProvider/actions';
 import {
   signUpSuccessAction,
   signUpFailedAction,
 } from './actions';
-import {
-  SIGN_UP_ACTION,
-  SIGN_UP_SUCCESS_ACTION,
-} from './constants';
+import { SIGN_UP_ACTION } from './constants';
 
 export function* defaultSaga() {
   const signUpActionWatcher = yield takeLatest(SIGN_UP_ACTION, signUpSaga);
-  const signUpSuccessActionWatcher = yield takeEvery(SIGN_UP_SUCCESS_ACTION, handleAuthenticationSaga);
 
   yield take(LOCATION_CHANGE);
   yield cancel(signUpActionWatcher);
-  yield cancel(signUpSuccessActionWatcher);
 }
 
 export function* signUpSaga(action) {
@@ -41,9 +36,11 @@ export function* signUpSaga(action) {
 
     yield call(resolve, response);
     yield put(signUpSuccessAction(response));
+    yield put(successAuthenticationResponseAction(response));
   } catch (error) {
     yield call(reject, error);
     yield put(signUpFailedAction(error));
+    yield put(failedAuthenticationResponseAction(error));
   }
 }
 

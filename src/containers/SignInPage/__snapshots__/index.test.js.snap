@@ -2,6 +2,24 @@
 
 exports[`<SignInPage /> should NOT render SignInPage when user IS authenticated 1`] = `<main />`;
 
+exports[`<SignInPage /> should render SignInPage when an account is blocked 1`] = `
+<main>
+  <div
+    className="sign-in-page"
+  >
+    <div>
+      <div
+        id="blocked-account"
+      >
+        <h1>
+          Sorry, but your account is blocked
+        </h1>
+      </div>
+    </div>
+  </div>
+</main>
+`;
+
 exports[`<SignInPage /> should render SignInPage when user IS NOT authenticated 1`] = `
 <main>
   <div
@@ -63,6 +81,96 @@ exports[`<SignInPage /> should render SignInPage when user IS NOT authenticated 
               value=""
             />
           </div>
+        </div>
+        <div>
+          <button
+            disabled={true}
+            type="submit"
+          >
+            Sign In
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+`;
+
+exports[`<SignInPage /> should render SignInPage with captcha 1`] = `
+<main>
+  <div
+    className="sign-in-page"
+  >
+    <div>
+      <form
+        noValidate={true}
+        onSubmit={[Function]}
+      >
+        <div
+          className=""
+        >
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="email"
+            >
+              E-mail
+            </label>
+            <input
+              className="textfield"
+              id="email"
+              name="email"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="E-mail"
+              type="email"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className=""
+        >
+          <div
+            className="form-item"
+          >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className="textfield"
+              id="password"
+              name="password"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onDragStart={[Function]}
+              onDrop={[Function]}
+              onFocus={[Function]}
+              placeholder="Password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className=""
+        >
+          <div
+            className="g-recaptcha"
+            data-badge="bottomright"
+            data-sitekey={undefined}
+            data-size="normal"
+            data-tabindex="0"
+            data-theme="light"
+            data-type="image"
+            id="g-recaptcha"
+          />
         </div>
         <div>
           <button

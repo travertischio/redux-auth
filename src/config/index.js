@@ -11,6 +11,9 @@ const config = {
   autoSignOutWithin: false,
   signInAuthWrapper: undefined,
   signUpAuthWrapper: undefined,
+  recaptchaSiteKey: undefined,
+  successAuthenticationResponseSaga: undefined,
+  failedAuthenticationResponseSaga: undefined,
 };
 
 export const setConfig = (newConfig) => {

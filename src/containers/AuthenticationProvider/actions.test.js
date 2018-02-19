@@ -1,27 +1,35 @@
 import {
-  setTokenDataAction,
+  blockedAccountAction,
   clearTokenDataAction,
-  markTokenAsInvalidAction,
-  extendTokenLifetimeAction,
-  markAuthenticationProviderAsReadyAction,
-  setUserDataAction,
   clearUserDataAction,
+  extendTokenLifetimeAction,
+  failedAuthenticationResponseAction,
+  markAuthenticationProviderAsReadyAction,
+  markTokenAsInvalidAction,
   redirectActionWithSupportParamInQueryString,
+  requireCaptchaAction,
+  setTokenDataAction,
+  setUserDataAction,
   signOutAction,
-  signOutSuccessAction,
   signOutFailedAction,
+  signOutSuccessAction,
+  successAuthenticationResponseAction,
 } from './actions';
 import {
-  SET_TOKEN_DATA_ACTION,
+  BLOCKED_ACCOUNT_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
-  MARK_TOKEN_AS_INVALID_ACTION,
-  EXTEND_TOKEN_LIFETIME_ACTION,
-  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
-  SET_USER_DATA_ACTION,
   CLEAR_USER_DATA_ACTION,
+  EXTEND_TOKEN_LIFETIME_ACTION,
+  FAILED_AUTHENTICATION_RESPONSE_ACTION,
+  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
+  MARK_TOKEN_AS_INVALID_ACTION,
+  REQUIRE_CAPTCHA_ACTION,
+  SET_TOKEN_DATA_ACTION,
+  SET_USER_DATA_ACTION,
   SIGN_OUT_ACTION,
-  SIGN_OUT_SUCCESS_ACTION,
   SIGN_OUT_FAILED_ACTION,
+  SIGN_OUT_SUCCESS_ACTION,
+  SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
 } from './constants';
 
 describe('Authentication actions', () => {
@@ -120,5 +128,49 @@ describe('Authentication actions', () => {
     };
 
     expect(signOutFailedAction()).toEqual(expected);
+  });
+
+  it('successAuthenticationResponseAction(response) should return SUCCESS_AUTHENTICATION_RESPONSE_ACTION type', () => {
+    const response = {};
+    const expected = {
+      type: SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
+      response,
+    };
+
+    expect(successAuthenticationResponseAction(response)).toEqual(expected);
+  });
+
+  it('failedAuthenticationResponseAction(response) should return FAILED_AUTHENTICATION_RESPONSE_ACTION type', () => {
+    const error = {};
+    const expected = {
+      type: FAILED_AUTHENTICATION_RESPONSE_ACTION,
+      error,
+    };
+
+    expect(failedAuthenticationResponseAction(error)).toEqual(expected);
+  });
+
+  it('requireCaptchaAction should return REQUIRE_CAPTCHA_ACTION type', () => {
+    const expected = {
+      type: REQUIRE_CAPTCHA_ACTION,
+    };
+
+    expect(requireCaptchaAction()).toEqual(expected);
+  });
+
+  it('requireCaptchaAction should return REQUIRE_CAPTCHA_ACTION type', () => {
+    const expected = {
+      type: REQUIRE_CAPTCHA_ACTION,
+    };
+
+    expect(requireCaptchaAction()).toEqual(expected);
+  });
+
+  it('requireCaptchaAction should return BLOCKED_ACCOUNT_ACTION type', () => {
+    const expected = {
+      type: BLOCKED_ACCOUNT_ACTION,
+    };
+
+    expect(blockedAccountAction()).toEqual(expected);
   });
 });

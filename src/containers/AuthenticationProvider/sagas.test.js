@@ -29,27 +29,34 @@ import {
   setTokenDataAction,
   signOutFailedAction,
   signOutSuccessAction,
+  successAuthenticationResponseAction,
 } from './actions';
 import sagas, {
   clearTokenSaga,
+  defaultSuccessAuthenticationResponseSaga,
   extendTokenLifetimeSaga,
-  handleAuthenticationSaga,
+  onFailedAuthenticationResponseAction,
+  onSuccessAuthenticationResponseAction,
   putExtendTokenLifetimeActionWithDelaySaga,
   setTokenDataSaga,
   signOutSaga,
   watchClearTokenDataAction,
   watchExtendTokenLifetimeAction,
+  watchFailedAuthenticationResponseAction,
   watchLastUserTokenAction,
   watchMarkTokenAsInvalidAction,
   watchSetTokenDataAction,
   watchSignOutAction,
+  watchSuccessAuthenticationResponseAction,
   watchTwoFactorSendCodeAction,
 } from './sagas';
 import {
   CLEAR_TOKEN_DATA_ACTION,
   EXTEND_TOKEN_LIFETIME_ACTION,
+  FAILED_AUTHENTICATION_RESPONSE_ACTION,
   SET_TOKEN_DATA_ACTION,
   SIGN_OUT_ACTION,
+  SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
 } from './constants';
 import {
   setAuthDataInStorage,
@@ -61,10 +68,12 @@ describe('should export all watchers sagas by default', () => {
   expect(sagas).toEqual([
     watchClearTokenDataAction,
     watchExtendTokenLifetimeAction,
+    watchFailedAuthenticationResponseAction,
     watchLastUserTokenAction,
     watchMarkTokenAsInvalidAction,
     watchSetTokenDataAction,
     watchSignOutAction,
+    watchSuccessAuthenticationResponseAction,
     watchTwoFactorSendCodeAction,
   ]);
 });
@@ -97,6 +106,26 @@ it('watchExtendTokenLifetimeAction', () => {
     .finish()
     .isDone();
 });
+
+it('watchSuccessAuthenticationResponseAction', () => {
+  testSaga(watchSuccessAuthenticationResponseAction)
+    .next()
+    .takeEveryEffect(SUCCESS_AUTHENTICATION_RESPONSE_ACTION, onSuccessAuthenticationResponseAction)
+    .next()
+    .finish()
+    .isDone();
+});
+
+
+it('watchFailedAuthenticationResponseAction', () => {
+  testSaga(watchFailedAuthenticationResponseAction)
+    .next()
+    .takeEveryEffect(FAILED_AUTHENTICATION_RESPONSE_ACTION, onFailedAuthenticationResponseAction)
+    .next()
+    .finish()
+    .isDone();
+});
+
 
 it('setTokenDataSaga', () => {
   const action = {
@@ -153,8 +182,7 @@ it('extendTokenLifetimeSaga succeed', () => {
     .provide([
       [matchers.call.fn(extendTokenLifetimeApiCall), tokenAndUserDataResponse],
     ])
-    .put(setTokenDataAction(tokenAndUserDataResponse.data.tokenData))
-    .put(markAuthenticationProviderAsReadyAction())
+    .put(successAuthenticationResponseAction(tokenAndUserDataResponse))
     .run();
 });
 
@@ -176,14 +204,14 @@ it('extendTokenLifetimeSaga failed', () => {
     .run();
 });
 
-it('handleAuthenticationSaga', () => {
+it('defaultSuccessAuthenticationResponseSaga', () => {
   const action = {
-    payload: {
+    response: {
       ...tokenAndUserDataResponse,
     },
   };
 
-  testSaga(handleAuthenticationSaga, action)
+  testSaga(defaultSuccessAuthenticationResponseSaga, action)
     .next()
     .put(setTokenDataAction(tokenAndUserData.tokenData))
     .finish()

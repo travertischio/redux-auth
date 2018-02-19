@@ -6,22 +6,21 @@ import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signIn as signInApiCall } from '~/api';
+import { tokenAndUserData } from '~/test.data';
 import { makeSelectLastUserToken } from '~/containers/AuthenticationProvider/selectors';
-import { handleAuthenticationSaga } from '~/containers/AuthenticationProvider/sagas';
 import {
-  watchSignInAction,
-  watchSignInSuccessAction,
+  failedAuthenticationResponseAction,
+  successAuthenticationResponseAction,
+} from '~/containers/AuthenticationProvider/actions';
+import {
   signInSaga,
-  // onSignInSuccessSaga,
+  watchSignInAction,
 } from './sagas';
 import {
   signInSuccessAction,
   signInFailedAction,
 } from './actions';
-import {
-  SIGN_IN_ACTION,
-  SIGN_IN_SUCCESS_ACTION,
-} from './constants';
+import { SIGN_IN_ACTION } from './constants';
 
 const signInAction = {
   credentials: fromJS({
@@ -49,21 +48,9 @@ it('watchSignInAction', () => {
     .isDone();
 });
 
-it('watchSignInSuccessAction', () => {
-  const task = createMockTask();
-
-  testSaga(watchSignInSuccessAction)
-    .next()
-    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, handleAuthenticationSaga)
-    .next(task)
-    .take(LOCATION_CHANGE)
-    .next()
-    .cancel(task)
-    .finish()
-    .isDone();
-});
-
 it('signInSaga and succeed', () => {
+  const response = { ...tokenAndUserData };
+
   testSaga(signInSaga, signInAction)
     .next()
     .call(makeSelectLastUserToken, signInAction.credentials.get('email'))
@@ -71,8 +58,10 @@ it('signInSaga and succeed', () => {
     .select(selectLastUserTokenMock)
     .next(selectLastUserTokenMock())
     .call(signInApiCall, credentials)
+    .next(response)
+    .put(signInSuccessAction(response))
     .next()
-    .put(signInSuccessAction())
+    .put(successAuthenticationResponseAction(response))
     .finish()
     .isDone();
 });
@@ -91,6 +80,8 @@ it('signInSaga and failed', () => {
     .call(signInApiCall, credentials)
     .throw(errorResponse)
     .put(signInFailedAction(errorResponse))
+    .next()
+    .put(failedAuthenticationResponseAction(errorResponse))
     .finish()
     .isDone();
 });

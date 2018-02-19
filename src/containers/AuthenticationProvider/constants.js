@@ -26,3 +26,7 @@ export const SIGN_OUT_ACTION = 'app/AuthenticationProvider/SIGN_OUT';
 export const SIGN_OUT_SUCCESS_ACTION = 'app/AuthenticationProvider/SIGN_OUT_SUCCESS';
 export const SIGN_OUT_FAILED_ACTION = 'app/AuthenticationProvider/SIGN_OUT_FAILED';
 export const SET_LAST_USER_TOKEN = 'app/AuthenticationProvider/SET_LAST_USER_TOKEN';
+export const REQUIRE_CAPTCHA_ACTION = 'app/AuthenticationProvider/REQUIRE_CAPTCHA';
+export const BLOCKED_ACCOUNT_ACTION = 'app/AuthenticationProvider/BLOCKED_ACCOUNT';
+export const FAILED_AUTHENTICATION_RESPONSE_ACTION = 'app/AuthenticationProvider/FAILED_AUTHENTICATION_RESPONSE';
+export const SUCCESS_AUTHENTICATION_RESPONSE_ACTION = 'app/AuthenticationProvider/SUCCESS_AUTHENTICATION_RESPONSE';

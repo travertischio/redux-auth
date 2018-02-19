@@ -7,10 +7,14 @@
 import { fromJS } from 'immutable';
 import _isArray from 'lodash/isArray';
 import {
-  SIGN_IN_ACTION,
-  SIGN_IN_SUCCESS_ACTION,
-  SIGN_IN_FAILED_ACTION,
+  BLOCKED_ACCOUNT_ACTION,
+  REQUIRE_CAPTCHA_ACTION,
+} from '~/containers/AuthenticationProvider/constants';
+import {
   DESTROY_PAGE_ACTION,
+  SIGN_IN_ACTION,
+  SIGN_IN_FAILED_ACTION,
+  SIGN_IN_SUCCESS_ACTION,
 } from './constants';
 
 const initialState = fromJS({});
@@ -25,6 +29,10 @@ function signInPageReducer(state = initialState, action) {
       return onSignFailedAction(state, action.payload);
     case DESTROY_PAGE_ACTION:
       return onDestroyPageAction(state);
+    case BLOCKED_ACCOUNT_ACTION:
+      return onBlockedAccountAction(state);
+    case REQUIRE_CAPTCHA_ACTION:
+      return onRequireCaptchaAction(state);
     default:
       return state;
   }
@@ -34,6 +42,7 @@ function onSignInAction(state) {
   return state.merge({
     loading: true,
     errorMessage: null,
+    captchaRequired: false,
   });
 }
 
@@ -64,6 +73,14 @@ function onSignFailedAction(state, rejection) {
 
 function onDestroyPageAction() {
   return fromJS({});
+}
+
+function onBlockedAccountAction(state) {
+  return state.set('blockedAccount', true);
+}
+
+function onRequireCaptchaAction(state) {
+  return state.set('captchaRequired', true);
 }
 
 export default signInPageReducer;

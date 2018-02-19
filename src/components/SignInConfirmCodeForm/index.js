@@ -55,9 +55,9 @@ const SignInConfirmCodeForm = (props) => {
 
 SignInConfirmCodeForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired,
 };
 
 export default reduxForm({
