@@ -13,9 +13,9 @@ import {
   destroyPageAction,
 } from './actions';
 
-const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
-
 export default function createSignInContainer(PageComponent, options = {}) {
+  const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
+
   const mapStateToProps = createStructuredSelector({
     SignInPage: selectSignInPage,
   });

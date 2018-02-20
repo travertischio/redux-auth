@@ -11,9 +11,9 @@ import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
 
-const AuthWrapper = config.signUpAuthWrapper || UserIsNotAuthenticated;
-
 export default function createSignUpContainer(PageComponent, options = {}) {
+  const AuthWrapper = config.signUpAuthWrapper || UserIsNotAuthenticated;
+
   const mapStateToProps = createStructuredSelector({
     SignUpPage: selectSignUpPage,
   });
