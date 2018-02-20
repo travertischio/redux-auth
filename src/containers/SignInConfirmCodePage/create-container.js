@@ -9,9 +9,9 @@ import TokeDataExists from '~/hocs/AuthWrappers/TokeDataExists';
 import messages from './messages';
 import { confirmCodeAction } from './actions';
 
-const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
-
 export default function createSignInConfirmCodeContainer(PageComponent, options = {}) {
+  const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
+
   const mapDispatchToProps = (dispatch) => ({
     onSubmitForm: (values) => new Promise((resolve, reject) => {
       dispatch(confirmCodeAction(values, resolve, reject));
