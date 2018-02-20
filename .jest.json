@@ -17,5 +17,8 @@
   "setupFiles": [
       "raf/polyfill",
       "<rootDir>/internals/testing/test-bundler.js"
-  ]
+  ],
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  }
 }

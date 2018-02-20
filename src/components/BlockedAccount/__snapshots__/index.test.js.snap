@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BlockedAccount /> should render BlockedAccount 1`] = `
+<div
+  id="blocked-account"
+>
+  <h1>
+    Sorry, but your account is blocked
+  </h1>
+</div>
+`;

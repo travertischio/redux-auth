@@ -21,7 +21,6 @@ function RequestPasswordResetForm(props) {
     handleSubmit,
     pristine,
     submitting,
-    valid,
   } = props;
   const { formatMessage } = props.intl;
   const emailLabel = formatMessage(messages.email);
@@ -31,9 +30,7 @@ function RequestPasswordResetForm(props) {
       event.preventDefault();
     }
 
-    if (valid) {
-      handleSubmit();
-    }
+    handleSubmit();
   };
 
   return (
@@ -60,10 +57,9 @@ function RequestPasswordResetForm(props) {
 
 RequestPasswordResetForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired,
 };
 
 export default reduxForm({

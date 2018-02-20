@@ -1,62 +1,67 @@
 /**
  * Test SignInPage sagas
  */
-
+import { fromJS } from 'immutable';
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-// import {
-//   setTokenDataAction,
-//   setUserDataAction,
-// } from '../AuthenticationProvider/actions';
-import { signIn as signInApiCall } from '../../api';
+import { signIn as signInApiCall } from '~/api';
+import { tokenAndUserData } from '~/test.data';
+import { makeSelectLastUserToken } from '~/containers/AuthenticationProvider/selectors';
 import {
-  defaultSaga,
+  failedAuthenticationResponseAction,
+  successAuthenticationResponseAction,
+} from '~/containers/AuthenticationProvider/actions';
+import {
   signInSaga,
-  // onSignInSuccessSaga,
+  watchSignInAction,
 } from './sagas';
 import {
   signInSuccessAction,
   signInFailedAction,
 } from './actions';
-import {
-  SIGN_IN_ACTION,
-  SIGN_IN_SUCCESS_ACTION,
-} from './constants';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
+import { SIGN_IN_ACTION } from './constants';
 
 const signInAction = {
-  payload: {
+  credentials: fromJS({
     email: 'tester@test.com',
     password: 'xyz123',
-  },
+  }),
+};
+const selectLastUserTokenMock = () => '2d5b44e242a5f4dccec5c36beafffc33195e5ce9';
+const credentials = {
+  token: selectLastUserTokenMock(),
+  ...signInAction.credentials.toJS(),
 };
 
-it('defaultSaga', () => {
-  const task1 = createMockTask();
-  const task2 = createMockTask();
+it('watchSignInAction', () => {
+  const task = createMockTask();
 
-  testSaga(defaultSaga)
+  testSaga(watchSignInAction)
     .next()
     .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
-    .next(task1)
-    .takeEveryEffect(SIGN_IN_SUCCESS_ACTION, handleAuthenticationSaga)
-    .next(task2)
+    .next(task)
     .take(LOCATION_CHANGE)
     .next()
-    .cancel(task1)
-    .next()
-    .cancel(task2)
+    .cancel(task)
     .finish()
     .isDone();
 });
 
 it('signInSaga and succeed', () => {
+  const response = { ...tokenAndUserData };
+
   testSaga(signInSaga, signInAction)
     .next()
-    .call(signInApiCall, signInAction.payload)
+    .call(makeSelectLastUserToken, signInAction.credentials.get('email'))
+    .next(selectLastUserTokenMock)
+    .select(selectLastUserTokenMock)
+    .next(selectLastUserTokenMock())
+    .call(signInApiCall, credentials)
+    .next(response)
+    .put(signInSuccessAction(response))
     .next()
-    .put(signInSuccessAction())
+    .put(successAuthenticationResponseAction(response))
     .finish()
     .isDone();
 });
@@ -68,9 +73,15 @@ it('signInSaga and failed', () => {
 
   testSaga(signInSaga, signInAction)
     .next()
-    .call(signInApiCall, signInAction.payload)
+    .call(makeSelectLastUserToken, signInAction.credentials.get('email'))
+    .next(selectLastUserTokenMock)
+    .select(selectLastUserTokenMock)
+    .next(selectLastUserTokenMock())
+    .call(signInApiCall, credentials)
     .throw(errorResponse)
     .put(signInFailedAction(errorResponse))
+    .next()
+    .put(failedAuthenticationResponseAction(errorResponse))
     .finish()
     .isDone();
 });

@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'recompose';
 import { SubmissionError } from 'redux-form/immutable';
+import config from '~/config';
+import UserIsNotAuthenticated from '~/hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectSignUpPage from './selectors';
 import messages from './messages';
 import { signUpAction } from './actions';
-import config from '../../config';
+
+const AuthWrapper = config.signUpAuthWrapper || UserIsNotAuthenticated;
 
 export default function createSignUpContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -24,7 +26,7 @@ export default function createSignUpContainer(PageComponent, options = {}) {
     }),
   });
 
-  @compose(config.signUpAuthWrapper)
+  @AuthWrapper
   @connect(mapStateToProps, mapDispatchToProps)
   @injectIntl
   class SignUpContainer extends PureComponent {

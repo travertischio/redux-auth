@@ -7,8 +7,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import ResetPasswordForm from '~/components/ResetPasswordForm';
 import createResetPasswordContainer from './create-container';
-import ResetPasswordForm from '../../components/ResetPasswordForm';
 import messages from './messages';
 
 class ResetPasswordPage extends PureComponent {

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
-import { compose } from 'recompose';
+import config from '~/config';
+import UserIsNotAuthenticated from '~/hocs/AuthWrappers/UserIsNotAuthenticated';
+import TokeDataExists from '~/hocs/AuthWrappers/TokeDataExists';
 import messages from './messages';
 import { confirmCodeAction } from './actions';
-import TokeDataExists from '../../hocs/AuthWrappers/TokeDataExists';
-import config from '../../config';
+
+const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
 
 export default function createSignInConfirmCodeContainer(PageComponent, options = {}) {
   const mapDispatchToProps = (dispatch) => ({
@@ -17,7 +19,7 @@ export default function createSignInConfirmCodeContainer(PageComponent, options 
   });
 
   @TokeDataExists
-  @compose(config.signInAuthWrapper)
+  @AuthWrapper
   @injectIntl
   @connect(null, mapDispatchToProps)
   class SignInContainer extends PureComponent {

@@ -5,8 +5,12 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { createMockTask } from 'redux-saga/utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { handleAuthenticationSaga } from '../AuthenticationProvider/sagas';
-import { signUp as signUpApiCall } from '../../api';
+import { signUp as signUpApiCall } from '~/api';
+import { tokenAndUserData } from '~/test.data';
+import {
+  failedAuthenticationResponseAction,
+  successAuthenticationResponseAction,
+} from '~/containers/AuthenticationProvider/actions';
 import {
   defaultSaga,
   signUpSaga,
@@ -15,10 +19,7 @@ import {
   signUpSuccessAction,
   signUpFailedAction,
 } from './actions';
-import {
-  SIGN_UP_ACTION,
-  SIGN_UP_SUCCESS_ACTION,
-} from './constants';
+import { SIGN_UP_ACTION } from './constants';
 
 const signUpAction = {
   payload: {
@@ -33,32 +34,31 @@ new Promise((resolve, reject) => { // eslint-disable-line no-new
 });
 
 it('defaultSaga', () => {
-  const task1 = createMockTask();
-  const task2 = createMockTask();
+  const task = createMockTask();
 
   testSaga(defaultSaga)
     .next()
     .takeLatestFork(SIGN_UP_ACTION, signUpSaga)
-    .next(task1)
-    .takeEveryFork(SIGN_UP_SUCCESS_ACTION, handleAuthenticationSaga)
-    .next(task2)
+    .next(task)
     .take(LOCATION_CHANGE)
     .next()
-    .cancel(task1)
-    .next()
-    .cancel(task2)
+    .cancel(task)
     .finish()
     .isDone();
 });
 
 it('signUpSaga and succeed', () => {
+  const response = { ...tokenAndUserData };
+
   testSaga(signUpSaga, signUpAction)
     .next()
     .call(signUpApiCall, signUpAction.payload)
+    .next(response)
+    .call(signUpAction.resolve, response)
     .next()
-    .call(signUpAction.resolve, undefined)
+    .put(signUpSuccessAction(response))
     .next()
-    .put(signUpSuccessAction())
+    .put(successAuthenticationResponseAction(response))
     .finish()
     .isDone();
 });
@@ -75,6 +75,8 @@ it('signUpSaga and failed', () => {
     .call(signUpAction.reject, errorResponse)
     .next()
     .put(signUpFailedAction(errorResponse))
+    .next()
+    .put(failedAuthenticationResponseAction(errorResponse))
     .finish()
     .isDone();
 });

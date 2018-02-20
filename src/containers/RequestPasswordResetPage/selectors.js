@@ -8,6 +8,4 @@ const selectRequestPasswordResetPage = createSelector(
 );
 
 export default selectRequestPasswordResetPage;
-export {
-  selectRequestPasswordResetPageDomain,
-};
+export { selectRequestPasswordResetPageDomain };

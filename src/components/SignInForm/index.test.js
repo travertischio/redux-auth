@@ -9,4 +9,10 @@ describe('<SignInForm />', () => {
     const { component } = createComponentWithIntl(<SignInForm />, initialState);
     expect(component.toJSON()).toMatchSnapshot();
   });
+
+  it('should render SignInForm with captcha when has captchaRequired prop', () => {
+    const initialState = {};
+    const { component } = createComponentWithIntl(<SignInForm captchaRequired />, initialState);
+    expect(component.toJSON()).toMatchSnapshot();
+  });
 });

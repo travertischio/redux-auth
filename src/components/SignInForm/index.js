@@ -13,16 +13,17 @@ import {
 } from 'redux-form/immutable';
 import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
 import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
+import CaptchaField from '~/components/Captcha/field';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
 import messages from './messages';
 
 const SignInForm = (props) => {
   const {
+    captchaRequired,
     handleSubmit,
     pristine,
     submitting,
-    valid,
   } = props;
   const { formatMessage } = props.intl;
   const emailLabel = formatMessage(messages.email);
@@ -33,9 +34,7 @@ const SignInForm = (props) => {
       event.preventDefault();
     }
 
-    if (valid) {
-      handleSubmit();
-    }
+    handleSubmit();
   };
 
   return (
@@ -56,6 +55,13 @@ const SignInForm = (props) => {
         validate={[requiredValidator]}
         component={PasswordField}
       />
+      {captchaRequired &&
+        <Field
+          name="captcha"
+          validate={[requiredValidator]}
+          component={CaptchaField}
+        />
+      }
       <div>
         <button
           type="submit"
@@ -69,11 +75,15 @@ const SignInForm = (props) => {
 };
 
 SignInForm.propTypes = {
+  captchaRequired: PropTypes.bool,
   handleSubmit: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired,
+};
+
+SignInForm.defaultProps = {
+  captchaRequired: false,
 };
 
 export default reduxForm({

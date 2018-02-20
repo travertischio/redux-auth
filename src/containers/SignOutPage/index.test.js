@@ -4,8 +4,8 @@ import {
   findActionByType,
   mountWithIntl,
 } from 'react-unit-testing-utils';
+import { SIGN_OUT_ACTION } from '~/containers/AuthenticationProvider/constants';
 import SignOutPage from './index';
-import { SIGN_OUT_ACTION } from '../AuthenticationProvider/constants';
 
 describe('<SignOutPage />', () => {
   it('should dispatch action SIGN_IN_ACTION on mount component', () => {

@@ -25,7 +25,6 @@ export const SignUpForm = (props) => {
     handleSubmit,
     pristine,
     submitting,
-    valid,
     intl: {
       formatMessage,
     },
@@ -40,9 +39,7 @@ export const SignUpForm = (props) => {
       event.preventDefault();
     }
 
-    if (valid) {
-      handleSubmit();
-    }
+    handleSubmit();
   };
 
   return (
@@ -96,7 +93,6 @@ SignUpForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  valid: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired,
 };
 

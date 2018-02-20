@@ -1,8 +1,8 @@
+import { selectIsAuthenticated } from '~/containers/AuthenticationProvider/selectors';
+import { redirectActionWithSupportParamInQueryString } from '~/containers/AuthenticationProvider/actions';
 import connectedReduxRedirect from './connectedReduxRedirect';
-import { selectIsAuthenticated } from '../../containers/AuthenticationProvider/selectors';
-import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
 
-function creactUserIsNotAuthenticatedAuthWrapper(redirectPath) {
+function createUserIsNotAuthenticatedAuthWrapper(redirectPath) {
   return connectedReduxRedirect({
     authenticatedSelector: isNotAuthenticatedSelector,
     redirectAction: redirectActionWithSupportParamInQueryString,
@@ -18,4 +18,4 @@ function isNotAuthenticatedSelector(state) {
   return !isAuthenticated;
 }
 
-export default creactUserIsNotAuthenticatedAuthWrapper;
+export default createUserIsNotAuthenticatedAuthWrapper;

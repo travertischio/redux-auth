@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'recompose';
+import config from '~/config';
+import UserIsNotAuthenticated from '~/hocs/AuthWrappers/UserIsNotAuthenticated';
 import selectSignInPage from './selectors';
 import messages from './messages';
 import {
   signInAction,
   destroyPageAction,
 } from './actions';
-import config from '../../config';
+
+const AuthWrapper = config.signInAuthWrapper || UserIsNotAuthenticated;
 
 export default function createSignInContainer(PageComponent, options = {}) {
   const mapStateToProps = createStructuredSelector({
@@ -23,7 +25,7 @@ export default function createSignInContainer(PageComponent, options = {}) {
     onUnMount: destroyPageAction,
   };
 
-  @compose(config.signInAuthWrapper)
+  @AuthWrapper
   @injectIntl
   @connect(mapStateToProps, mapDispatchToProps)
   class SignInContainer extends PureComponent {

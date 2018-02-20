@@ -1,10 +1,11 @@
 import React from 'react';
 import { createComponentWithRouter } from 'react-unit-testing-utils';
-import creactUserIsNotAuthenticatedAuthWrapper from './creactUserIsNotAuthenticatedAuthWrapper2';
+import { TOKEN_STATUS_VALID } from '~/containers/AuthenticationProvider/constants';
+import createUserIsNotAuthenticatedAuthWrapper from './createUserIsNotAuthenticatedAuthWrapper';
 
 const PageComponent = () => <div>Page only for not authenticated users</div>;
 const failureRedirectPath = 'some/page';
-const UserIsNotAuthenticatedAuthWrapper = creactUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
+const UserIsNotAuthenticatedAuthWrapper = createUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
 const PageOnlyForNotAuthenticatedUser = UserIsNotAuthenticatedAuthWrapper(PageComponent);
 
 describe('UserIsNotAuthenticated with custom failure redirect path', () => {
@@ -15,7 +16,9 @@ describe('UserIsNotAuthenticated with custom failure redirect path', () => {
   it('should not redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
-        tokenData: {},
+        tokenData: {
+          status: TOKEN_STATUS_VALID,
+        },
         userData: {
           id: 1,
         },

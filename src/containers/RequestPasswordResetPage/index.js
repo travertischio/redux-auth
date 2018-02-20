@@ -6,8 +6,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import RequestPasswordResetForm from '~/components/RequestPasswordResetForm';
 import createRequestPasswordResetContainer from './create-container';
-import RequestPasswordResetForm from '../../components/RequestPasswordResetForm';
 import messages from './messages';
 
 class RequestPasswordResetPage extends PureComponent {

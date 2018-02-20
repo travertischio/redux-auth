@@ -9,14 +9,14 @@ import {
   push,
 } from 'react-router-redux';
 import {
+  SIGN_OUT_SUCCESS_ACTION,
+  SIGN_OUT_FAILED_ACTION,
+} from '~/containers/AuthenticationProvider/constants';
+import config from '~/config';
+import {
   defaultSaga,
   signOutSaga,
 } from './sagas';
-import {
-  SIGN_OUT_SUCCESS_ACTION,
-  SIGN_OUT_FAILED_ACTION,
-} from '../AuthenticationProvider/constants';
-import config from '../../config';
 
 it('defaultSaga', () => {
   const task1 = createMockTask();

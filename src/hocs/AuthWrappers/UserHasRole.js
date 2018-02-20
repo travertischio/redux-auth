@@ -1,7 +1,7 @@
+import { redirectActionWithSupportParamInQueryString } from '~/containers/AuthenticationProvider/actions';
+import { selectUser } from '~/containers/AuthenticationProvider/selectors';
+import config from '~/config';
 import connectedReduxRedirect from './connectedReduxRedirect';
-import { redirectActionWithSupportParamInQueryString } from '../../containers/AuthenticationProvider/actions';
-import { selectUser } from '../../containers/AuthenticationProvider/selectors';
-import config from '../../config';
 
 const UserHasRole = (expectedRoles) => connectedReduxRedirect({
   authenticatedSelector: makeUserHasOfEpectedRoleSelector(expectedRoles),

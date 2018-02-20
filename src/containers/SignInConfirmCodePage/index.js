@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SubmissionError } from 'redux-form/immutable';
+import SignInConfirmCodeForm from '~/components/SignInConfirmCodeForm';
 import createSignInConfirmCodeContainer from './create-container';
-import SignInConfirmCodeForm from '../../components/SignInConfirmCodeForm';
 
 function SignInConfirmCodePage(props) {
   const handleSubmit = (values) => props

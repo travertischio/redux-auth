@@ -7,6 +7,14 @@ import {
 } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import {
+  extendTokenLifetime as extendTokenLifetimeApiCall,
+  removeAuthorizationTokenInHeaders,
+  setAuthorizationTokenInHeaders,
+  signOut as signOutApiCall,
+  twoFactorSendCode as twoFactorSendCodeApiCall,
+} from '~/api';
+import config from '~/config';
+import {
   isNoInternetConnectionError,
   isServerError,
   removeAuthDataFromStorage,
@@ -17,46 +25,41 @@ import {
   generateLastUserTokenKey,
 } from './utils';
 import {
+  blockedAccountAction,
   clearUserDataAction,
   extendTokenLifetimeAction,
   markAuthenticationProviderAsReadyAction,
   markTokenAsInvalidAction,
+  requireCaptchaAction,
+  setLastUserTokenAction,
   setTokenDataAction,
   setUserDataAction,
   signOutFailedAction,
   signOutSuccessAction,
+  successAuthenticationResponseAction,
   twoFactorSendCodeAction,
   twoFactorSendCodeFailedAction,
   twoFactorSendCodeSuccessAction,
-  setLastUserTokenAction,
 } from './actions';
 import {
   selectIsReady,
   selectTokeIsValid,
   selectToken,
   selectTokenDataAsInvalid,
-  selectTokenDataFromActionPayload,
   selectExtendTokenWithinMs,
   selectTokenIsExpired,
-  selectUserDataFromActionPayload,
 } from './selectors';
-import {
-  extendTokenLifetime as extendTokenLifetimeApiCall,
-  removeAuthorizationTokenInHeaders,
-  setAuthorizationTokenInHeaders,
-  signOut as signOutApiCall,
-  twoFactorSendCode as twoFactorSendCodeApiCall,
-} from '../../api';
 import {
   CLEAR_TOKEN_DATA_ACTION,
   EXTEND_TOKEN_LIFETIME_ACTION,
+  FAILED_AUTHENTICATION_RESPONSE_ACTION,
   MARK_TOKEN_AS_INVALID_ACTION,
+  SET_LAST_USER_TOKEN,
   SET_TOKEN_DATA_ACTION,
   SIGN_OUT_ACTION,
+  SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
   TWO_FACTOR_SEND_CODE_ACTION,
-  SET_LAST_USER_TOKEN,
 } from './constants';
-import config from '../../config';
 
 export function* watchClearTokenDataAction() {
   yield takeEvery(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga);
@@ -78,11 +81,7 @@ export function* extendTokenLifetimeSaga() {
   if (token && tokeIsValid) {
     try {
       const response = yield call(extendTokenLifetime, token);
-      const action = {
-        payload: response,
-      };
-
-      yield call(handleAuthenticationSaga, action);
+      yield put(successAuthenticationResponseAction(response));
     } catch (error) {
       yield put(markTokenAsInvalidAction());
       yield put(clearUserDataAction());
@@ -188,9 +187,48 @@ export function* twoFactorSendCodeSaga(action) {
   }
 }
 
-export function* handleAuthenticationSaga(action) {
-  const tokenData = selectTokenDataFromActionPayload(action);
-  const userData = selectUserDataFromActionPayload(action);
+export function* watchLastUserTokenAction() {
+  yield takeEvery(SET_LAST_USER_TOKEN, lastUserTokenSaga);
+}
+
+export function* lastUserTokenSaga(action) {
+  const {
+    key,
+    token,
+  } = action;
+
+  yield call(storeLastUserToken, key, token);
+}
+
+export function* watchSuccessAuthenticationResponseAction() {
+  yield takeEvery(SUCCESS_AUTHENTICATION_RESPONSE_ACTION, onSuccessAuthenticationResponseAction);
+}
+
+export function* watchFailedAuthenticationResponseAction() {
+  yield takeEvery(FAILED_AUTHENTICATION_RESPONSE_ACTION, onFailedAuthenticationResponseAction);
+}
+
+export function* onSuccessAuthenticationResponseAction(action) {
+  const successAuthenticationResponseSaga = config.successAuthenticationResponseSaga || defaultSuccessAuthenticationResponseSaga;
+
+  yield* successAuthenticationResponseSaga(action);
+}
+
+export function* onFailedAuthenticationResponseAction(action) {
+  const failedAuthenticationResponseSaga = config.failedAuthenticationResponseSaga || defaultFailedAuthenticationResponseSaga;
+
+  yield* failedAuthenticationResponseSaga(action);
+}
+
+export function* defaultSuccessAuthenticationResponseSaga(action) {
+  const {
+    response: {
+      data: {
+        tokenData,
+        userData,
+      },
+    },
+  } = action;
 
   if (tokenData) {
     yield put(setTokenDataAction(tokenData));
@@ -212,25 +250,37 @@ export function* handleAuthenticationSaga(action) {
   }
 }
 
-export function* watchLastUserTokenAction() {
-  yield takeEvery(SET_LAST_USER_TOKEN, lastUserTokenSaga);
-}
-
-export function* lastUserTokenSaga(action) {
+export function* defaultFailedAuthenticationResponseSaga(action) {
   const {
-    key,
-    token,
+    error: {
+      response: {
+        data: {
+          captcha,
+          userBlocked,
+        },
+      },
+    },
   } = action;
 
-  yield call(storeLastUserToken, key, token);
+  if (captcha) {
+    yield put(requireCaptchaAction());
+  }
+
+  if (userBlocked) {
+    yield put(blockedAccountAction());
+  }
+
+  yield true;
 }
 
 export default [
   watchClearTokenDataAction,
   watchExtendTokenLifetimeAction,
+  watchFailedAuthenticationResponseAction,
+  watchLastUserTokenAction,
   watchMarkTokenAsInvalidAction,
   watchSetTokenDataAction,
   watchSignOutAction,
+  watchSuccessAuthenticationResponseAction,
   watchTwoFactorSendCodeAction,
-  watchLastUserTokenAction,
 ];

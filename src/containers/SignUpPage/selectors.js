@@ -8,6 +8,4 @@ const selectSignUpPage = createSelector(
 );
 
 export default selectSignUpPage;
-export {
-  selectSignUpPageDomain,
-};
+export { selectSignUpPageDomain };

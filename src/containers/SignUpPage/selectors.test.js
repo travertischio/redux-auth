@@ -1,7 +1,5 @@
 import { fromJS } from 'immutable';
-import selectSignUpPage, {
-  selectSignUpPageDomain,
-} from './selectors';
+import selectSignUpPage, { selectSignUpPageDomain } from './selectors';
 
 const state = fromJS({
   signUpPage: {

@@ -37,7 +37,7 @@ describe('<AuthenticationProvider /> and isReady is false', () => {
   });
 
   it('should render "loading" component', () => {
-    expect(wrapper.html()).toEqual('<div>Loading...</div>');
+    expect(wrapper.html()).toEqual('<div class="loading-auth">Loading...</div>');
   });
 
   describe('when component mounted', () => {

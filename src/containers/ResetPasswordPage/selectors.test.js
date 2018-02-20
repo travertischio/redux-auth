@@ -1,7 +1,5 @@
 import { fromJS } from 'immutable';
-import selectResetPasswordPage, {
-  selectResetPasswordPageDomain,
-} from './selectors';
+import selectResetPasswordPage, { selectResetPasswordPageDomain } from './selectors';
 
 const state = fromJS({
   resetPasswordPage: {

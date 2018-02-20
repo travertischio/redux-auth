@@ -1,6 +1,6 @@
 import _isString from 'lodash/isString';
-import config from '../../config';
-import creactUserIsNotAuthenticatedAuthWrapper from './creactUserIsNotAuthenticatedAuthWrapper';
+import config from '~/config';
+import createUserIsNotAuthenticatedAuthWrapper from './createUserIsNotAuthenticatedAuthWrapper';
 
 const UserIsNotAuthenticated = (failureRedirectPathOrPageComponent) => {
   // It is possible to use this wrapper in two ways:
@@ -11,7 +11,7 @@ const UserIsNotAuthenticated = (failureRedirectPathOrPageComponent) => {
   // PageComponent
   if (_isString(failureRedirectPathOrPageComponent)) {
     const failureRedirectPath = failureRedirectPathOrPageComponent;
-    return creactUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
+    return createUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
   }
 
   // 2nd.: Without passing explicit failure redirect path, but directly page component:
@@ -20,7 +20,7 @@ const UserIsNotAuthenticated = (failureRedirectPathOrPageComponent) => {
   // @UserIsNotAuthenticated
   // PageComponent
   const failureRedirectPath = config.userIsAuthenticatedRedirectPath;
-  const authWrapper = creactUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
+  const authWrapper = createUserIsNotAuthenticatedAuthWrapper(failureRedirectPath);
   const pageComponent = failureRedirectPathOrPageComponent;
   return authWrapper(pageComponent);
 };

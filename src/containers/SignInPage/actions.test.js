@@ -12,15 +12,19 @@ import {
 } from './constants';
 
 describe('Authentication actions', () => {
+  const credentials = {
+    email: 'andy@acme.com',
+    password: 'abc123',
+  };
   const payload = {};
 
-  it('signInAction should return SIGN_IN_ACTION type and payload', () => {
+  it('signInAction should return SIGN_IN_ACTION type and credentials', () => {
     const expected = {
       type: SIGN_IN_ACTION,
-      payload,
+      credentials,
     };
 
-    expect(signInAction(payload)).toEqual(expected);
+    expect(signInAction(credentials)).toEqual(expected);
   });
 
   it('signInSuccessAction should return SIGN_IN_SUCCESS_ACTION type and payload', () => {

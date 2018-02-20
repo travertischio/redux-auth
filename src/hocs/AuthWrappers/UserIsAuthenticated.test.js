@@ -1,5 +1,6 @@
 import React from 'react';
 import { createComponentWithRouter } from 'react-unit-testing-utils';
+import { TOKEN_STATUS_VALID } from '~/containers/AuthenticationProvider/constants';
 import UserIsAuthenticated from './UserIsAuthenticated';
 
 const PageComponent = () => <div>Page only for authenticated users</div>;
@@ -13,7 +14,9 @@ describe('UserIsAuthenticated', () => {
   it('should redner PageComponent when user is authenticated', () => {
     const initialState = {
       auth: {
-        tokenData: {},
+        tokenData: {
+          status: TOKEN_STATUS_VALID,
+        },
         userData: {
           id: 1,
         },

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Captcha /> should render Captcha 1`] = `
+<div
+  className="g-recaptcha"
+  data-badge="bottomright"
+  data-sitekey={undefined}
+  data-size="normal"
+  data-tabindex="0"
+  data-theme="light"
+  data-type="image"
+  id="g-recaptcha"
+/>
+`;
+
+exports[`<Captcha /> should render Captcha with siteKey set by config 1`] = `
+<div
+  className="g-recaptcha"
+  data-badge="bottomright"
+  data-sitekey="ABC1234XYZ"
+  data-size="normal"
+  data-tabindex="0"
+  data-theme="light"
+  data-type="image"
+  id="g-recaptcha"
+/>
+`;
+
+exports[`<Captcha /> should render CaptchaField 1`] = `
+<div
+  className=""
+>
+  <div
+    className="g-recaptcha"
+    data-badge="bottomright"
+    data-sitekey="ABC1234XYZ"
+    data-size="normal"
+    data-tabindex="0"
+    data-theme="light"
+    data-type="image"
+    id="g-recaptcha"
+  />
+</div>
+`;

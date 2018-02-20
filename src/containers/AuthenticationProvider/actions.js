@@ -6,20 +6,24 @@
 import { routerActions } from 'react-router-redux';
 import queryString from 'query-string';
 import {
-  SET_TOKEN_DATA_ACTION,
+  BLOCKED_ACCOUNT_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
-  MARK_TOKEN_AS_INVALID_ACTION,
-  EXTEND_TOKEN_LIFETIME_ACTION,
-  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
-  SET_USER_DATA_ACTION,
   CLEAR_USER_DATA_ACTION,
-  TWO_FACTOR_SEND_CODE_ACTION,
-  TWO_FACTOR_SEND_CODE_SUCCESS_ACTION,
-  TWO_FACTOR_SEND_CODE_FAILED_ACTION,
-  SIGN_OUT_ACTION,
-  SIGN_OUT_SUCCESS_ACTION,
-  SIGN_OUT_FAILED_ACTION,
+  EXTEND_TOKEN_LIFETIME_ACTION,
+  FAILED_AUTHENTICATION_RESPONSE_ACTION,
+  MARK_AUTHENTICATION_PROVIDER_AS_READY_ACTION,
+  MARK_TOKEN_AS_INVALID_ACTION,
+  REQUIRE_CAPTCHA_ACTION,
   SET_LAST_USER_TOKEN,
+  SET_TOKEN_DATA_ACTION,
+  SET_USER_DATA_ACTION,
+  SIGN_OUT_ACTION,
+  SIGN_OUT_FAILED_ACTION,
+  SIGN_OUT_SUCCESS_ACTION,
+  SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
+  TWO_FACTOR_SEND_CODE_ACTION,
+  TWO_FACTOR_SEND_CODE_FAILED_ACTION,
+  TWO_FACTOR_SEND_CODE_SUCCESS_ACTION,
 } from './constants';
 
 export function setTokenDataAction(tokenData) {
@@ -121,5 +125,31 @@ export function setLastUserTokenAction(key, token) {
     type: SET_LAST_USER_TOKEN,
     key,
     token,
+  };
+}
+
+export function requireCaptchaAction() {
+  return {
+    type: REQUIRE_CAPTCHA_ACTION,
+  };
+}
+
+export function blockedAccountAction() {
+  return {
+    type: BLOCKED_ACCOUNT_ACTION,
+  };
+}
+
+export function failedAuthenticationResponseAction(error) {
+  return {
+    type: FAILED_AUTHENTICATION_RESPONSE_ACTION,
+    error,
+  };
+}
+
+export function successAuthenticationResponseAction(response) {
+  return {
+    type: SUCCESS_AUTHENTICATION_RESPONSE_ACTION,
+    response,
   };
 }
