@@ -8,7 +8,7 @@ import React from 'react';
 
 const BlockedAccount = () => (
   <div id="blocked-account">
-    <h1>Sorry, but your account is blocked</h1>
+    <h1>Your account has been locked because of too many failed login attempts. Please contact your administrator.</h1>
   </div>
 );
 
