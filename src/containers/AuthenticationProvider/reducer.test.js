@@ -79,12 +79,6 @@ describe('authenticationReducer', () => {
       expect(receivedTokenData).toEqual(tokenData);
     });
 
-    it('should set isReady to true', () => {
-      const receivedIsReady = currentState.get('isReady');
-
-      expect(receivedIsReady).toBeTruthy();
-    });
-
     describe('when SET_USER_DATA_ACTION occurs', () => {
       beforeEach(() => {
         // const now = 1492090098140;

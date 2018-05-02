@@ -49,8 +49,7 @@ function getInitialState() {
 
 function onSetTokenDataAction(state, action) {
   return state
-    .mergeIn(['tokenData'], action.tokenData)
-    .set('isReady', true);
+    .mergeIn(['tokenData'], action.tokenData);
 }
 
 function onClearTokenDataAction(state) {
