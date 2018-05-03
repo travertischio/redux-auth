@@ -85,9 +85,8 @@ export function* extendTokenLifetimeSaga() {
     } catch (error) {
       yield put(markTokenAsInvalidAction());
       yield put(clearUserDataAction());
+      yield call(markAuthenticationProviderAsReady);
     }
-
-    yield call(markAuthenticationProviderAsReady);
   } else {
     yield call(markAuthenticationProviderAsReady);
   }
@@ -248,6 +247,8 @@ export function* defaultSuccessAuthenticationResponseSaga(action) {
 
     yield put(setLastUserTokenAction(lastUserTokenKey, tokenData.key));
   }
+
+  yield call(markAuthenticationProviderAsReady);
 }
 
 export function* defaultFailedAuthenticationResponseSaga(action) {
