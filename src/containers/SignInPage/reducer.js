@@ -58,7 +58,7 @@ function onSignFailedAction(state, rejection) {
   let errorMessage = 'Unable to sign in. Please try again.';
 
   if (response && response.status === 400) {
-    const nonFieldErrors = response.data.non_field_errors;
+    const { nonFieldErrors } = response.data;
 
     if (_isArray(nonFieldErrors)) {
       errorMessage = nonFieldErrors.join(', ');

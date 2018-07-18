@@ -52,7 +52,7 @@ describe('signInPageReducer', () => {
         response: {
           status: 400,
           data: {
-            non_field_errors: ['Unable to log in with provided credentials.'],
+            nonFieldErrors: ['Unable to log in with provided credentials.'],
           },
         },
       };
