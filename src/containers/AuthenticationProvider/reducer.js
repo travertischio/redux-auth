@@ -4,6 +4,7 @@
  *
  */
 
+import { fromJS } from 'immutable';
 import {
   SET_TOKEN_DATA_ACTION,
   CLEAR_TOKEN_DATA_ACTION,
@@ -64,7 +65,10 @@ function onMarkTokenAsRefreshedAction(state) {
 
 function onSetUserDataAction(state, action) {
   return state
-    .mergeIn(['userData'], action.userData);
+    .setIn(
+      ['userData'],
+      fromJS(action.userData)
+    );
 }
 
 function onClearUserDataAction(state) {
