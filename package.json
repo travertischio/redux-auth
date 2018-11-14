@@ -2,8 +2,8 @@
   "name": "redux-auth",
   "version": "5.4.0",
   "description": "Set of authentication components and containers such as: Sign In, Sign Up, Sign Out, Reset Password, authorization wrappers",
-  "repository": "git@bitbucket.org:arabellatech/redux-auth.git",
-  "author": "Arabella Front-End Team <team@arabel.la>",
+  "repository": "git@bitbucket.org:healthbyro/redux-auth.git",
+  "author": "Roman Health",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
@@ -33,16 +33,16 @@
     "humps": "^2.0.1",
     "moment": "^2.18.1",
     "query-string": "^5.1.0",
-    "react-form-fields": "https://bitbucket.org/arabellatech/react-form-fields#^1.2.0",
+    "react-form-fields": "https://bitbucket.org/healthbyro/react-form-fields#^1.2.0",
     "react-helmet": "^5.0.3",
     "react-recaptcha": "^2.3.7",
     "redux-auth-wrapper": "^2.0.1",
     "redux-form": "^7.2.3",
     "reselect": "^3.0.0",
-    "validators": "https://bitbucket.org/arabellatech/validators#^2.3.0"
+    "validators": "https://bitbucket.org/healthbyro/validators#^2.3.3"
   },
   "peerDependencies": {
-    "api-client": "https://bitbucket.org/arabellatech/api-client#^1.3.0",
+    "api-client": "https://bitbucket.org/healthbyro/api-client#^1.3.0",
     "immutable": "3.x",
     "react-intl": "2.x",
     "react-redux": "5.x",
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.35.3",
-    "api-client": "https://bitbucket.org/arabellatech/api-client#^1.3.0",
+    "api-client": "https://bitbucket.org/healthbyro/api-client#^1.3.0",
     "axios-mock-adapter": "^1.13.1",
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
@@ -88,7 +88,7 @@
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",
     "react-router-redux": "5.0.0-alpha.6",
-    "react-unit-testing-utils": "https://bitbucket.org/arabellatech/react-unit-testing-utils#^3.0.0",
+    "react-unit-testing-utils": "https://bitbucket.org/healthbyro/react-unit-testing-utils#^3.0.0",
     "redux-saga": "^0.16.0",
     "redux-saga-test-plan": "^3.5.0",
     "regenerator-runtime": "^0.11.1",
