@@ -1,15 +1,11 @@
 
 
 ![IMAGE](./coverage.svg)
-[![bitHound Overall Score](https://www.bithound.io/bitbucket/arabellatech/redux-auth/badges/score.svg)](https://www.bithound.io/bitbucket/arabellatech/redux-auth)
-[![bitHound Dependencies](https://www.bithound.io/bitbucket/arabellatech/redux-auth/badges/dependencies.svg)](https://www.bithound.io/bitbucket/arabellatech/redux-auth/develop/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/bitbucket/arabellatech/redux-auth/badges/devDependencies.svg)](https://www.bithound.io/bitbucket/arabellatech/redux-auth/develop/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/bitbucket/arabellatech/redux-auth/badges/code.svg)](https://www.bithound.io/bitbucket/arabellatech/redux-auth)
 
 ## Quick start
 
 ## Install redux-auth in your project
-1. Run `yarn add https://bitbucket.org/arabellatech/redux-auth`
+1. Run `yarn add https://github.com/HealthByRo/redux-auth`
 2. Add redux-auth reducer to reducers.js:
 ```javascript
 import { reducer as authenticationReducer } from 'redux-auth';
@@ -83,7 +79,7 @@ export default function createRoutes(store) {
 
 ## Contribution
 1. Run `yarn global add getstorybook` to instal StoryBook.
-2. Clone this repo using `git clone git@bitbucket.org:arabellatech/redux-auth.git`
+2. Clone this repo using `git clone git@github.com:HealthByRo/redux-auth.git`
 3. Run `cd redux-auth/`
 4. Run `yarn` to install dependencies.
 5. Run `yarn run storybook` to start StoryBook.
@@ -106,9 +102,9 @@ export default function createRoutes(store) {
 4. Check if `yarn flow` returns any new errors, if not, commit `flow-typed/` changes
 
 ## Setting up new component after forking redux-auth
-1. Run `git clone git@bitbucket.org:arabellatech/react-new-component.git`
+1. Run `git clone git@github.com:HealthByRo/react-new-component.git`
 2. Run `cd react-new-component`
-3. Run `git remote upstream add git@bitbucket.org:arabellatech/redux-auth.git`
+3. Run `git remote upstream add git@github.com:HealthByRo/redux-auth.git`
 4. Now, after something gets updated in redux-auth (PR merge, straight commit, etc), run `git fetch upstream`
 5. Run `git merge upstream/develop`
 6. Changes from upstream repository should now be present in forked repository.
