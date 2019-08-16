@@ -1,6 +1,6 @@
 {
   "name": "redux-auth",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "description": "Set of authentication components and containers such as: Sign In, Sign Up, Sign Out, Reset Password, authorization wrappers",
   "repository": "github:HealthByRo/redux-auth",
   "author": "Roman Health",
