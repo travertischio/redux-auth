@@ -3,7 +3,7 @@
  * SignInPage
  *
  */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import SignInForm from '~/components/SignInForm';
 import BlockedAccount from '~/components/BlockedAccount';
@@ -22,21 +22,21 @@ function SignInPage(props) {
 
   return (
     <div>
-      {blockedAccount &&
-        <BlockedAccount />
-      }
+      {blockedAccount
+        && <BlockedAccount />}
 
-      {!blockedAccount &&
-      <Fragment>
-        { loading && <div>Processing... Please wait.</div> }
-        { errorMessage && <div>{errorMessage}</div> }
+      {!blockedAccount
+      && (
+        <>
+          { loading && <div>Processing... Please wait.</div> }
+          { errorMessage && <div>{errorMessage}</div> }
 
-        <SignInForm
-          captchaRequired={captchaRequired}
-          onSubmit={onSubmitForm}
-        />
-      </Fragment>
-      }
+          <SignInForm
+            captchaRequired={captchaRequired}
+            onSubmit={onSubmitForm}
+          />
+        </>
+      )}
     </div>
   );
 }

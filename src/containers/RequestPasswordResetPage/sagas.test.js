@@ -3,7 +3,7 @@
  */
 
 import { testSaga } from 'redux-saga-test-plan';
-import { createMockTask } from 'redux-saga/utils';
+import { createMockTask } from '@redux-saga/testing-utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { requestPasswordReset as requestPasswordResetApiCall } from '~/api';
 import { defaultSaga, requestPasswordReset } from './sagas';
@@ -21,7 +21,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatestEffect(REQUEST_PASSWORD_RESET_ACTION, requestPasswordReset)
+    .takeLatest(REQUEST_PASSWORD_RESET_ACTION, requestPasswordReset)
     .next(task1)
     .take(LOCATION_CHANGE)
     .next()

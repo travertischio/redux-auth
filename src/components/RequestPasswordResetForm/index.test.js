@@ -1,7 +1,7 @@
 import React from 'react';
 import { createComponentWithIntl } from 'react-unit-testing-utils';
 
-import RequestPasswordResetForm from './';
+import RequestPasswordResetForm from '.';
 
 describe('<RequestPasswordResetForm />', () => {
   it('should render RequestPasswordResetForm', () => {

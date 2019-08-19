@@ -2,9 +2,8 @@
  * Test ResetPasswordPage sagas
  */
 
-/* eslint-disable redux-saga/yield-effects */
 import { testSaga } from 'redux-saga-test-plan';
-import { createMockTask } from 'redux-saga/utils';
+import { createMockTask } from '@redux-saga/testing-utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { resetPassword as resetPasswordApiCall } from '~/api';
 import { tokenAndUserData } from '~/test.data';
@@ -12,7 +11,10 @@ import {
   failedAuthenticationResponseAction,
   successAuthenticationResponseAction,
 } from '~/containers/AuthenticationProvider/actions';
-import { defaultSaga, resetPasswordSaga } from './sagas';
+import {
+  defaultSaga,
+  resetPasswordSaga,
+} from './sagas';
 import { resetPasswordSuccessAction, resetPasswordFailedAction } from './actions';
 import { RESET_PASSWORD_ACTION } from './constants';
 
@@ -27,7 +29,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatestEffect(RESET_PASSWORD_ACTION, resetPasswordSaga)
+    .takeLatest(RESET_PASSWORD_ACTION, resetPasswordSaga)
     .next(task)
     .take(LOCATION_CHANGE)
     .next()

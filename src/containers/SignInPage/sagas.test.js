@@ -3,7 +3,7 @@
  */
 import { fromJS } from 'immutable';
 import { testSaga } from 'redux-saga-test-plan';
-import { createMockTask } from 'redux-saga/utils';
+import { createMockTask } from '@redux-saga/testing-utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signIn as signInApiCall } from '~/api';
 import { tokenAndUserData } from '~/test.data';
@@ -39,7 +39,7 @@ it('watchSignInAction', () => {
 
   testSaga(watchSignInAction)
     .next()
-    .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
+    .takeLatest(SIGN_IN_ACTION, signInSaga)
     .next(task)
     .take(LOCATION_CHANGE)
     .next()

@@ -4,7 +4,6 @@ exports[`<Captcha /> should render Captcha 1`] = `
 <div
   className="g-recaptcha"
   data-badge="bottomright"
-  data-sitekey={undefined}
   data-size="normal"
   data-tabindex="0"
   data-theme="light"

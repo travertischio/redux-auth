@@ -1,6 +1,6 @@
 // needed for regenerator-runtime
 // (ES7 generator support is required by redux-saga)
-import 'babel-polyfill';
+// import 'babel-polyfill';
 import enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { JSDOM } from 'jsdom';
@@ -29,7 +29,7 @@ const localStorageMock = (() => {
 
   return {
     getItem(key) {
-      return store[key];
+      return store[key] || null;
     },
     setItem(key, value) {
       store[key] = value.toString();
@@ -43,4 +43,6 @@ const localStorageMock = (() => {
   };
 })();
 
-global.localStorage = localStorageMock;
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});

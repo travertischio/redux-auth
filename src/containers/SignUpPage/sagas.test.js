@@ -3,7 +3,7 @@
  */
 
 import { testSaga } from 'redux-saga-test-plan';
-import { createMockTask } from 'redux-saga/utils';
+import { createMockTask } from '@redux-saga/testing-utils';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signUp as signUpApiCall } from '~/api';
 import { tokenAndUserData } from '~/test.data';
@@ -38,7 +38,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatestFork(SIGN_UP_ACTION, signUpSaga)
+    .takeLatest(SIGN_UP_ACTION, signUpSaga)
     .next(task)
     .take(LOCATION_CHANGE)
     .next()

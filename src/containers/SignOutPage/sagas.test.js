@@ -3,7 +3,7 @@
  */
 
 import { testSaga } from 'redux-saga-test-plan';
-import { createMockTask } from 'redux-saga/utils';
+import { createMockTask } from '@redux-saga/testing-utils';
 import {
   LOCATION_CHANGE,
   push,
@@ -24,9 +24,9 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeEveryEffect(SIGN_OUT_SUCCESS_ACTION, signOutSaga)
+    .takeEvery(SIGN_OUT_SUCCESS_ACTION, signOutSaga)
     .next(task1)
-    .takeEveryEffect(SIGN_OUT_FAILED_ACTION, signOutSaga)
+    .takeEvery(SIGN_OUT_FAILED_ACTION, signOutSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()

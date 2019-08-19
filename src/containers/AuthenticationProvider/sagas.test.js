@@ -3,7 +3,6 @@
  */
 
 import { fromJS } from 'immutable';
-import { delay } from 'redux-saga';
 import {
   testSaga,
   expectSaga,
@@ -81,9 +80,9 @@ describe('should export all watchers sagas by default', () => {
 it('watchSetTokenDataAction', () => {
   testSaga(watchSetTokenDataAction)
     .next()
-    .takeEveryEffect(SET_TOKEN_DATA_ACTION, setTokenDataSaga)
+    .takeEvery(SET_TOKEN_DATA_ACTION, setTokenDataSaga)
     .next()
-    .takeEveryEffect(SET_TOKEN_DATA_ACTION, putExtendTokenLifetimeActionWithDelaySaga)
+    .takeEvery(SET_TOKEN_DATA_ACTION, putExtendTokenLifetimeActionWithDelaySaga)
     .next()
     .finish()
     .isDone();
@@ -92,7 +91,7 @@ it('watchSetTokenDataAction', () => {
 it('watchClearTokenDataAction', () => {
   testSaga(watchClearTokenDataAction)
     .next()
-    .takeEveryEffect(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga)
+    .takeEvery(CLEAR_TOKEN_DATA_ACTION, clearTokenSaga)
     .next()
     .finish()
     .isDone();
@@ -101,7 +100,7 @@ it('watchClearTokenDataAction', () => {
 it('watchExtendTokenLifetimeAction', () => {
   testSaga(watchExtendTokenLifetimeAction)
     .next()
-    .takeEveryEffect(EXTEND_TOKEN_LIFETIME_ACTION, extendTokenLifetimeSaga)
+    .takeEvery(EXTEND_TOKEN_LIFETIME_ACTION, extendTokenLifetimeSaga)
     .next()
     .finish()
     .isDone();
@@ -110,7 +109,7 @@ it('watchExtendTokenLifetimeAction', () => {
 it('watchSuccessAuthenticationResponseAction', () => {
   testSaga(watchSuccessAuthenticationResponseAction)
     .next()
-    .takeEveryEffect(SUCCESS_AUTHENTICATION_RESPONSE_ACTION, onSuccessAuthenticationResponseAction)
+    .takeEvery(SUCCESS_AUTHENTICATION_RESPONSE_ACTION, onSuccessAuthenticationResponseAction)
     .next()
     .finish()
     .isDone();
@@ -120,7 +119,7 @@ it('watchSuccessAuthenticationResponseAction', () => {
 it('watchFailedAuthenticationResponseAction', () => {
   testSaga(watchFailedAuthenticationResponseAction)
     .next()
-    .takeEveryEffect(FAILED_AUTHENTICATION_RESPONSE_ACTION, onFailedAuthenticationResponseAction)
+    .takeEvery(FAILED_AUTHENTICATION_RESPONSE_ACTION, onFailedAuthenticationResponseAction)
     .next()
     .finish()
     .isDone();
@@ -162,7 +161,7 @@ it('putExtendTokenLifetimeActionWithDelaySaga when token is valid', () => {
     .next()
     .select(selectExtendTokenWithinMs)
     .next(tokenExpireInMs)
-    .call(delay, tokenExpireInMs)
+    .delay(tokenExpireInMs)
     .next()
     .put(extendTokenLifetimeAction())
     .finish()
@@ -221,7 +220,7 @@ it('defaultSuccessAuthenticationResponseSaga', () => {
 it('watchSignOutAction', () => {
   testSaga(watchSignOutAction)
     .next()
-    .takeEveryEffect(SIGN_OUT_ACTION, signOutSaga)
+    .takeEvery(SIGN_OUT_ACTION, signOutSaga)
     .next()
     .finish()
     .isDone();

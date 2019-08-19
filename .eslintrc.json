@@ -13,7 +13,10 @@
   ],
   "settings": {
     "import/resolver": {
-      "babel-plugin-root-import": {}
+      "babel-plugin-root-import": {
+        "rootPathSuffix": "./src/",
+        "rootPathPrefix": "~/"
+      }
     }
   },
   "parserOptions": {
@@ -21,6 +24,9 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
+    },
+    "ecmaFeatures": {
+      "legacyDecorators": true
     }
   },
   "rules": {
@@ -78,6 +84,12 @@
     "react/require-extension": 0,
     "react/self-closing-comp": 0,
     "require-yield": 0,
-    "import/no-webpack-loader-syntax": 0
+    "import/no-webpack-loader-syntax": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/destructuring-assignment": [
+      1,
+      "never"
+    ],
+    "react/static-property-placement": 0
   }
 }

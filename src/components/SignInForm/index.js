@@ -13,9 +13,9 @@ import {
 } from 'redux-form/immutable';
 import EmailField from 'react-form-fields/lib/EmailField/reduxForm';
 import PasswordField from 'react-form-fields/lib/PasswordField/reduxForm';
-import CaptchaField from '~/components/Captcha/field';
 import { required as requiredValidator } from 'validators/lib/required';
 import { email as emailValidator } from 'validators/lib/email';
+import CaptchaField from '~/components/Captcha/field';
 import messages from './messages';
 
 const SignInForm = (props) => {
@@ -55,13 +55,14 @@ const SignInForm = (props) => {
         validate={[requiredValidator]}
         component={PasswordField}
       />
-      {captchaRequired &&
-        <Field
-          name="captcha"
-          validate={[requiredValidator]}
-          component={CaptchaField}
-        />
-      }
+      {captchaRequired
+        && (
+          <Field
+            name="captcha"
+            validate={[requiredValidator]}
+            component={CaptchaField}
+          />
+        )}
       <div>
         <button
           type="submit"
@@ -89,4 +90,3 @@ SignInForm.defaultProps = {
 export default reduxForm({
   form: 'signInForm',
 })(injectIntl(SignInForm));
-

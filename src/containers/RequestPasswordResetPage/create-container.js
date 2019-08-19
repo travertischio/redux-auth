@@ -51,14 +51,15 @@ export default function createRequestPasswordResetContainer(PageComponent, optio
 
       return (
         <div className={options.className || 'request-password-reset-page'}>
-          {!options.noHelmet &&
-            <Helmet
-              title={pageTitle}
-              meta={[
-                { name: 'description', content: pageDescription },
-              ]}
-            />
-          }
+          {!options.noHelmet
+            && (
+              <Helmet
+                title={pageTitle}
+                meta={[
+                  { name: 'description', content: pageDescription },
+                ]}
+              />
+            )}
 
           <PageComponent errorMessage={this.getErrorMessage()} {...this.props} />
         </div>

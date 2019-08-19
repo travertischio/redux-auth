@@ -46,8 +46,8 @@ describe('authentication utils', () => {
         result = removeAuthDataFromStorage();
       });
 
-      it('should returns undefined when calling getAuthDataFromStorage()', () => {
-        expect(getAuthDataFromStorage()).toBeUndefined();
+      it('should returns null when calling getAuthDataFromStorage()', () => {
+        expect(getAuthDataFromStorage()).toBeNull();
       });
 
       it('should returns true', () => {
@@ -97,7 +97,7 @@ describe('authentication utils', () => {
 
   describe('when localStorage is disabled', () => {
     beforeEach(() => {
-      window.localStorage = {
+      const localStorageMock = {
         getItem() {
           throw Error('localStorage is disabled');
         },
@@ -111,6 +111,10 @@ describe('authentication utils', () => {
           throw Error('localStorage is disabled');
         },
       };
+
+      Object.defineProperty(window, 'localStorage', {
+        value: localStorageMock,
+      });
     });
 
     describe('when calling setAuthDataInStorage(tokenData)', () => {

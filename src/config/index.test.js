@@ -1,4 +1,4 @@
-import config, { setConfig } from './';
+import config, { setConfig } from '.';
 
 describe('redux-auth config', () => {
   it('should be defined', () => {

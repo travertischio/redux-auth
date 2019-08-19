@@ -10,7 +10,7 @@ import {
   // signOut,
   setAuthorizationTokenInHeaders,
   removeAuthorizationTokenInHeaders,
-} from './';
+} from '.';
 
 describe('redux-auth API', () => {
   let mock;

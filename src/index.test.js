@@ -41,7 +41,7 @@ import exportedAuthenticationProvider, {
   extendTokenLifetimeAction as exportedExtendTokenLifetimeAction,
   redirectActionWithSupportParamInQueryString as exportedRedirectActionWithSupportParamInQueryString,
   removeAuthorizationTokenInHeaders as exportedRemoveAuthorizationTokenInHeaders,
-} from './';
+} from '.';
 
 describe('redux-auth exports', () => {
   it('should export AuthenticationProvider by default', () => {

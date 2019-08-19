@@ -1,7 +1,7 @@
 import React from 'react';
 import { createComponentWithIntl } from 'react-unit-testing-utils';
 
-import SignInConfirmCodeForm from './';
+import SignInConfirmCodeForm from '.';
 
 describe('<SignInConfirmCodeForm />', () => {
   it('should render SignInForm', () => {

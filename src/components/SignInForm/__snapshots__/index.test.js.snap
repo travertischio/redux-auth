@@ -131,7 +131,6 @@ exports[`<SignInForm /> should render SignInForm with captcha when has captchaRe
     <div
       className="g-recaptcha"
       data-badge="bottomright"
-      data-sitekey={undefined}
       data-size="normal"
       data-tabindex="0"
       data-theme="light"

@@ -63,4 +63,3 @@ SignInConfirmCodeForm.propTypes = {
 export default reduxForm({
   form: 'signInConfirmCodeForm',
 })(injectIntl(SignInConfirmCodeForm));
-

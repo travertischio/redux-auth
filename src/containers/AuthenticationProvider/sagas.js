@@ -1,6 +1,6 @@
-import { delay } from 'redux-saga';
 import {
   call,
+  delay,
   put,
   select,
   takeEvery,
@@ -111,7 +111,7 @@ export function* putExtendTokenLifetimeActionWithDelaySaga(action) {
   if (tokenIsValid(action.tokenData)) {
     const extendTokenWithinMs = yield select(selectExtendTokenWithinMs);
 
-    yield call(delay, extendTokenWithinMs);
+    yield delay(extendTokenWithinMs);
     yield put(extendTokenLifetimeAction());
   }
 }

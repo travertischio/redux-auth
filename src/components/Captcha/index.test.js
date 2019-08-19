@@ -1,7 +1,7 @@
 import React from 'react';
 import { createComponentWithIntl } from 'react-unit-testing-utils';
 import { setConfig } from '~/config';
-import Captcha from './';
+import Captcha from '.';
 import CaptchaField from './field';
 
 describe('<Captcha />', () => {

@@ -1,9 +1,9 @@
-import { takeLatest } from 'redux-saga';
 import {
   take,
   call,
   cancel,
   put,
+  takeLatest,
 } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { signUp as signUpApiCall } from '~/api';

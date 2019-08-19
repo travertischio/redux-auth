@@ -1,6 +1,6 @@
 import React from 'react';
 import { createComponentWithIntl } from 'react-unit-testing-utils';
-import BlockedAccount from './';
+import BlockedAccount from '.';
 
 describe('<BlockedAccount />', () => {
   it('should render BlockedAccount', () => {
