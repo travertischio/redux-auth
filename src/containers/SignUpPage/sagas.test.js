@@ -38,7 +38,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatest(SIGN_UP_ACTION, signUpSaga)
+    .takeLatestEffect(SIGN_UP_ACTION, signUpSaga)
     .next(task)
     .take(LOCATION_CHANGE)
     .next()

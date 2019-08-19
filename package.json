@@ -81,8 +81,8 @@
     "react-router-redux": "5.0.0-alpha.6",
     "react-unit-testing-utils": "https://github.com/HealthByRo/react-unit-testing-utils#^3.0.0",
     "redux-immutable": "^4.0.0",
-    "redux-saga": "^1.0.5",
-    "redux-saga-test-plan": "^4.0.0-beta.4"
+    "redux-saga": "^0.16.0",
+    "redux-saga-test-plan": "^3.7.0"
   },
   "homepage": "https://github.com/HealthByRo/redux-auth/"
 }

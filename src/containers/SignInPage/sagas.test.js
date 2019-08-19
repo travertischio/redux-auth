@@ -39,7 +39,7 @@ it('watchSignInAction', () => {
 
   testSaga(watchSignInAction)
     .next()
-    .takeLatest(SIGN_IN_ACTION, signInSaga)
+    .takeLatestEffect(SIGN_IN_ACTION, signInSaga)
     .next(task)
     .take(LOCATION_CHANGE)
     .next()

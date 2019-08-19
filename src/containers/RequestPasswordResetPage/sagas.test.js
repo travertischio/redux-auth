@@ -21,7 +21,7 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeLatest(REQUEST_PASSWORD_RESET_ACTION, requestPasswordReset)
+    .takeLatestEffect(REQUEST_PASSWORD_RESET_ACTION, requestPasswordReset)
     .next(task1)
     .take(LOCATION_CHANGE)
     .next()

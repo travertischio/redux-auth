@@ -24,9 +24,9 @@ it('defaultSaga', () => {
 
   testSaga(defaultSaga)
     .next()
-    .takeEvery(SIGN_OUT_SUCCESS_ACTION, signOutSaga)
+    .takeEveryEffect(SIGN_OUT_SUCCESS_ACTION, signOutSaga)
     .next(task1)
-    .takeEvery(SIGN_OUT_FAILED_ACTION, signOutSaga)
+    .takeEveryEffect(SIGN_OUT_FAILED_ACTION, signOutSaga)
     .next(task2)
     .take(LOCATION_CHANGE)
     .next()
