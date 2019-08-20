@@ -78,7 +78,7 @@
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^5.0.1",
-    "react-router-redux": "5.0.0-alpha.6",
+    "react-router-redux": "5.0.0-alpha.8",
     "react-unit-testing-utils": "https://github.com/HealthByRo/react-unit-testing-utils#^3.0.0",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.16.0",
