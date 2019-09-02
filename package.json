@@ -32,7 +32,7 @@
     "decko": "^1.2.0",
     "humps": "^2.0.1",
     "moment": "^2.24.0",
-    "query-string": "^6.8.2",
+    "query-string": "^6.8.3",
     "react-form-fields": "https://github.com/HealthByRo/react-form-fields#^1.2.0",
     "react-helmet": "^5.2.1",
     "react-recaptcha": "^2.3.10",
