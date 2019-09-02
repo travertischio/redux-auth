@@ -59,7 +59,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "eslint": "^6.2.0",
+    "eslint": "^6.3.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
